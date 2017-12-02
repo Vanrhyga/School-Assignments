@@ -9,7 +9,7 @@ extern double systemTime;
 void Account::readAnnotation() {
 	int i;
 	string buffer;
-	ifp.open("Account.txt", ios::in);
+	ifp.open("File/Account.txt", ios::in);
 	if (!ifp) {
 		cout << "Account.txt无法打开！" << endl;
 		return;
@@ -20,12 +20,12 @@ void Account::readAnnotation() {
 
 void Account::writeAnnotation() {
 	string buffer;
-	ifp.open("Annotation.txt", ios::in);
+	ifp.open("File/Annotation.txt", ios::in);
 	if (!ifp) {
 		cout << "Annotation.txt无法打开！" << endl;
 		return;
 	}
-	ofp.open("Account.txt", ios::out);
+	ofp.open("File/Account.txt", ios::out);
 	if (!ofp) {
 		cout << "Account.txt无法打开！" << endl;
 		return;

@@ -47,7 +47,7 @@ int main() {
 		cin >> choice;
 		if (choice == 1) {
 			cout << "******************************************************************************************" << endl;
-			ifp.open("Bank.txt", ios::in);
+			ifp.open("File/Bank.txt", ios::in);
 			if (!ifp) {
 				cout << "Bank.txt无法打开！" << endl;
 				return 0;
@@ -235,7 +235,7 @@ int main() {
 }
 
 void readSystemTime() {
-	ifp.open("System Time.txt", ios::in);
+	ifp.open("File/System Time.txt", ios::in);
 	ifp >> systemTime;
 	ifp.close();
 }
@@ -258,7 +258,7 @@ void incSystemTime() {
 }
 
 void writeSystemTime() {
-	ofp.open("System Time.txt", ios::out);
+	ofp.open("File/System Time.txt", ios::out);
 	ofp << setiosflags(ios::fixed) << setprecision(2) << systemTime;
 	ofp.close();
 }
