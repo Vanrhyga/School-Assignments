@@ -220,7 +220,6 @@ int main() {
 			cout << endl << "服务序号输入有误！" << endl << endl;
 	}
 	Account::writeAnnotation();
-	ifp.close();
 	for (i = 0; i < accountAmount; i++)
 		accounts[i].writeAccount();
 	ofp.close();

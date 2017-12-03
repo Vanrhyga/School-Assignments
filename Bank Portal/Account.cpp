@@ -34,6 +34,7 @@ void Account::writeAnnotation() {
 		getline(ifp, buffer);
 		ofp << buffer << endl;
 	}
+	ifp.close();
 }
 
 void Account::writeAccount() {	
