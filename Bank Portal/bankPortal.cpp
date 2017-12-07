@@ -17,6 +17,8 @@ int main() {
 	int choice, bankChoice;
 	int times1, times2 = 1;
 	double amount = 0;
+	clock_t startTime, curTime;
+	double pastTime = 0;
 	string name;
 	string ID;
 	string phoneNumber;
@@ -26,8 +28,6 @@ int main() {
 	Account newAccount;
 	Account accounts[MAX_ACCOUNT_AMOUNT];
 	readSystemTime();
-	clock_t startTime, curTime;
-	double pastTime = 0;
 	cout << "******************************************************************************************" << endl;
 	cout << ">>*                               欢迎登陆银行自助服务系统                             *<<" << endl;
 	cout << "******************************************************************************************" << endl;
