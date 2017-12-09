@@ -28,22 +28,23 @@ int main() {
 	Account newAccount;
 	Account accounts[MAX_ACCOUNT_AMOUNT];
 	readSystemTime();
+	Account::readAnnotation();
+	for (accountAmount = 0; !ifp.eof(); accountAmount++)
+		accounts[accountAmount].readAccount();
+	ifp.close();
 	cout << "******************************************************************************************" << endl;
 	cout << ">>*                               欢迎登陆银行自助服务系统                             *<<" << endl;
 	cout << "******************************************************************************************" << endl;
-	cout << "本系统提供的服务类型如下：" << endl;
-	cout << "1.注册银行卡   \t\t" << "2.存款" << endl;
-	cout << "3.取款        \t\t" << "4.修改密码" << endl;
-	cout << "5.修改预留手机 \t\t" << "6.查询交易记录" << endl;
-	cout << "7.挂失        \t\t" << "8.退出系统" << endl;
-	Account::readAnnotation();
-	for (accountAmount = 0; !ifp.eof(); accountAmount++) 
-		accounts[accountAmount].readAccount();
-	ifp.close();
-	cout << endl;
-	while (1) {
+	while(1){
+		cout << "本系统提供的服务类型如下：" << endl;
+		cout << "1.注册银行卡   \t\t" << "2.存款" << endl;
+		cout << "3.取款        \t\t" << "4.修改密码" << endl;
+		cout << "5.修改预留手机 \t\t" << "6.查询交易记录" << endl;
+		cout << "7.挂失        \t\t" << "8.退出系统" << endl;
+		cout << endl;
 		startTime = clock();
 		cout << "请选择您需要的服务：" << endl;
+		start:
 		cin >> choice;
 		if (choice == 1) {
 			cout << "******************************************************************************************" << endl;
@@ -216,8 +217,10 @@ int main() {
 			cout << "******************************************************************************************" << endl;
 			break;
 		}
-		else
-			cout << endl << "服务序号输入有误！" << endl << endl;
+		else {
+			cout << endl << "服务序号输入有误！请您重新输入：" << endl;
+			goto start;
+		}
 	}
 	Account::writeAnnotation();
 	for (i = 0; i < accountAmount; i++)

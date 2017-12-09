@@ -67,7 +67,7 @@ void Account::setCardID(char* cardID) {
 }
 
 int Account::setPassword(string password) {
-	int length = password.length();
+	int length = (int)password.length();
 	if (length != 6) {
 		cout << "密码格式有误！其长度需为6位，且由数字组成：" << endl;
 		return 1;
@@ -83,7 +83,7 @@ void Account::setName(string name) {
 }
 
 int Account::setID(string ID) {
-	int length = ID.length();
+	int length = (int)ID.length();
 	if (length != 18) {
 		cout << "身份证号有误！请输入正确信息：" << endl;
 		return 1;
@@ -95,7 +95,7 @@ int Account::setID(string ID) {
 }
 
 int Account::setPhoneNumber(string phoneNumber) {
-	int length = phoneNumber.length();
+	int length = (int)phoneNumber.length();
 	if (length != 11) {
 		cout << "手机号有误！请输入正确信息：" << endl;
 		return 1;
@@ -195,7 +195,7 @@ void Account::printAccountInfo() {
 
 void Account::printTransactionRecord() {
 	int i;
-	cout << "******************************************交易记录*****************************************" << endl;
+	cout << "*****************************************交易记录*****************************************" << endl;
 	for (i = 0; i < transactionAmount; i++) {
 		cout << "交易时间：" << (int)transactionTime[i] << "月";
 		printf("%d日\t", (int)((transactionTime[i] - (int)transactionTime[i]) * 100));
@@ -204,6 +204,8 @@ void Account::printTransactionRecord() {
 			cout << "+";
 		printf("%.2f\n", transactionRecord[i]);
 	}
+	if (!transactionAmount)
+		cout << "无交易记录！" << endl;
 	cout << endl << "当前账户余额为：" << setiosflags(ios::fixed) << setprecision(2) << balance << endl;
 	cout << "******************************************************************************************" << endl;
 }
