@@ -3063,8 +3063,11 @@ int main() {
 	userList[userTmp].updateWFD();
 	writeSystemTime();
 	User::writeAnnotation();
-	for (i = 0; i < userList.size(); i++)
+	for (i = 0; i < userList.size(); i++) {
 		userList[i].writeUser();
+		if (i != userList.size() - 1)
+			ofp << endl;
+	}
 	ofp.close();
 	Product::writeAnnotation();
 	for (i = 0; i < cosmeticList.size(); i++) {

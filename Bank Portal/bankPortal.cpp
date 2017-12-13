@@ -223,8 +223,11 @@ int main() {
 		}
 	}
 	Account::writeAnnotation();
-	for (i = 0; i < accountAmount; i++)
+	for (i = 0; i < accountAmount; i++) {
 		accounts[i].writeAccount();
+		if (i != accountAmount - 1)
+			ofp << endl;
+	}
 	ofp.close();
 	curTime = clock();
 	pastTime += (curTime - startTime) / (3 * CLOCKS_PER_SEC);
