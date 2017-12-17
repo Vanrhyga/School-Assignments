@@ -203,7 +203,6 @@ int main() {
 									cout << i + 1 << ".";
 									cosmeticList[productTmp[i]].priProductInList();
 								}
-								cout << "\t\t共 1 页/第 1 页" << endl;
 								cout << "您可进行的操作有：" << endl;
 								cout << "1.查阅商品信息\t2.返回上一级菜单" << endl << endl;
 								cout << "请输入您的选择：" << endl;
