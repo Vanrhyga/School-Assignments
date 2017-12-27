@@ -13,12 +13,12 @@
 using namespace std;
 
 
-#define AMOUNTOFITEMSOFPAGE	4
-#define MAXCATEGORIES		10
+#define AMOUNTOFITEMSOFPAGE	4				//页面最大显示数量
+#define MAXCATEGORIES		10				//最大品类数
 #define BUF_SIZE			20
 
 
-class Address {
+class Address {								//收货地址
 private:
 	string consignee;						//收货人
 	string contactNumber;					//联系电话
@@ -35,7 +35,7 @@ public:
 	~Address();
 };
 
-class Card {
+class Card {								//银行卡
 private:
 	static vector<string> banks;			//银行
 	char cardID[20];						//卡号
@@ -56,7 +56,7 @@ public:
 	~Card();
 };
 
-class Product {
+class Product {								//产品基类
 private:
 	static vector<string> categories;		//分区
 	static vector<double> discountOfC;		//分区折扣
@@ -114,13 +114,13 @@ public:
 	void priProduct();						//打印用户商品信息
 	void priProductInList();				//打印列表中商品信息
 	void priDetailedProduct();				//打印详细商品信息
-	void priInfo();							//打印商品信息
+	void priInfo();							//打印库存信息
 	void priWF();							//打印待发货或待收货信息
 	Product();
 	~Product();
 };
 
-class Cosmetic :public Product {
+class Cosmetic :public Product {			//产品子类，美妆
 private:
 	string category;						//产品类别
 public:
@@ -130,7 +130,7 @@ public:
 	~Cosmetic();
 };
 
-class SportsOutdoor :public Product {
+class SportsOutdoor :public Product {		//产品子类，运动户外
 private:
 	string category;						//产品类别
 public:
@@ -140,7 +140,7 @@ public:
 	~SportsOutdoor();
 };
 
-class ArticlesOfDailyUse :public Product {
+class ArticlesOfDailyUse :public Product {	//产品子类，百货
 private:
 	string category;						//产品类别
 public:
@@ -150,7 +150,7 @@ public:
 	~ArticlesOfDailyUse();
 };
 
-class Women :public Product {
+class Women :public Product {				//产品子类，女装
 private:
 	string category;						//产品类别
 public:
@@ -160,7 +160,7 @@ public:
 	~Women();
 };
 
-class Men :public Product {
+class Men :public Product {					//产品子类，男装
 private:
 	string category;						//产品类别
 public:
@@ -170,7 +170,7 @@ public:
 	~Men();
 };
 
-class Food :public Product {
+class Food :public Product {				//产品子类，食品
 private:
 	string category;						//产品类别
 public:
@@ -180,7 +180,7 @@ public:
 	~Food();
 };
 
-class User {
+class User {								//账户
 private:
 	string username;						//会员名
 	int amountOfSA;							//收货地址总数
@@ -239,7 +239,7 @@ public:
 	void updateWFD();						//更新待发货商品（默认3天之内发货）
 	vector<Product*> getWFS();				//获得待收货商品信息
 	int getAmountOfWFS();					//获得待收货商品数量
-	void priWFS();							//打印待收货商品时间
+	void priWFS();							//打印待收货商品信息
 	void confirmSignature();				//确认收货
 	void priUser();							//打印用户信息
 	void bind();							//绑定银行卡

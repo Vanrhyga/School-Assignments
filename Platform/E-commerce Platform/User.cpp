@@ -7,25 +7,25 @@ extern vector<ArticlesOfDailyUse> articlesOfDUList;
 extern vector<Women> womenList;
 extern vector<Men> menList;
 extern vector<Food> foodList;
-vector<Cosmetic> cosmeticForSC;
-vector<SportsOutdoor> sportsForSC;
-vector<ArticlesOfDailyUse> articlesOfDUForSC;
-vector<Women> womenForSC;
-vector<Men> menForSC;
-vector<Food> foodForSC;
-vector<Cosmetic> cosmeticForWFD;
-vector<SportsOutdoor> sportsForWFD;
-vector<ArticlesOfDailyUse> articlesOfDUForWFD;
-vector<Women> womenForWFD;
-vector<Men> menForWFD;
-vector<Food> foodForWFD;
-vector<Cosmetic> cosmeticForWFS;
-vector<SportsOutdoor> sportsForWFS;
-vector<ArticlesOfDailyUse> articlesOfDUForWFS;
-vector<Women> womenForWFS;
-vector<Men> menForWFS;
-vector<Food> foodForWFS;
-extern double systemTime;
+vector<Cosmetic> cosmeticForSC;						//购物车美妆类商品信息	
+vector<SportsOutdoor> sportsForSC;					//购物车运动户外类商品信息
+vector<ArticlesOfDailyUse> articlesOfDUForSC;		//购物车百货类商品信息
+vector<Women> womenForSC;							//购物车女装类商品信息
+vector<Men> menForSC;								//购物车男装类商品信息
+vector<Food> foodForSC;								//购物车食品类商品信息
+vector<Cosmetic> cosmeticForWFD;					//待发货美妆类商品信息
+vector<SportsOutdoor> sportsForWFD;					//待发货运动户外类商品信息
+vector<ArticlesOfDailyUse> articlesOfDUForWFD;		//待发货百货类商品信息
+vector<Women> womenForWFD;							//待发货女装类商品信息
+vector<Men> menForWFD;								//待发货男装类商品信息
+vector<Food> foodForWFD;							//待发货食品类商品信息
+vector<Cosmetic> cosmeticForWFS;					//待收货美妆类商品信息
+vector<SportsOutdoor> sportsForWFS;					//待收货运动户外类商品信息
+vector<ArticlesOfDailyUse> articlesOfDUForWFS;		//待收货百货类商品信息
+vector<Women> womenForWFS;							//待收货女装类商品信息	
+vector<Men> menForWFS;								//待收货男装类商品信息
+vector<Food> foodForWFS;							//待收货食品类商品信息
+extern double systemTime;						
 extern ifstream ifp;
 extern ofstream ofp;
 
@@ -411,9 +411,9 @@ void User::priShippingAddress() {
 	cout << ">>*                                   收货地址                                   *<<" << endl;
 	for (i = 0; i < shippingAddress.size(); i++) {
 		if (i)
-cout << endl;
-cout << i + 1 << ".";
-shippingAddress[i].priAddress();
+			cout << endl;
+		cout << i + 1 << ".";
+	shippingAddress[i].priAddress();
 	}
 	if (shippingAddress.size()) {
 		cout << endl << ">>*                                   默认地址                                   *<<" << endl;
@@ -779,7 +779,7 @@ void User::clearPartOfSC() {
 	}
 	for (i = 0; partOfSum[i] && i<MAXCATEGORIES; i++)
 		sum += partOfSum[i];
-	printf("\n\t\t\t\t\t\t\t合计（含邮费）：%.2f\n元", sum);
+	printf("\n\t\t\t\t\t\t\t合计（含邮费）：%.2f元\n", sum);
 	if (!pay(sum))
 		return;
 	for (i = 0; i < choices.size(); i++) {

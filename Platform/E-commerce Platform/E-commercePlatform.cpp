@@ -1,13 +1,13 @@
 ﻿#include "E-commercePlatform.h"
 
 														
-vector<Cosmetic> cosmeticList;
-vector<SportsOutdoor> sportsList;
-vector<ArticlesOfDailyUse> articlesOfDUList;
-vector<Women> womenList;
-vector<Men> menList;
-vector<Food> foodList;
-vector<User> userList;
+vector<Cosmetic> cosmeticList;					//美妆类商品信息
+vector<SportsOutdoor> sportsList;				//运动户外类商品信息
+vector<ArticlesOfDailyUse> articlesOfDUList;	//百货类商品信息
+vector<Women> womenList;						//女装类商品信息
+vector<Men> menList;							//男装类商品信息
+vector<Food> foodList;							//食品类商品信息
+vector<User> userList;							//账户信息
 double systemTime = 0;							//系统时间
 int pastDay = 0;
 extern ifstream ifp;							//输入文件流
