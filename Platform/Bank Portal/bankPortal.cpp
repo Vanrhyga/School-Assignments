@@ -13,7 +13,7 @@ extern ofstream ofp;								//输出文件流
 void readSystemTime();
 void incSystemTime();
 void writeSystemTime();
-DWORD WINAPI thread(LPVOID lpparentet);  
+DWORD WINAPI thread(LPVOID lpparentet);				//建立通信线程
 
 int main() {
 	char cardID[21];

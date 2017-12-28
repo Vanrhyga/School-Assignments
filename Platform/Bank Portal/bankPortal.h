@@ -65,4 +65,4 @@ public:
 	~Bank();
 };
 
-int socket();
+int socket();								//与电商平台进行通信

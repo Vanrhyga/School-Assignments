@@ -15,7 +15,7 @@ using namespace std;
 
 #define AMOUNTOFITEMSOFPAGE	4				//页面最大显示数量
 #define MAXCATEGORIES		10				//最大品类数
-#define BUF_SIZE			20
+#define BUF_SIZE			20				//缓存区容量
 
 
 class Address {								//收货地址
