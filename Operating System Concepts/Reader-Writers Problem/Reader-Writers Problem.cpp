@@ -13,8 +13,6 @@ using namespace std;
 #define  WRITER  'W'									//写者
 #define  INTE_PER_SEC  1000								//每秒时钟中断数目
 #define  MAX_THREAD_NUM  64								//最大线程数目
-#define  MAX_FILE_NUM  32								//最大数据文件数目
-#define  MAX_STR_LEN  32								//字符串长度
 
 
 
