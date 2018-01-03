@@ -117,7 +117,8 @@ void ReaderPriority(char* file) {
 		inFile >> thread_info[n_thread].entity;
 		inFile >> thread_info[n_thread].delay;
 		inFile >> thread_info[n_thread++].persist;
-		inFile.get();
+		if(!inFile.get())
+			break;
 	}
 	for (int i = 0; i<(int)(n_thread); i++) {
 		if (thread_info[i].entity == READER || thread_info[i].entity == 'r')
