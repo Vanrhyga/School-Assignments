@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="resources/styles/base.css" rel="stylesheet" />
+    <link href="resources/styles/common.css" rel="stylesheet" />
+    <link href="resources/styles/jquery.fs.tipper.css" rel="stylesheet"/>
+    <link href="resources/styles/d7224bcc.font.css" rel="stylesheet" />
+    <link href="resources/styles/projection-screen.css" rel="stylesheet" />
+    <title>投影展示</title>
+</head>
+<body>
+    <!--投影展示-->
+    <div class="projection-screen no_select" style="display:block">
+        <div class="screen-content">
+            <div class="screen-title hvr-shadow-radial">
+                <span id="auto_play">开始播放</span>
+                <span id="copy_play">复制播放内容</span>
+                <span style="display:none">显示任务栏</span>
+                <span id="close_play">结束放映</span>
+                <div class="screen-tittleline"></div>
+            </div>
+            <div class="split-screen">
+                <div class="main-screen hvliner-shadow-radial">
+                    <div class="main-screen-cont">
+                        <!--计时头部 不用理会-->
+                        <div class="main-screen-title clearfix">
+                            <div class="pull-left">
+                                <span id="timer_show">00:00:00</span>
+                                <span id="play_pause_button" ><i class="iconfont icon-play font-size-normal"></i></span>
+                                <span id="restart_button" class="transcribe-back"><i class="iconfont icon-transcribeback font-size-middle"></i></span>
+                                <div class="voice-dot" id="voice_dot" style="display: none;">
+                                    <a class="voice-size voice" id="voice"><i class="iconfont icon-voice font-size-middle light-gray"></i></a>
+                                    <div id="opacity_box" class="alpha-progess-bar bg_none opacity p_relative" tabindex="1" style="outline:none;display:block">
+                                        <div id="opacity_bg" class="alpha-schedule impression">
+                                            <p id="opacity_bgcolor" class="alpha-table-color common-schedule"><b id="opacity_bt" class="p_absolute drag-audit"></b></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="pull-right">
+                                <span id="current_time_show">15:48</span>
+                            </div>
+                        </div>
+                        <div class="main-screen-text width16-9" id="canvas_box">
+
+                            <!--canvas画布-->
+                            <!--<canvas id="presenter_canvas"></canvas>
+                            <canvas id="hit_canvas"></canvas>-->
+
+                        </div>
+                        <div class="main-screen-edit clearfix">
+                            <ul>
+                                <!--<li><a class="main-screen-edit-dot auto-play" id=""></a></li>-->
+                                <!--<li><a class="main-screen-edit-dot voice" id=""></a></li>-->
+                                <li class="p_relative">
+                                    <a class="main-screen-edit-dot pen-dot tipped" id="draw_pen_button" data-title="墨迹注释/激光笔" data-tipper-options='{"direction":"bottom"}'><i class="iconfont icon-pen font-size32 light-gray"></i></a>
+                                    <div class="p_absolute transpositional-dot" id="draw_pen_items" style="display:none" tabindex="1">
+                                        <ol class="disabled clearfix">
+                                            <li><a id="draw_pen"><b class="common-size-dot"><i class="iconfont icon-pen font-size-middle"></i></b>画笔</a></li>
+                                            <li><a id="laser_pen"><b class="common-size-dot"><i class="iconfont icon-laserpen font-size-middle"></i></b>激光笔</a></li>
+                                            <!--<li style="display:none"><a id="mouse_pen"><b class="common-size-dot mouse_pen"></b>取消墨迹</a></li>-->
+                                            <li class="p_relative">
+                                                <a id="pen_color_button"><span class="edit-screen-color-dot"></span><b id="inkmark-brushshow" class="edit-screen-color" style="background-color: red;"></b>墨迹注释</a>
+                                                <dl class="screen-color-list p_absolute clearfix" id="draw_pen_color_items">
+                                                    <dd><a style="background-color: #ffffff;"></a></dd>
+                                                    <dd><a style="background-color: #aaaaaa"></a></dd>
+                                                    <dd><a style="background-color: #1b1b1b;"></a></dd>
+                                                    <dd><a style="background-color: #ff0000;"></a></dd>
+                                                    <dd><a style="background-color: #00a0e9;"></a></dd>
+                                                    <dd><a style="background-color: #fff100;"></a></dd>
+                                                    <dd><a style="background-color: #eb6101;"></a></dd>
+                                                    <dd><a style="background-color: #31b16c;"></a></dd>
+                                                    <dd><a style="background-color: #e50050;"></a></dd>
+                                                    <dd><a style="background-color: #7fcef4;"></a></dd>
+                                                    <dd><a style="background-color: #8f82bc;"></a></dd>
+                                                    <dd><a style="background-color: #d1c0a5;"></a></dd>
+                                                </dl>
+                                            </li>
+                                            <li><a id="eraser_pen"><b class="common-size-dot"><i class="iconfont icon-eraser1 font-size-middle"></i></b>橡皮擦</a></li>
+                                            <li><a id="clear_all"><b class="common-size-dot"><i class="iconfont icon-eraser1 font-size-middle"></i></b>清空注释</a></li>
+                                        </ol>
+                                    </div>
+                                </li>
+                                <li style="display:none"><a class="main-screen-edit-dot txt-edit-screen" id="draw_text"><i class="iconfont icon-txt font-size32 light-gray view-light"></i></a></li>
+                                <li><a class="main-screen-edit-dot all-screen tipped" id="frame_list_button" data-title="查看所有步序" data-tipper-options='{"direction":"bottom"}'><i class="iconfont icon-allscreen font-size32 light-gray"></i></a></li>
+                                <li><a class="main-screen-edit-dot black-screen tipped" id="black_screen" data-title="黑屏" data-tipper-options='{"direction":"bottom"}'><i class="iconfont icon-blackscreen font-size32 light-gray"></i></a></li>
+                                <li><a class="main-screen-edit-dot white-screen tipped" id="white_screen" data-title="白屏" data-tipper-options='{"direction":"bottom"}'><i class="iconfont icon-whitescreen font-size32 light-gray"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--分割线-->
+                <div class="screen-line"></div>
+
+                <div class="second-screen">
+                    <div class="small-screen pull-left">
+                        <span>下一张播放图</span>
+                        <div class="small-cont">
+                            <img id="next_frame_image" src="" draggable="false"/>
+                        </div>
+                    </div>
+                    <!--备注-->
+                    <div class="show-remark">
+                        <div class="screen-tittleline"></div>
+                        <div class="remark-fontSize hide" id="remark_fontsize">
+                            <span class="inline_block">字号大小</span>
+                            <div class="inline_block p_relative regulation">
+                                <b class="iconfont icon-remark-reduce font-size-normal remark-reduce font-weight-normal" id="remark_small_fontsize"></b>
+                                <div class="inline_block p_relative remark-schduleline">
+                                    <div class="alpha-schedule impression remark-sezeSchdule">
+                                        <b class="p_absolute remark-audit" id="font_size_position"></b>
+                                    </div>
+                                </div>
+
+                                <b class="iconfont icon-remark-big font-size-normal remark-big p_absolute font-weight-normal cursor-pointer" id="remark_large_fontsize"></b>
+                            </div>
+                        </div>
+                        <div class="remark-cont"><textarea id="remark_text" readonly="readonly"></textarea></div>
+                    </div>
+                </div>
+            </div>
+            <div class="warp-footer">
+                <div class="screen-footer">
+                    <a class="paging-dot page-left-dot" id="frame_prev"><i class="iconfont icon-leftarrows light-gray"></i></a>
+                    <span class="paging-number">当前播放第<b id="current_frame_num">1</b>页，共<b id="total_frame_count">19</b>页</span>
+                    <a class="paging-dot page-right-dot" id="frame_next"><i class="iconfont icon-rightarrows light-gray"></i></a>
+                </div>
+                <!--纯粹占位置的-->
+                <div style="width:20%;"></div>
+            </div>
+        </div>
+    </div>
+    <!--分屏列表展示-->
+    <div class="split-screen-list no_select" id="frame_list" style="display:none">
+
+        <div class="screen-list-content">
+            <div class="screen-list-back" id="frame_list_back"><img src="resources/img/list-left.svg"> </div>
+            <div class="screen-list-col">
+                <ul id="frame_list_ul" class="clearfix">
+                   
+                </ul>
+
+            </div>
+            <div style="display:none" class="change-scale pull-right clearfix">
+                <span class="shrink"></span>
+                <span class="p_relative scale-line"><s class="p_absolute"></s></span>
+                <span class="magnify">+</span>
+            </div>
+        </div>
+    </div>
+    <!--遮罩问题-->
+    <div id="mask" class="mask" style="display: none;"></div>
+
+
+    <!--主页loading加载更多-->
+    <div id="loading" class="load-more clearfix p_absolute bigger" style="display: none;">
+        <div class="loader-inner ball-pulse home fl">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p id="loading_info" class="font-size-middle fl mrg-left15 white">加载更多</p>
+        </div>
+
+    <!--link提示框-->
+    <div id="hyperlink_hint" class="hyperlink" style="display:none"></div>
+    <script src="Scripts/jquery.min.js"></script>
+
+    <script src="Scripts/jquery.fs.tipper.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".tipped").tipper();
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(window).resize(function(){
+                var WinHeight = $(window).height(),
+                        BackHeight = $("#frame_list_back").height()+16;
+
+                var ColHeight = WinHeight-BackHeight-40;
+                $(".screen-list-col").css("height",ColHeight);
+            }).resize();
+
+
+        });
+    </script>
+
+    <script src="Scripts/jquery.keyframes.js"></script>
+    <script src="Scripts/Common/JsonDecycle.js"></script>
+
+    <script src='presenter.js'>
+        //require('nw.gui').Window.get().evalNWBin(null, 'presenter.bin');
+    </script>
+</body>
+</html>
