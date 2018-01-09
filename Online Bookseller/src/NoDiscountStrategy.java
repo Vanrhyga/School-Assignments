@@ -13,6 +13,9 @@ public class NoDiscountStrategy implements IPricingStrategy{
         return 0;
     }
     @Override
+    public void setStrategyNumber(int number){
+    }
+    @Override
     public String toString() {
         return "无优惠";
     }

@@ -9,6 +9,9 @@ public class CompositeBestForCustomer extends CompositeStrategy{
         }
         return min;
     }
+    @Override
+    public void setStrategyNumber(int number){
+    }
     public CompositeBestForCustomer(int strategyNumber){
         super(strategyNumber);
     }

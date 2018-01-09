@@ -24,6 +24,9 @@ public abstract class CompositeStrategy implements IPricingStrategy{
     public int getStrategyNumber() {
         return strategyNumber;
     }
+    public ArrayList<IPricingStrategy> getStrategies() {
+        return strategies;
+    }
     public void add(IPricingStrategy strategy){
         strategies.add(strategy);
     }

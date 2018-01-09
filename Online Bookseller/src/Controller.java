@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller implements SubjectForMain{
     private BookCatalog bookCatalog;
@@ -119,6 +120,21 @@ public class Controller implements SubjectForMain{
         }
         else
             return false;
+    }
+    public ArrayList<IPricingStrategy> returnCompositeStrategies(int number){
+        HashMap<BookType,IPricingStrategy> strategies=strategyCatalog.getStrategies();
+        IPricingStrategy simpleStrategy = returnStrategies(number);
+        ArrayList<IPricingStrategy> list = new ArrayList<>();
+        for(HashMap.Entry<BookType,IPricingStrategy> entry: strategies.entrySet()){
+            IPricingStrategy strategy = entry.getValue();
+            if(strategy.getStrategyType() == StrategyType.COMPOSITE){
+                CompositeStrategy compositeStrategy = (CompositeStrategy)strategy;
+                if(compositeStrategy.strategies.contains(simpleStrategy)){
+                    list.add(compositeStrategy);
+                }
+            }
+        }
+        return list;
     }
     public void deleteStrategy(int strategyNumber){
         BookType bookType=strategyCatalog.returnBookType(strategyNumber);

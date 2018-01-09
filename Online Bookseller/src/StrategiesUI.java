@@ -71,12 +71,33 @@ public class StrategiesUI extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null,"请选中需删除的策略！","警告",JOptionPane.WARNING_MESSAGE);
             else {
                 int selectedNumber=tableModel.getNumber(table.getSelectedRow());
-                IPricingStrategy list=controller.returnStrategies(selectedNumber);
-                if(list!=null){
-                    controller.deleteStrategy(selectedNumber);
-                    JOptionPane.showMessageDialog(null,"删除成功！","",JOptionPane.INFORMATION_MESSAGE);
-                    tableModel.updateUI();
+                ArrayList<IPricingStrategy> list=controller.returnCompositeStrategies(selectedNumber);
+                if(list!=null) {
+                    for (IPricingStrategy strategy : list) {
+                        CompositeStrategy item=(CompositeStrategy) strategy;
+                        ArrayList<IPricingStrategy> contents=item.getStrategies();
+                        contents.remove(controller.getStrategyCatalog().returnStrategies(selectedNumber));
+                        if(contents.size()==1){
+                            BookType bookType1=controller.getStrategyCatalog().returnBookType(item.getStrategyNumber());
+                            controller.deleteStrategy(item.getStrategyNumber());
+                            if(contents.get(0).getStrategyType()==StrategyType.FLATRATE){
+                                FlatRateStrategy flatRateStrategy=(FlatRateStrategy) contents.get(0);
+                                FlatRateStrategy flatRateStrategy1=new FlatRateStrategy(flatRateStrategy.getStrategyNumber(),flatRateStrategy.getDiscountPerBook());
+                                flatRateStrategy1.setStrategyNumber(item.getStrategyNumber());
+                                controller.getStrategyCatalog().getStrategies().put(bookType1,flatRateStrategy1);
+                            }
+                            else{
+                                PercentageStrategy percentageStrategy=(PercentageStrategy) contents.get(0);
+                                PercentageStrategy percentageStrategy1=new PercentageStrategy(percentageStrategy.getStrategyNumber(),percentageStrategy.getDiscountPercentage());
+                                percentageStrategy1.setStrategyNumber(item.getStrategyNumber());
+                                controller.getStrategyCatalog().getStrategies().put(bookType1,percentageStrategy1);
+                            }
+                        }
+                    }
                 }
+                controller.deleteStrategy(selectedNumber);
+                JOptionPane.showMessageDialog(null,"删除成功！","",JOptionPane.INFORMATION_MESSAGE);
+                tableModel.updateUI();
             }
         }
         else if(e.getSource()==cancel){

@@ -18,13 +18,17 @@ public class PercentageStrategy implements IPricingStrategy{
     public String toString() {
         return String.format("%.0f",100*(1-discountPercentage))+"%折优惠";
     }
+    @Override
     public void setStrategyNumber(int strategyNumber) {
         this.strategyNumber = strategyNumber;
     }
     public void setDiscountPercentage(double discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
-    public PercentageStrategy(int strategyNumber,double discountPercentage){
+    public double getDiscountPercentage() {
+        return discountPercentage;
+    }
+    public PercentageStrategy(int strategyNumber, double discountPercentage){
         this.strategyNumber=strategyNumber;
         this.discountPercentage=discountPercentage;
     }

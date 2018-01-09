@@ -17,6 +17,7 @@ public class FlatRateStrategy implements IPricingStrategy{
     public String toString() {
         return "每本减"+String.valueOf(discountPerBook)+"元";
     }
+    @Override
     public void setStrategyNumber(int strategyNumber) {
         this.strategyNumber = strategyNumber;
     }
@@ -26,7 +27,10 @@ public class FlatRateStrategy implements IPricingStrategy{
     public int getStrategyNumber(){
         return strategyNumber;
     }
-    public FlatRateStrategy(int strategyNumber,int discountPerBook){
+    public int getDiscountPerBook() {
+        return discountPerBook;
+    }
+    public FlatRateStrategy(int strategyNumber, int discountPerBook){
         this.strategyNumber=strategyNumber;
         this.discountPerBook=discountPerBook;
     }
