@@ -151,3 +151,143 @@ SELECT * FROM Persons WHERE City='Beijing'
 
 
 
+### SQL AND&OR 运算符
+
+**AND 和 OR 运算符基于一个以上的条件对记录进行过滤。**
+
+AND 和 OR 可在 WHERE 子语句中把两个或多个条件结合起来。
+
+如果第一个条件和第二个条件都成立，则 AND 运算符显示一条记录。
+
+如果第一个条件和第二个条件只要有一个成立，则 OR 运算符显示一条记录。
+
+使用 AND 来显示所有姓为 "Carter" 并且名为 "Thomas" 的人：
+
+~~~sql
+SELECT * FROM Persons WHERE FirstName='Thomas' AND LastName='Carter'
+~~~
+
+使用 OR 来显示所有姓为 "Carter" 或者名为 "Thomas" 的人：
+
+~~~sql
+SELECT * FROM Persons WHERE FirstName='Thomas' OR LastName='Carter'
+~~~
+
+也可以把 AND 和 OR 结合起来：
+
+~~~sql
+SELECT * FROM Persons WHERE (FirstName='Thomas' OR FirstName='William') AND LastName='Carter'
+~~~
+
+
+
+### SQL ORDER BY 子句
+
+**ORDER BY 语句用于对结果集进行排序**
+
+默认按照升序对记录进行排序。如果希望按照降序，可以使用 DESC 关键字。
+
+以字母顺序显示公司名称：
+
+~~~sql
+SELECT Company,OrderNumber FROM Orders ORDER BY Company
+~~~
+
+以字母顺序显示公司名称，并以数字顺序显示顺序号：
+
+~~~sql
+SELECT Company,OrderNumber FROM Orders ORDER BY Company,OrderNumber
+~~~
+
+以逆字母顺序显示公司名称：
+
+~~~sql
+SELECT Company,OrderNumber FROM Orders ORDER BY Company DESC
+~~~
+
+以逆字母顺序显示公司名称，并以数字顺序显示顺序号：
+
+~~~sql
+SELECT Company,OrderNumber FROM Orders ORDER BY Company DESC,OrderNumber ASC
+~~~
+
+
+
+### SQL INSERT INTO 语句
+
+INSERT INTO 语句用于向表格中插入新的行。
+
+语法：
+
+~~~sql
+INSERT INTO 表名称 VALUES (值1,值2,....)
+~~~
+
+也可以指定所要插入数据的列：
+
+~~~sql
+INSERT INTO table_name (列1,列2,...) VALUES (值1,值2,....)
+~~~
+
+例如：
+
+~~~sql
+INSERT INTO Persons VALUES ('Gates','Bill','Xuanwumen 10','Beijing')
+
+INSERT INTO Persons (LastName,Address) VALUES('Wilson','Champs-Elysees')
+~~~
+
+
+
+### SQL UPDATE 语句
+
+UPDATE 语句用于修改表中的数据。
+
+语法：
+
+~~~sql
+UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
+~~~
+
+例如：
+
+~~~sql
+UPDATE Persons SET FirstName='Fred' WHERE LastName='Wilson'
+~~~
+
+~~~sql
+UPDATE Persons SET Address='Zhongshan 23',City='Nanjing' WHERE LastName='Wilson'
+~~~
+
+
+
+### SQL DELETE 语句
+
+DELETE 语句用于删除表中的行。
+
+语法：
+
+~~~sql
+DELETE FROM 表名称 WHERE 列名称 = 值
+~~~
+
+例如：
+
+~~~sql
+DELETE FROM Persons WHERE LastName='Wilson'
+~~~
+
+可以在不删除表的情况下删除所有的行，这意味着表的结构、属性和索引都是完整的：
+
+~~~sql
+DELETE FROM table_name
+~~~
+
+或者：
+
+~~~sql
+DELETE * FROM table_name
+~~~
+
+
+
