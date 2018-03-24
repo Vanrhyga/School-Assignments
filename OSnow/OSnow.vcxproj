@@ -18,6 +18,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fs_head.h" />
+    <ClInclude Include="processM_head.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="processM.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6A66CE97-5AD6-4B75-BFE7-E5340EE594E6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -141,9 +148,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="fs_head.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
