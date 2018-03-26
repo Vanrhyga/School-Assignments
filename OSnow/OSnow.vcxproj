@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fs_head.h" />
     <ClInclude Include="processM_head.h" />
   </ItemGroup>
   <ItemGroup>

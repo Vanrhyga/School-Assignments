@@ -1,34 +1,38 @@
 #include"processM_head.h"
 
+//默认 PCB 创建函数
 processControlBlock::processControlBlock() {
 }
 
+//带参 PCB 创建函数
 processControlBlock::processControlBlock(string PID, string name, processType type) {
 	this->PID = PID;
 	this->name = name;
 	this->type = type;
 }
 
-void processControlBlock::createChildP(string PID, string name, string parentPID, processType type) {
+//子进程创建函数
+void processControlBlock::createChildP(string PID, string name, processType type) {
 	PCB child;
 	child.PID = PID;
 	child.name = name;
-	child.parentPID = parentPID;
+	child.parentPID = this->PID;
 	child.type = type;
-	this->childProcess.insert(make_pair(child.PID, child));
+	this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
 }
 
+//进程删除函数
 void processControlBlock::destroyProcess() {
 	auto childP = childProcess.begin();
 	auto process1 = find(readyList[0].begin(), readyList[0].end(), PID);
 	auto process2 = find(readyList[1].begin(), readyList[1].end(), PID);
 	auto process3 = find(blockedList[0].begin(), blockedList[0].end(), PID);
 	auto process4 = find(blockedList[1].begin(), blockedList[1].end(), PID);
-	while (childP != childProcess.end()) {
+	while (childP != childProcess.end()) {								//删除子进程
 		childProcess.erase(childP->second.PID);
 		++childP;
 	}
-	switch (list){
+	switch (list){														//删除父进程
 	case readyL:
 		switch (type){
 		case processType::user:
@@ -57,44 +61,8 @@ void processControlBlock::destroyProcess() {
 	}
 }
 
-void processControlBlock::changeState(processOperate operate) {
-	switch (operate){
-	case request:
-		if (state == running) {
-			state = blocked;
-			list = blockedL;
-		}
-		else
-			throw "State error!";
-		break;
-	case release:
-		if (state == blocked) {
-			state = ready;
-			list = readyL;
-		}
-		else
-			throw "State error!";
-		break;
-	case timeout:
-		if (state == running) {
-			state = ready;
-			list = readyL;
-		}
-		else
-			throw "State error!";
-		break;
-	case dispatch:
-		if (state == ready)
-			state = running;
-		else
-			throw "State error!";
-	default:
-		throw "Operation error!";
-		break;
-	}
-}
-
-void processControlBlock::getResource(string RID, int amount) {
+//所需资源增加函数
+void processControlBlock::increaseResource(string RID, int amount) {
 	if (resources.find(RID) != resources.end())
 		(*resources.find(RID)).second += amount;
 	else
@@ -102,7 +70,8 @@ void processControlBlock::getResource(string RID, int amount) {
 
 }
 
-int processControlBlock::releaseResource(string RID) {
+//资源统计函数
+int processControlBlock::countResource(string RID) {
 	if (resources.find(RID) != resources.end()) {
 		int amount = resources.find(RID)->second;
 		resources.erase(RID);
@@ -112,32 +81,35 @@ int processControlBlock::releaseResource(string RID) {
 		return 0;
 }
 
+//资源创建函数
 resource::resource(string RID, int amount, int freeAmount) {
 	this->RID = RID;
 	this->amount = amount;
 	this->freeAmount = freeAmount;
 }
 
+//资源申请函数
 int resource::request(string PID, int amount) {
-	if (amount > this->amount) {
+	if (amount > this->amount) {										//若超出资源总量
 		throw "Error! Requested resource exceeds upper limit!";
 		return -1;
 	}
 	else {
-		if (amount <= freeAmount) {
+		if (amount <= freeAmount) {										
 			freeAmount -= amount;
 			return 1;
 		}
-		else {
-			waitingL.push_back({ PID,amount });
+		else {															//若超出空闲资源数
+			waitingL.push_back({ PID,amount });							//插入等待队列
 			return 0;
 		}
 	}
 }
 
-string resource::release(string PID, int amount) {
+//资源释放函数
+string resource::release(int amount) {
 	freeAmount += amount;
-	if (!waitingL.empty()) {
+	if (!waitingL.empty()) {											//若等待队列非空
 		auto &nextProcess = *(waitingL.begin());
 		if (nextProcess.reqAmount <= freeAmount) {
 			freeAmount -= nextProcess.reqAmount;
@@ -151,11 +123,36 @@ string resource::release(string PID, int amount) {
 		return "";
 }
 
+//队列初始化函数
 void initList() {
 	readyList[0].push_front("");
 	readyList[1].push_front("");
 }
 
+PCB& getProcess(string PID) {
+	return (*(process.find(PID))).second;
+}
+
+resource& getResource(string RID) {
+	return (*(allResource.find(RID))).second;
+}
+
+void insertProcess(string PID, PCB p) {
+	process.insert(make_pair(PID, p));
+}
+
+void outProcess(string PID) {
+	PCB &p = getProcess(PID);
+	map<string, PCB>& children = p.childProcess;
+	auto child = children.begin();
+	while (child != children.end()) {
+		process.erase(child->second.PID);
+		++child;
+	}
+	process.erase(PID);
+}
+
+//就绪队列插入函数
 void insertRL(string PID, processType type) {
 	switch (type){
 	case processType::user:
@@ -168,8 +165,12 @@ void insertRL(string PID, processType type) {
 		throw "Type error! Invalid type value!";
 		break;
 	}
+	PCB &p = getProcess(PID);
+	p.state = ready;
+	p.list = readyL;
 }
 
+//就绪队列移出函数
 void outRL(string PID, processType type) {
 	switch (type) {
 	case processType::user:
@@ -184,6 +185,7 @@ void outRL(string PID, processType type) {
 	}
 }
 
+//阻塞队列插入函数
 void insertBL(string PID, processType type) {
 	switch (type) {
 	case processType::user:
@@ -196,8 +198,12 @@ void insertBL(string PID, processType type) {
 		throw "Type error! Invalid type value!";
 		break;
 	}
+	PCB &p = getProcess(PID);
+	p.state = blocked;
+	p.list = blockedL;
 }
 
+//阻塞队列移出函数
 void outBL(string PID, processType type) {
 	switch (type) {
 	case processType::user:
@@ -212,6 +218,7 @@ void outBL(string PID, processType type) {
 	}
 }
 
+//上下文切换函数
 void contextSwitch(processType type) {
 	switch (type){
 	case processType::user:
@@ -226,16 +233,21 @@ void contextSwitch(processType type) {
 	}
 }
 
+//运行状态切换函数
 void intoRunning(processType type) {
 	contextSwitch(type);
 	switch (type){
 	case processType::user:
 		*(readyList[0].begin()) = *(++readyList[0].begin());
 		readyList[0].erase(++readyList[0].begin());
+		PCB &p1 = getProcess(*(readyList[0].begin()));
+		p1.state = running;
 		break;
 	case processType::system:
 		*(readyList[1].begin()) = *(++readyList[1].begin());
 		readyList[1].erase(++readyList[1].begin());
+		PCB &p2 = getProcess(*(readyList[1].begin()));
+		p2.state = running;
 		break;
 	default:
 		throw "Type error! Invalid type value!";
@@ -243,6 +255,7 @@ void intoRunning(processType type) {
 	}
 }
 
+//运行状态结束函数
 void outOfRunning(string PID, processType type, processState state) {
 	contextSwitch(type);
 	switch (state){
@@ -258,6 +271,7 @@ void outOfRunning(string PID, processType type, processState state) {
 	}
 }
 
+//当前执行进程获取函数
 string getRunningProcess() {
 	string PID;
 	if (*(readyList[1].begin()) != "")
@@ -269,6 +283,7 @@ string getRunningProcess() {
 	return PID;
 }
 
+//调度函数
 void dispatcher() {
 	if (getRunningProcess() == "") {
 		if (readyList[1].size() > 1)
@@ -276,4 +291,11 @@ void dispatcher() {
 		else if (readyList[0].size() > 1)
 			intoRunning(processType::user);
 	}
+}
+
+void RR() {
+	PCB &p = (*(process.find(getRunningProcess()))).second;
+	contextSwitch(p.type);
+	insertRL(p.PID, p.type);
+	dispatcher();
 }

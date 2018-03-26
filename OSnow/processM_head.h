@@ -6,92 +6,78 @@
 #include<list>
 #include<sstream>
 using namespace std;
+/* 注：父子进程级联删除;
+正在运行进程为就绪队列首元素
+*/
 
 
-enum processState {
+/*枚举*/
+enum processState {								//进程状态
 	ready,running,blocked
 };
-enum listType {
+enum listType {									//队列种类
 	readyL,blockedL
 };
-enum processType {
+enum processType {								//进程种类
 	user,system
 };
-enum processOperate {
+enum processOperate {							//进程操作
 	request,release,timeout,dispatch
 };
 
 
-list<string> readyList[2];
-list<string> blockedList[2];
+/*结构*/
+typedef struct processControlBlock {			//进程控制块
+	string PID;									//进程标识
+	string name;								//进程名称
+	string parentPID = "";						//父进程名称
+	processState state = ready;					//进程状态
+	processType type;							//进程种类
+	listType list = readyL;						//所在队列
+	map<string, int> resources;					//已占有资源
+	map<string, processControlBlock> childProcess;						//子进程
+	processControlBlock();
+	processControlBlock(string PID, string name, processType type);
+	void createChildP(string PID, string name, processType type);		//创建子进程
+	void destroyProcess();						//删除进程
+	void increaseResource(string RID, int amount);						//增加所需资源
+	int countResource(string RID);				//统计资源
+}PCB;
+struct processInfo {							//进程信息
+	string PID;									//进程标识
+	int reqAmount;								//申请资源数
+};
+struct resource{								//资源
+	string RID;									//资源标识
+	int amount;									//资源总量
+	int freeAmount;								//空闲资源数
+	vector<processInfo> waitingL;				//等待队列
+	resource(string RID, int amount, int freeAmount);
+	int request(string PID, int amount);		//申请资源
+	string release(int amount);					//释放资源
+};
+
+
+/*全局变量*/
+list<string> readyList[2];						//就绪队列
+list<string> blockedList[2];					//阻塞队列
 map<string, PCB> process;
 map<string, resource> allResource;
 
 
-typedef struct processControlBlock {
-	string PID;
-	string name;
-	string parentPID = "";
-	processState state = ready;
-	processType type;
-	listType list = readyL;
-	map<string, int> resources;
-	map<string, processControlBlock> childProcess;
-	processControlBlock();
-	processControlBlock(string PID, string name, processType type);
-	void createChildP(string PID, string name, string parentPID, processType type);
-	void destroyProcess();
-	void changeState(processOperate operate);
-	void getResource(string RID, int amount);
-	int releaseResource(string RID);
-}PCB;
-struct processInfo {
-	string PID;
-	int reqAmount;
-};
-struct resource{
-	string RID;
-	int amount;
-	int freeAmount;
-	vector<processInfo> waitingL;
-	resource(string RID, int amount, int freeAmount);
-	int request(string PID, int amount);
-	string release(string PID, int amount);
-};
-
-
-void initList();
-void insertRL(string PID, processType type);
-void outRL(string PID, processType type);
-void insertBL(string PID, processType type);
-void outBL(string PID, processType type);
-void contextSwitch(processType type);
-void intoRunning(processType type);
-void outOfRunning(string PID, processType type, processState state);
-//void intoBlocked(string PID, processType type);
-string getRunningProcess();
-void dispatcher();
-//void RR();
-
-string toString(int i) {
-	stringstream s;
-	s << i;
-	return s.str();
-}
-
-string toRID(string name) {
-	string RID;
-	if (name == "R1")
-		RID = "1";
-	else if (name == "R2")
-		RID = "2";
-	else if (name == "R3")
-		RID = "3";
-	else if (name == "R4")
-		RID = "4";
-	else if (name == "R5")
-		RID = "5";
-	else
-		throw "Error! Resource does not exist!";
-	return RID;
-}
+/*功能函数*/
+void initList();								//初始化队列
+PCB& getProcess(string PID);
+resource& getResource(string RID);
+void insertProcess(string PID, PCB p);
+void outProcess(string PID);
+void insertRL(string PID, processType type);	//插入就绪队列
+void outRL(string PID, processType type);		//移出就绪队列
+void insertBL(string PID, processType type);	//插入阻塞队列
+void outBL(string PID, processType type);		//移出阻塞队列
+void contextSwitch(processType type);			//上下文切换
+void intoRunning(processType type);				//切换运行状态
+void outOfRunning(string PID, processType type, processState state);	//结束运行状态
+string getRunningProcess();						//获取当前执行进程
+void dispatcher();								//调度
+void RR();
