@@ -22,6 +22,7 @@
     <ClInclude Include="processM_head.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="processM.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

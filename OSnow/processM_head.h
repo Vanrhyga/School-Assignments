@@ -4,11 +4,16 @@
 #include<map>
 #include<vector>
 #include<list>
+#include<ctime>
 #include<sstream>
 using namespace std;
 /* ×¢£º¸¸×Ó½ø³Ì¼¶ÁªÉ¾³ı;
 ÕıÔÚÔËĞĞ½ø³ÌÎª¾ÍĞ÷¶ÓÁĞÊ×ÔªËØ
 */
+
+
+/*³£Á¿*/
+#define MAX_SIZE 12
 
 
 /*Ã¶¾Ù*/
@@ -42,6 +47,7 @@ typedef struct processControlBlock {			//½ø³Ì¿ØÖÆ¿é
 	void destroyProcess();						//É¾³ı½ø³Ì
 	void increaseResource(string RID, int amount);						//Ôö¼ÓËùĞè×ÊÔ´
 	int countResource(string RID);				//Í³¼Æ×ÊÔ´
+	void releaseAllResource(string *s);
 }PCB;
 struct processInfo {							//½ø³ÌĞÅÏ¢
 	string PID;									//½ø³Ì±êÊ¶
@@ -81,3 +87,19 @@ void outOfRunning(string PID, processType type, processState state);	//½áÊøÔËĞĞ×
 string getRunningProcess();						//»ñÈ¡µ±Ç°Ö´ĞĞ½ø³Ì
 void dispatcher();								//µ÷¶È
 void RR();
+
+
+/*¹¤¾ßº¯Êı*/
+string toString(int i) {
+	stringstream s;
+	s << i;
+	return s.str();
+}
+string nametoPID(string name) {
+	auto iter = process.begin();
+	while (iter != process.end()) {
+		if (iter->second.name == name)
+			return iter->second.PID;
+		iter++;
+	}
+}

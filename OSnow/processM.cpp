@@ -19,6 +19,8 @@ void processControlBlock::createChildP(string PID, string name, processType type
 	child.parentPID = this->PID;
 	child.type = type;
 	this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
+	process.insert(make_pair(child.PID, child));
+	insertRL(child.PID, child.type);
 }
 
 //进程删除函数
@@ -79,6 +81,22 @@ int processControlBlock::countResource(string RID) {
 	}
 	else
 		return 0;
+}
+
+void processControlBlock::releaseAllResource(string* s) {
+	int i;
+	string* tmp;
+	auto iter = childProcess.begin();
+	while (iter != childProcess.end()) {
+		PCB &p = iter->second;
+		p.releaseAllResource(tmp);
+		iter++;
+	}
+	auto riter = resources.cbegin();
+	for (i = 0; riter != resources.cend();) {
+		resource &r = getResource(riter->first);
+		s[i] = r.release(riter->second);
+	}
 }
 
 //资源创建函数
