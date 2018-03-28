@@ -24,7 +24,7 @@ enum listType {									//队列种类
 	readyL,blockedL
 };
 enum processType {								//进程种类
-	user,system
+	user,forSystem
 };
 enum processOperate {							//进程操作
 	request,release,timeout,dispatch
@@ -44,7 +44,6 @@ typedef struct processControlBlock {			//进程控制块
 	processControlBlock();
 	processControlBlock(string PID, string name, processType type);
 	void createChildP(string PID, string name, processType type);		//创建子进程
-	void destroyProcess();						//删除进程
 	void increaseResource(string RID, int amount);						//增加所需资源
 	int countResource(string RID);				//统计资源
 	void releaseAllResource(string *s);
@@ -65,10 +64,10 @@ struct resource{								//资源
 
 
 /*全局变量*/
-list<string> readyList[2];						//就绪队列
-list<string> blockedList[2];					//阻塞队列
-map<string, PCB> process;
-map<string, resource> allResource;
+extern list<string> readyList[2];				//就绪队列
+extern list<string> blockedList[2];				//阻塞队列
+extern map<string, PCB> process;
+extern map<string, resource> allResource;
 
 
 /*功能函数*/
@@ -77,6 +76,7 @@ PCB& getProcess(string PID);
 resource& getResource(string RID);
 void insertProcess(string PID, PCB p);
 void outProcess(string PID);
+void destroyProcess(string PID);				//删除进程
 void insertRL(string PID, processType type);	//插入就绪队列
 void outRL(string PID, processType type);		//移出就绪队列
 void insertBL(string PID, processType type);	//插入阻塞队列
@@ -90,16 +90,5 @@ void RR();
 
 
 /*工具函数*/
-string toString(int i) {
-	stringstream s;
-	s << i;
-	return s.str();
-}
-string nametoPID(string name) {
-	auto iter = process.begin();
-	while (iter != process.end()) {
-		if (iter->second.name == name)
-			return iter->second.PID;
-		iter++;
-	}
-}
+string toString(int i);
+string nametoPID(string name);

@@ -1,5 +1,10 @@
 #include"processM_head.h"
 
+list<string> readyList[2];
+list<string> blockedList[2];
+map<string, PCB> process;
+map<string, resource> allResource;
+
 //默认 PCB 创建函数
 processControlBlock::processControlBlock() {
 }
@@ -21,46 +26,6 @@ void processControlBlock::createChildP(string PID, string name, processType type
 	this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
 	process.insert(make_pair(child.PID, child));
 	insertRL(child.PID, child.type);
-}
-
-//进程删除函数
-void processControlBlock::destroyProcess() {
-	auto childP = childProcess.begin();
-	auto process1 = find(readyList[0].begin(), readyList[0].end(), PID);
-	auto process2 = find(readyList[1].begin(), readyList[1].end(), PID);
-	auto process3 = find(blockedList[0].begin(), blockedList[0].end(), PID);
-	auto process4 = find(blockedList[1].begin(), blockedList[1].end(), PID);
-	while (childP != childProcess.end()) {								//删除子进程
-		childProcess.erase(childP->second.PID);
-		++childP;
-	}
-	switch (list){														//删除父进程
-	case readyL:
-		switch (type){
-		case processType::user:
-			readyList[0].erase(process1);
-		case processType::system:
-			readyList[1].erase(process2);
-		default:
-			throw "Type error! Invalid type value!";
-			break;
-		}
-	case blockedL:
-		switch (type){
-		case processType::user:
-			blockedList[0].erase(process3);
-			break;
-		case processType::system:
-			blockedList[1].erase(process4);
-			break;
-		default:
-			throw "Type error! Invalid type value!";
-			break;
-		}
-	default:
-		throw "List error! Invalid list value!";
-		break;
-	}
 }
 
 //所需资源增加函数
@@ -85,11 +50,10 @@ int processControlBlock::countResource(string RID) {
 
 void processControlBlock::releaseAllResource(string* s) {
 	int i;
-	string* tmp;
 	auto iter = childProcess.begin();
 	while (iter != childProcess.end()) {
 		PCB &p = iter->second;
-		p.releaseAllResource(tmp);
+		p.releaseAllResource(s);
 		iter++;
 	}
 	auto riter = resources.cbegin();
@@ -164,8 +128,19 @@ void outProcess(string PID) {
 	map<string, PCB>& children = p.childProcess;
 	auto child = children.begin();
 	while (child != children.end()) {
-		process.erase(child->second.PID);
+		process.erase(child->first);
 		++child;
+	}
+	process.erase(PID);
+}
+
+//进程删除函数
+void destroyProcess(string PID) {
+	PCB &p = getProcess(PID);
+	auto iter = p.childProcess.begin();
+	while (iter != p.childProcess.end()) {
+		process.erase(iter->first);
+		iter++;
 	}
 	process.erase(PID);
 }
@@ -176,7 +151,7 @@ void insertRL(string PID, processType type) {
 	case processType::user:
 		readyList[0].push_back(PID);
 		break;
-	case processType::system:
+	case processType::forSystem:
 		readyList[1].push_back(PID);
 		break;
 	default:
@@ -194,7 +169,7 @@ void outRL(string PID, processType type) {
 	case processType::user:
 		readyList[0].erase(++readyList[0].begin());
 		break;
-	case processType::system:
+	case processType::forSystem:
 		readyList[1].erase(++readyList[1].begin());
 		break;
 	default:
@@ -209,7 +184,7 @@ void insertBL(string PID, processType type) {
 	case processType::user:
 		blockedList[0].push_back(PID);
 		break;
-	case processType::system:
+	case processType::forSystem:
 		blockedList[1].push_back(PID);
 		break;
 	default:
@@ -227,7 +202,7 @@ void outBL(string PID, processType type) {
 	case processType::user:
 		blockedList[0].pop_front();
 		break;
-	case processType::system:
+	case processType::forSystem:
 		blockedList[1].pop_front();
 		break;
 	default:
@@ -242,7 +217,7 @@ void contextSwitch(processType type) {
 	case processType::user:
 		*(readyList[0].begin()) = "";
 		break;
-	case processType::system:
+	case processType::forSystem:
 		*(readyList[1].begin()) = "";
 		break;
 	default:
@@ -258,14 +233,12 @@ void intoRunning(processType type) {
 	case processType::user:
 		*(readyList[0].begin()) = *(++readyList[0].begin());
 		readyList[0].erase(++readyList[0].begin());
-		PCB &p1 = getProcess(*(readyList[0].begin()));
-		p1.state = running;
+		getProcess(*(readyList[0].begin())).state = running;
 		break;
-	case processType::system:
+	case processType::forSystem:
 		*(readyList[1].begin()) = *(++readyList[1].begin());
 		readyList[1].erase(++readyList[1].begin());
-		PCB &p2 = getProcess(*(readyList[1].begin()));
-		p2.state = running;
+		getProcess(*(readyList[1].begin())).state = running;
 		break;
 	default:
 		throw "Type error! Invalid type value!";
@@ -305,8 +278,8 @@ string getRunningProcess() {
 void dispatcher() {
 	if (getRunningProcess() == "") {
 		if (readyList[1].size() > 1)
-			intoRunning(processType::system);
-		else if (readyList[0].size() > 1)
+			intoRunning(processType::forSystem);
+		else if (readyList[0].size() > 1) 
 			intoRunning(processType::user);
 	}
 }
@@ -316,4 +289,20 @@ void RR() {
 	contextSwitch(p.type);
 	insertRL(p.PID, p.type);
 	dispatcher();
+}
+
+string toString(int i) {
+	stringstream s;
+	s << i;
+	return s.str();
+}
+
+string nametoPID(string name) {
+	auto iter = process.begin();
+	while (iter != process.end()) {
+		if (iter->second.name == name)
+			return iter->second.PID;
+		iter++;
+	}
+	return "";
 }
