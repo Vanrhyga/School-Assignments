@@ -107,6 +107,14 @@ string resource::release(int amount) {
 void initList() {
 	readyList[0].push_front("");
 	readyList[1].push_front("");
+	processType type;
+	if (rand() % 2)
+		type = processType::forSystem;
+	else
+		type = processType::user;
+	insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
+	insertRL(toString(counter), type);
+	dispatcher();
 }
 
 PCB& getProcess(string PID) {
@@ -141,6 +149,32 @@ void destroyProcess(string PID) {
 		iter++;
 	}
 	process.erase(PID);
+}
+
+void killProcess(string PID) {
+	int i;
+	PCB &tmp = getProcess(PID);
+	string nextPList[MAX_RESOURCE_AMOUNT];
+	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
+		nextPList[i] = "";
+	tmp.releaseAllResource(nextPList);
+	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
+		if (nextPList[i] != "") {
+			PCB &nextProcess = (*(process.find(nextPList[i]))).second;
+			outBL(nextProcess.PID, nextProcess.type);
+			insertRL(nextProcess.PID, nextProcess.type);
+		}
+	}
+	auto iter = tmp.childProcess.begin();
+	while (iter != tmp.childProcess.end()) {
+		destroyProcess(iter->first);
+		iter++;
+	}
+	if (getRunningProcess() == tmp.PID) {
+		contextSwitch((*(process.find(getRunningProcess()))).second.type);
+		dispatcher();
+	}
+	destroyProcess(tmp.PID);
 }
 
 //就绪队列插入函数
@@ -246,7 +280,24 @@ void intoRunning(processType type) {
 
 //运行状态结束函数
 void outOfRunning(string PID, processType type, processState state) {
+	int i;
+	string nextPList[MAX_RESOURCE_AMOUNT];
 	contextSwitch(type);
+	PCB &p = (*(process.find(PID))).second;
+	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
+		nextPList[i] = "";
+	auto riter = p.resources.cbegin();
+	for (i = 0; riter != p.resources.cend(); i++) {
+		resource &r = getResource(riter->first);
+		nextPList[i] = r.release(riter->second);
+	}
+	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
+		if (nextPList[i] != "") {
+			PCB &nextProcess = (*(process.find(nextPList[i]))).second;
+			outBL(nextProcess.PID, nextProcess.type);
+			insertRL(nextProcess.PID, nextProcess.type);
+		}
+	}
 	switch (state){
 	case ready:
 		insertRL(PID, type);

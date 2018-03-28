@@ -1,31 +1,45 @@
 #include "processM_head.h"
+/*
+*                             _ooOoo_
+*                            o8888888o
+*                            88" . "88
+*                            (| -_- |)
+*                            O\  =  /O
+*                         ____/`---'\____
+*                       .'  \\|     |//  `.
+*                      /  \\|||  :  |||//  \
+*                     /  _||||| -:- |||||-  \
+*                     |   | \\\  -  /// |   |
+*                     | \_|  ''\---/''  |   |
+*                     \  .-\__  `-`  ___/-. /
+*                   ___`. .'  /--.--\  `. . __
+*                ."" '<  `.___\_<|>_/___.'  >'"".
+*               | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+*               \  \ `-.   \_ __\ /__ _/   .-` /  /
+*          ======`-.____`-.___\_____/___.-`____.-'======
+*                             `=---='
+*          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*                     ·ð×æ±£ÓÓ        ÓÀÎÞBUG
+*/
 
 extern map<string, PCB> process;
 extern map<string, resource> allResource;
+int counter;
 
 int main() {
 	int i, j;
-	int counter = 1;
 	string s;
 	string command;
+	counter = 1;
 	srand((unsigned)time(NULL));
 	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
 		j = rand() % (MAX_SIZE + 1);
 		allResource.insert(make_pair(toString(i), resource(toString(i), j, j)));
 	}
+	CreateThread(NULL, 0, TIMER_SEC, NULL, 0, NULL);
+	CreateThread(NULL, 0, TIMER_FIVE_SEC, NULL, 0, NULL);
+	CreateThread(NULL, 0, TIMER_TEN_SEC, NULL, 0, NULL);
 	initList();
-	j = rand() % (MAX_PROCESS_AMOUNT + 1);
-	for (i = 0; i < j; i++, counter++) {
-		processType type;
-		if (rand() % 2)
-			type = processType::forSystem;
-		else
-			type = processType::user;
-		PCB p1(toString(counter), "p"+toString(counter), type);
-		insertProcess(p1.PID, p1);
-		insertRL(p1.PID, p1.type);
-	}
-	dispatcher();
 	while (true) {
 		s = getRunningProcess();
 		PCB &p = (*(process.find(s))).second;
@@ -79,28 +93,7 @@ int main() {
 			cin >> name;
 			getline(cin, s);
 			s = nametoPID(name);
-			PCB &tmp = getProcess(s);
-			string nextPList[MAX_RESOURCE_AMOUNT];
-			for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
-				nextPList[i] = "";
-			tmp.releaseAllResource(nextPList);
-			for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
-				if (nextPList[i] != "") {
-					PCB &nextProcess = (*(process.find(nextPList[i]))).second;
-					outBL(nextProcess.PID, nextProcess.type);
-					insertRL(nextProcess.PID, nextProcess.type);
-				}
-			}
-			auto iter = tmp.childProcess.begin();
-			while (iter != tmp.childProcess.end()) {
-				destroyProcess(iter->first);
-				iter++;
-			}
-			if (getRunningProcess() == tmp.PID) {
-				contextSwitch((*(process.find(getRunningProcess()))).second.type);
-				dispatcher();
-			}
-			destroyProcess(tmp.PID);
+			killProcess(s);
 		}
 		else if (command == "list processes") {
 			auto iter = process.begin();
@@ -126,5 +119,50 @@ int main() {
 	}
 	cout << "Bye~" << endl << endl;
 	system("pause");
+	return 0;
+}
+
+DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
+	/*while (TRUE) {
+		Sleep(1000);
+		string s = getRunningProcess();
+		PCB &p = (*(process.find(s))).second;
+		p.runtime--;
+		cout << p.runtime << endl;
+		cout << p.name << endl;
+		if (!p.runtime)
+			killProcess(p.PID);
+	}*/
+	return 0;
+}
+
+DWORD WINAPI TIMER_FIVE_SEC(LPVOID lpparentet) {
+	while (TRUE) {
+		Sleep(5000);
+		int i = rand() % 4;
+		string s = getRunningProcess();
+		PCB &p = (*(process.find(s))).second;
+		processType type;
+		if (i == 0) {
+			counter++;
+			type = processType::forSystem;
+			insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
+			insertRL(toString(counter), type);
+		}
+		else if (i == 1) {
+			counter++;
+			type = processType::user;
+			insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
+			insertRL(toString(counter), type);
+		}
+		else if (i == 2) {
+			counter++;
+			p.createChildP(toString(counter), "childOfp" + p.PID, p.type);
+		}
+	}
+	return 0;
+}
+
+DWORD WINAPI TIMER_TEN_SEC(LPVOID lpparentet) {
 	return 0;
 }
