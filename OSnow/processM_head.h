@@ -13,7 +13,9 @@ using namespace std;
 
 
 /*³£Á¿*/
-#define MAX_SIZE 12
+#define MAX_RESOURCE_AMOUNT 12
+#define MAX_SIZE			12
+#define MAX_PROCESS_AMOUNT  36
 
 
 /*Ã¶¾Ù*/

@@ -57,7 +57,7 @@ void processControlBlock::releaseAllResource(string* s) {
 		iter++;
 	}
 	auto riter = resources.cbegin();
-	for (i = 0; riter != resources.cend();) {
+	for (i = 0; riter != resources.cend();i++) {
 		resource &r = getResource(riter->first);
 		s[i] = r.release(riter->second);
 	}
@@ -72,10 +72,8 @@ resource::resource(string RID, int amount, int freeAmount) {
 
 //资源申请函数
 int resource::request(string PID, int amount) {
-	if (amount > this->amount) {										//若超出资源总量
-		throw "Error! Requested resource exceeds upper limit!";
+	if (amount > this->amount) 										//若超出资源总量
 		return -1;
-	}
 	else {
 		if (amount <= freeAmount) {										
 			freeAmount -= amount;
