@@ -72,7 +72,7 @@ resource::resource(string RID, int amount, int freeAmount) {
 
 //资源申请函数
 int resource::request(string PID, int amount) {
-	if (amount > this->amount) 										//若超出资源总量
+	if (amount > this->amount) 											//若超出资源总量
 		return -1;
 	else {
 		if (amount <= freeAmount) {										
@@ -142,13 +142,59 @@ void outProcess(string PID) {
 
 //进程删除函数
 void destroyProcess(string PID) {
+	int i = 0;
+	bool tmp = getRunningProcess() == PID;
 	PCB &p = getProcess(PID);
 	auto iter = p.childProcess.begin();
 	while (iter != p.childProcess.end()) {
-		process.erase(iter->first);
+		destroyProcess(iter->first);
 		iter++;
 	}
+	if (p.type == processType::user) {
+		if (p.state == ready) {
+			auto iter1 = readyList[0].begin();
+			while (iter1 != readyList[0].end()) {
+				if (*iter1 == PID)
+					break;
+				iter1++;
+			}
+			readyList[0].erase(iter1);
+		}
+		else if (p.state == blocked) {
+			auto iter2 = blockedList[0].begin();
+			while (iter2 != blockedList[0].end()) {
+				if (*iter2 == PID)
+					break;
+				iter2++;
+			}
+			blockedList[0].erase(iter2);
+		}
+	}
+	else {
+		if (p.state == ready) {
+			auto iter3 = readyList[1].begin();
+			while (iter3 != readyList[1].end()) {
+				if (*iter3 == PID)
+					break;
+				iter3++;
+			}
+			readyList[1].erase(iter3);
+		}
+		else if (p.state == blocked) {
+			auto iter4 = blockedList[1].begin();
+			while (iter4 != blockedList[1].end()) {
+				if (*iter4 == PID)
+					break;
+				iter4++;
+			}
+			blockedList[1].erase(iter4);
+		}
+	}
+	if (tmp)
+		contextSwitch(p.type);
 	process.erase(PID);
+	if (tmp)
+		dispatcher();
 }
 
 void killProcess(string PID) {
@@ -165,16 +211,7 @@ void killProcess(string PID) {
 			insertRL(nextProcess.PID, nextProcess.type);
 		}
 	}
-	auto iter = tmp.childProcess.begin();
-	while (iter != tmp.childProcess.end()) {
-		destroyProcess(iter->first);
-		iter++;
-	}
-	if (getRunningProcess() == tmp.PID) {
-		contextSwitch((*(process.find(getRunningProcess()))).second.type);
-		dispatcher();
-	}
-	destroyProcess(tmp.PID);
+	destroyProcess(PID);
 }
 
 //就绪队列插入函数
@@ -196,7 +233,7 @@ void insertRL(string PID, processType type) {
 }
 
 //就绪队列移出函数
-void outRL(string PID, processType type) {
+void outRL(processType type) {
 	switch (type) {
 	case processType::user:
 		readyList[0].erase(++readyList[0].begin());

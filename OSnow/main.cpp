@@ -36,12 +36,14 @@ int main() {
 		j = rand() % (MAX_SIZE + 1);
 		allResource.insert(make_pair(toString(i), resource(toString(i), j, j)));
 	}
+	initList();
 	CreateThread(NULL, 0, TIMER_SEC, NULL, 0, NULL);
 	CreateThread(NULL, 0, TIMER_FIVE_SEC, NULL, 0, NULL);
 	CreateThread(NULL, 0, TIMER_TEN_SEC, NULL, 0, NULL);
-	initList();
 	while (true) {
 		s = getRunningProcess();
+		if (s == "")
+			break;
 		PCB &p = (*(process.find(s))).second;
 		cout << ">>";
 		getline(cin, command);
@@ -50,8 +52,8 @@ int main() {
 			cout << "Please enter the name of the child process:" << endl;
 			cin >> name;
 			getline(cin, s);
-			p.createChildP(toString(counter), name, p.type);
 			counter++;
+			p.createChildP(toString(counter), name, p.type);
 		}
 		else if (command == "timeout")
 			RR();
@@ -123,16 +125,38 @@ int main() {
 }
 
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
-	/*while (TRUE) {
+	while (TRUE) {
 		Sleep(1000);
 		string s = getRunningProcess();
+		if (s == "") {
+			dispatcher();
+			continue;
+		}
 		PCB &p = (*(process.find(s))).second;
 		p.runtime--;
+//œ‘ æ
 		cout << p.runtime << endl;
 		cout << p.name << endl;
+		cout << p.type << endl;
+		auto iter = process.begin();
+		while (iter != process.end()) {
+			cout << iter->second.name << "::" << iter->first << "::";
+			if (iter->second.state == ready)
+				cout << "ready::";
+			else if (iter->second.state == running)
+				cout << "running::";
+			else
+				cout << "blocked::";
+			if (iter->second.type == user)
+				cout << "user" << endl;
+			else
+				cout << "system" << endl;
+			iter++;
+		}
+
 		if (!p.runtime)
 			killProcess(p.PID);
-	}*/
+	}
 	return 0;
 }
 
@@ -140,9 +164,24 @@ DWORD WINAPI TIMER_FIVE_SEC(LPVOID lpparentet) {
 	while (TRUE) {
 		Sleep(5000);
 		int i = rand() % 4;
-		string s = getRunningProcess();
-		PCB &p = (*(process.find(s))).second;
 		processType type;
+		string s = getRunningProcess();
+		if (s == "") {
+			if (i == 0) {
+				counter++;
+				type = processType::forSystem;
+				insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
+				insertRL(toString(counter), type);
+			}
+			else if (i == 1) {
+				counter++;
+				type = processType::user;
+				insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
+				insertRL(toString(counter), type);
+			}
+			continue;
+		}
+		PCB &p = (*(process.find(s))).second;
 		if (i == 0) {
 			counter++;
 			type = processType::forSystem;

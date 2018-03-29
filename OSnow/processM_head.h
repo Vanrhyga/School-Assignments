@@ -85,7 +85,7 @@ void outProcess(string PID);
 void destroyProcess(string PID);				//删除进程
 void killProcess(string PID);
 void insertRL(string PID, processType type);	//插入就绪队列
-void outRL(string PID, processType type);		//移出就绪队列
+void outRL(processType type);					//移出就绪队列
 void insertBL(string PID, processType type);	//插入阻塞队列
 void outBL(string PID, processType type);		//移出阻塞队列
 void contextSwitch(processType type);			//上下文切换
