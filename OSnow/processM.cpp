@@ -145,10 +145,10 @@ void destroyProcess(string PID) {
 	int i = 0;
 	bool tmp = getRunningProcess() == PID;
 	PCB &p = getProcess(PID);
-	auto iter = p.childProcess.begin();
-	while (iter != p.childProcess.end()) {
-		destroyProcess(iter->first);
-		iter++;
+	i = p.childProcess.size();
+	while (i > 0) {
+		destroyProcess(p.childProcess.begin()->first);
+		i--;
 	}
 	if (p.type == processType::user) {
 		if (p.state == ready) {
@@ -192,6 +192,15 @@ void destroyProcess(string PID) {
 	}
 	if (tmp)
 		contextSwitch(p.type);
+	if (process.find(p.parentPID) != process.end()) {
+		map<string, PCB>& children = process.find(p.parentPID)->second.childProcess;
+		auto iter5 = children.begin();
+		while (iter5 != children.end())
+			if (iter5->first == PID) {
+				children.erase(PID);
+				break;
+			}
+	}
 	process.erase(PID);
 	if (tmp)
 		dispatcher();
@@ -371,7 +380,10 @@ void dispatcher() {
 }
 
 void RR() {
-	PCB &p = (*(process.find(getRunningProcess()))).second;
+	string s = getRunningProcess();
+	if (s == "")
+		return;
+	PCB &p = (*(process.find(s))).second;
 	contextSwitch(p.type);
 	insertRL(p.PID, p.type);
 	dispatcher();

@@ -74,6 +74,7 @@ extern list<string> blockedList[2];				//阻塞队列
 extern map<string, PCB> process;
 extern map<string, resource> allResource;
 extern int counter;
+extern int timeSlot;
 
 
 /*功能函数*/
@@ -101,4 +102,3 @@ string toString(int i);
 string nametoPID(string name);
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet);
 DWORD WINAPI TIMER_FIVE_SEC(LPVOID lpparentet);
-DWORD WINAPI TIMER_TEN_SEC(LPVOID lpparentet);

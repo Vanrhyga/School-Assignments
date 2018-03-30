@@ -25,6 +25,7 @@
 extern map<string, PCB> process;
 extern map<string, resource> allResource;
 int counter;
+int timeSlot;
 
 int main() {
 	int i, j;
@@ -39,7 +40,6 @@ int main() {
 	initList();
 	CreateThread(NULL, 0, TIMER_SEC, NULL, 0, NULL);
 	CreateThread(NULL, 0, TIMER_FIVE_SEC, NULL, 0, NULL);
-	CreateThread(NULL, 0, TIMER_TEN_SEC, NULL, 0, NULL);
 	while (true) {
 		s = getRunningProcess();
 		if (s == "")
@@ -125,19 +125,24 @@ int main() {
 }
 
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
+	timeSlot = 0;
 	while (TRUE) {
 		Sleep(1000);
+		timeSlot++;
 		string s = getRunningProcess();
 		if (s == "") {
-			dispatcher();
+			if (timeSlot == 10) {
+				RR();
+				timeSlot = 0;
+			}
+			else
+				dispatcher();
 			continue;
 		}
 		PCB &p = (*(process.find(s))).second;
 		p.runtime--;
 //œ‘ æ
 		cout << p.runtime << endl;
-		cout << p.name << endl;
-		cout << p.type << endl;
 		auto iter = process.begin();
 		while (iter != process.end()) {
 			cout << iter->second.name << "::" << iter->first << "::";
@@ -154,8 +159,14 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 			iter++;
 		}
 
-		if (!p.runtime)
+		if (!p.runtime) {
 			killProcess(p.PID);
+			timeSlot = 0;
+		}
+		else if (timeSlot == 10) {
+			RR();
+			timeSlot = 0;
+		}
 	}
 	return 0;
 }
@@ -199,9 +210,5 @@ DWORD WINAPI TIMER_FIVE_SEC(LPVOID lpparentet) {
 			p.createChildP(toString(counter), "childOfp" + p.PID, p.type);
 		}
 	}
-	return 0;
-}
-
-DWORD WINAPI TIMER_TEN_SEC(LPVOID lpparentet) {
 	return 0;
 }
