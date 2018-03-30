@@ -56,11 +56,12 @@ void processControlBlock::releaseAllResource(string* s) {
 		p.releaseAllResource(s);
 		iter++;
 	}
-	auto riter = resources.cbegin();
-	for (i = 0; riter != resources.cend();i++) {
+	auto riter = resources.begin();
+	for (i = 0; riter != resources.end(); riter++, i++) {
 		resource &r = getResource(riter->first);
-		s[i] = r.release(riter->second);
+		s[i] = r.release(riter->second, PID);
 	}
+	resources.clear();
 }
 
 //资源创建函数
@@ -72,29 +73,25 @@ resource::resource(string RID, int amount, int freeAmount) {
 
 //资源申请函数
 int resource::request(string PID, int amount) {
-	if (amount > this->amount) 											//若超出资源总量
-		return -1;
-	else {
-		if (amount <= freeAmount) {										
-			freeAmount -= amount;
-			return 1;
-		}
-		else {															//若超出空闲资源数
-			waitingL.push_back({ PID,amount });							//插入等待队列
-			return 0;
-		}
+	if (amount <= freeAmount) {										
+		freeAmount -= amount;
+		return 1;
+	}
+	else {															//若超出空闲资源数
+		waitingL.push_back({ PID,amount });							//插入等待队列
+		return 0;
 	}
 }
 
 //资源释放函数
-string resource::release(int amount) {
+string resource::release(int amount, string PID) {
 	freeAmount += amount;
 	if (!waitingL.empty()) {											//若等待队列非空
 		auto &nextProcess = *(waitingL.begin());
-		if (nextProcess.reqAmount <= freeAmount) {
-			freeAmount -= nextProcess.reqAmount;
+		string s = nextProcess.PID;
+		if (nextProcess.PID != PID) {
 			waitingL.erase(waitingL.begin());
-			return nextProcess.PID;
+			return s;
 		}
 		else
 			return "";
@@ -195,11 +192,13 @@ void destroyProcess(string PID) {
 	if (process.find(p.parentPID) != process.end()) {
 		map<string, PCB>& children = process.find(p.parentPID)->second.childProcess;
 		auto iter5 = children.begin();
-		while (iter5 != children.end())
+		while (iter5 != children.end()) {
 			if (iter5->first == PID) {
 				children.erase(PID);
 				break;
 			}
+			iter5++;
+		}
 	}
 	process.erase(PID);
 	if (tmp)
@@ -335,7 +334,7 @@ void outOfRunning(string PID, processType type, processState state) {
 	auto riter = p.resources.cbegin();
 	for (i = 0; riter != p.resources.cend(); i++) {
 		resource &r = getResource(riter->first);
-		nextPList[i] = r.release(riter->second);
+		nextPList[i] = r.release(riter->second, PID);
 	}
 	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
 		if (nextPList[i] != "") {

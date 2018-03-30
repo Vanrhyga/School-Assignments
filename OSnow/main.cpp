@@ -33,19 +33,18 @@ int main() {
 	string command;
 	counter = 1;
 	srand((unsigned)time(NULL));
-	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
-		j = rand() % (MAX_SIZE + 1);
+	for (i = 1; i <= MAX_RESOURCE_AMOUNT; i++) {
+		j = rand() % MAX_SIZE + 1;
 		allResource.insert(make_pair(toString(i), resource(toString(i), j, j)));
 	}
 	initList();
 	CreateThread(NULL, 0, TIMER_SEC, NULL, 0, NULL);
-	CreateThread(NULL, 0, TIMER_FIVE_SEC, NULL, 0, NULL);
+	CreateThread(NULL, 0, TIMER_NINE_SEC, NULL, 0, NULL);
 	while (true) {
 		s = getRunningProcess();
 		if (s == "")
 			break;
 		PCB &p = (*(process.find(s))).second;
-		cout << ">>";
 		getline(cin, command);
 		if (command == "create child process") {
 			string name;
@@ -75,19 +74,6 @@ int main() {
 				p.increaseResource(name, amount);
 			else 
 				cout << "Error! Requested resource exceeds upper limit!" << endl;
-		}
-		else if (command == "release resources") {
-			string name;
-			cout << "Please enter the resource name:" << endl;
-			cin >> name;
-			getline(cin, s);
-			resource &r = getResource(name);
-			s = r.release(p.countResource(name));
-			if (s != "") {
-				PCB &nextProcess = (*(process.find(s))).second;
-				outBL(nextProcess.PID, nextProcess.type);
-				insertRL(nextProcess.PID, nextProcess.type);
-			}
 		}
 		else if (command == "kill process") {
 			string name;
@@ -130,19 +116,8 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 		Sleep(1000);
 		timeSlot++;
 		string s = getRunningProcess();
-		if (s == "") {
-			if (timeSlot == 10) {
-				RR();
-				timeSlot = 0;
-			}
-			else
-				dispatcher();
-			continue;
-		}
-		PCB &p = (*(process.find(s))).second;
-		p.runtime--;
 //œ‘ æ
-		cout << p.runtime << endl;
+		//system("cls");
 		auto iter = process.begin();
 		while (iter != process.end()) {
 			cout << iter->second.name << "::" << iter->first << "::";
@@ -158,22 +133,74 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 				cout << "system" << endl;
 			iter++;
 		}
+		auto iter1 = allResource.begin();
+		while (iter1 != allResource.end() ){
+			cout << "R" << iter1->second.RID << "::" << iter1->second.waitingL.size() << endl;
+			iter1++;
+		}
+
+		if (s == "") {
+			dispatcher();
+			continue;
+		}
+		PCB &p = (*(process.find(s))).second;
+		p.runtime--;
+//œ‘ æ
+		cout << "runtime::" << p.runtime << endl;
 
 		if (!p.runtime) {
 			killProcess(p.PID);
 			timeSlot = 0;
 		}
-		else if (timeSlot == 10) {
+		if (timeSlot == 10) {
+			int i;
+			string nextPList[MAX_RESOURCE_AMOUNT];
+			for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
+				nextPList[i] = "";
+			p.releaseAllResource(nextPList);
+			for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
+				if (nextPList[i] != "") {
+					PCB &nextProcess = (*(process.find(nextPList[i]))).second;
+					outBL(nextProcess.PID, nextProcess.type);
+					insertRL(nextProcess.PID, nextProcess.type);
+				}
+			}
 			RR();
 			timeSlot = 0;
+		}
+		if (timeSlot % 3 == 2) {
+			int RID = rand() % MAX_RESOURCE_AMOUNT + 1;
+			resource &r = getResource(toString(RID));
+			int amount = rand() % r.amount + 1;
+			int j = r.request(s, amount);
+			if (j)
+				p.increaseResource(toString(RID), amount);
+			else {
+				int i;
+				string nextPList[MAX_RESOURCE_AMOUNT];
+				for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
+					nextPList[i] = "";
+				p.releaseAllResource(nextPList);
+				for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
+					if (nextPList[i] != "") {
+						PCB &nextProcess = (*(process.find(nextPList[i]))).second;
+						outBL(nextProcess.PID, nextProcess.type);
+						insertRL(nextProcess.PID, nextProcess.type);
+					}
+				}
+				contextSwitch(p.type);
+				insertBL(s, p.type);
+				dispatcher();
+				timeSlot = 0;
+			}
 		}
 	}
 	return 0;
 }
 
-DWORD WINAPI TIMER_FIVE_SEC(LPVOID lpparentet) {
+DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 	while (TRUE) {
-		Sleep(5000);
+		Sleep(9000);
 		int i = rand() % 4;
 		processType type;
 		string s = getRunningProcess();

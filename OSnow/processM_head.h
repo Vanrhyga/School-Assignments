@@ -14,10 +14,9 @@ using namespace std;
 
 
 /*常量*/
-#define MAX_RESOURCE_AMOUNT 12
+#define MAX_RESOURCE_AMOUNT 3
 #define MAX_SIZE			12
-#define MAX_PROCESS_AMOUNT  36
-#define MAX_RUNTIME			24
+#define MAX_RUNTIME			27
 
 
 /*枚举*/
@@ -64,7 +63,7 @@ struct resource{								//资源
 	vector<processInfo> waitingL;				//等待队列
 	resource(string RID, int amount, int freeAmount);
 	int request(string PID, int amount);		//申请资源
-	string release(int amount);					//释放资源
+	string release(int amount, string PID);		//释放资源
 };
 
 
@@ -101,4 +100,4 @@ void RR();
 string toString(int i);
 string nametoPID(string name);
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet);
-DWORD WINAPI TIMER_FIVE_SEC(LPVOID lpparentet);
+DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet);
