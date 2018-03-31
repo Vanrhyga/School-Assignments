@@ -94,6 +94,7 @@ void outOfRunning(string PID, processType type, processState state);	//½áÊøÔËÐÐ×
 string getRunningProcess();						//»ñÈ¡µ±Ç°Ö´ÐÐ½ø³Ì
 void dispatcher();								//µ÷¶È
 void RR();
+void pri();
 
 
 /*¹¤¾ßº¯Êý*/
@@ -101,3 +102,7 @@ string toString(int i);
 string nametoPID(string name);
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet);
 DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet);
+
+
+/*Æ¤Ò»ÏÂ*/
+void painting();

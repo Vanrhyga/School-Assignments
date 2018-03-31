@@ -187,6 +187,17 @@ void destroyProcess(string PID) {
 			blockedList[1].erase(iter4);
 		}
 	}
+	if (p.state == blocked) {
+		auto riter = allResource.begin();
+		while (riter != allResource.end()) {
+			for (auto waitingIter = riter->second.waitingL.begin(); waitingIter < riter->second.waitingL.end(); waitingIter++)
+				if (waitingIter->PID == p.PID) {
+					riter->second.waitingL.erase(waitingIter);
+					break;
+				}
+			riter++;
+		}
+	}
 	if (tmp)
 		contextSwitch(p.type);
 	if (process.find(p.parentPID) != process.end()) {
@@ -388,6 +399,70 @@ void RR() {
 	dispatcher();
 }
 
+void pri() {
+	unsigned int i;
+	cout << "Running process:" << endl;
+	auto iter = process.begin();
+	while (iter != process.end()) {
+		if (iter->second.state == running) {
+			cout << iter->second.name << "::" << iter->first << "::";
+			if (iter->second.type == user)
+				cout << "user" << endl;
+			else
+				cout << "system" << endl;
+			cout << "Runtime:" << iter->second.runtime << endl;
+		}
+		iter++;
+	}
+	if (readyList[0].size() > 1 || readyList[1].size() > 1) {
+		cout << endl << "Ready processes:" << endl;
+		for (iter = process.begin(); iter != process.end(); iter++)
+			if (iter->second.type == processType::forSystem&&iter->second.state == ready) {
+				cout << iter->second.name << "::" << iter->first << "::";
+				if (iter->second.type == user)
+					cout << "user" << endl;
+				else
+					cout << "system" << endl;
+			}
+		for (iter = process.begin(); iter != process.end(); iter++)
+			if (iter->second.type == processType::user&&iter->second.state == ready) {
+				cout << iter->second.name << "::" << iter->first << "::";
+				if (iter->second.type == user)
+					cout << "user" << endl;
+				else
+					cout << "system" << endl;
+			}
+	}
+	if (blockedList[0].size() > 0 || blockedList[1].size() > 0) {
+		cout << endl << "Blocked processes:" << endl;
+		for (iter = process.begin(); iter != process.end(); iter++)
+			if (iter->second.type == processType::forSystem&&iter->second.state == blocked) {
+				cout << iter->second.name << "::" << iter->first << "::";
+				if (iter->second.type == user)
+					cout << "user" << endl;
+				else
+					cout << "system" << endl;
+			}
+		for (iter = process.begin(); iter != process.end(); iter++)
+			if (iter->second.type == processType::user&&iter->second.state == blocked) {
+				cout << iter->second.name << "::" << iter->first << "::";
+				if (iter->second.type == user)
+					cout << "user" << endl;
+				else
+					cout << "system" << endl;
+			}
+	}
+	cout << endl << "Resources:" << endl;
+	auto iter1 = allResource.begin();
+	while (iter1 != allResource.end()) {
+		cout << "R" << iter1->second.RID << "::" << iter1->second.waitingL.size() << "\t";
+		for (i = 0; i < iter1->second.waitingL.size(); i++)
+			cout << "p" + iter1->second.waitingL[i].PID + " ";
+		cout << endl;
+		iter1++;
+	}
+}
+
 string toString(int i) {
 	stringstream s;
 	s << i;
@@ -402,4 +477,27 @@ string nametoPID(string name) {
 		iter++;
 	}
 	return "";
+}
+
+void painting() {
+	cout << "                       ::" << endl << "                      :;J7, :,                        ::;7:" << endl;
+	cout << "                      ,ivYi, ,                       ;LLLFS:" << endl << "                      :iv7Yi                       :7ri;j5PL" << endl;
+	cout << "                     ,:ivYLvr                    ,ivrrirrY2X," << endl << "                     :;r@Wwz.7r:                :ivu@kexianli." << endl;
+	cout << "                    :iL7::,:::iiirii:ii;::::,,irvF7rvvLujL7ur" << endl << "                   ri::,:,::i:iiiiiii:i:irrv177JX7rYXqZEkvv17" << endl;
+	cout << "                ;i:, , ::::iirrririi:i:::iiir2XXvii;L8OGJr71i" << endl << "              :,, ,,:   ,::ir@mingyi.irii:i:::j1jri7ZBOS7ivv," << endl;
+	cout << "                 ,::,    ::rv77iiiriii:iii:i::,rvLq@huhao.Li" << endl << "             ,,      ,, ,:ir7ir::,:::i;ir:::i:i::rSGGYri712:" << endl;
+	cout << "           :::  ,v7r:: ::rrv77:, ,, ,:i7rrii:::::, ir7ri7Lri" << endl << "          ,     2OBBOi,iiir;r::        ,irriiii::,, ,iv7Luur:" << endl;
+	cout<<"        ,,     i78MBBi,:,:::,:,  :7FSL: ,iriii:::i::,,:rLqXv::"<<endl<<"        :      iuMMP: :,:::,:ii;2GY7OBB0viiii:i:iii:i:::iJqL;::"<<endl;
+	cout << "       ,     ::::i   ,,,,, ::LuBBu BBBBBErii:i:i:i:i:i:i:r77ii" << endl << "      ,       :       , ,,:::rruBZ1MBBqi, :,,,:::,::::::iiriri:" << endl;
+	cout << "     ,               ,,,,::::i:  @arqiao.       ,:,, ,:::ii;i7:" << endl << "    :,       rjujLYLi   ,,:::::,:::::::::,,   ,:i,:,,,,,::i:iii" << endl;
+	cout << "    ::      BBBBBBBBB0,    ,,::: , ,:::::: ,      ,,,, ,,:::::::" << endl << "    i,  ,  ,8BMMBBBBBBi     ,,:,,     ,,, , ,   , , , :,::ii::i::" << endl;
+	cout << "    :      iZMOMOMBBM2::::::::::,,,,     ,,,,,,:,,,::::i:irr:i:::," << endl << "    i   ,,:;u0MBMOG1L:::i::::::  ,,,::,   ,,, ::::::i:i:iirii:i:i:" << endl;
+	cout << "    :    ,iuUuuXUkFu7i:iii:i:::, :,:,: ::::::::i:i:::::iirr7iiri::" << endl << "    :     :rk@Yizero.i:::::, ,:ii:::::::i:::::i::,::::iirrriiiri::," << endl;
+	cout << "     :      5BMBBBBBBSr:,::rv2kuii:::iii::,:i:,, , ,,:,:i@petermu.," << endl << "          , :r50EZ8MBBBBGOBBBZP7::::i::,:::::,: :,:,::i;rrririiii::" << endl;
+	cout << "              :jujYY7LS0ujJL7r::,::i::,::::::::::::::iirirrrrrrr:ii:" << endl << "           ,:  :@kevensun.:,:,,,::::i:i:::::,,::::::iir;ii;7v77;ii;i," << endl;
+	cout << "           ,,,     ,,:,::::::i:iiiii:i::::,, ::::iiiir@xingjief.r;7:i," << endl << "        , , ,,,:,,::::::::iiiiiiiiii:,:,:::::::::iiir;ri7vL77rrirri::" << endl;
+	cout << "         :,, , ::::::::i:::i:::i:i::,,,,,:,::i:i:::iir;@Secbone.ii:::" << endl;
+	cout << ">>********************************************************************************<<" << endl;
+	cout << ">>*                              Welcome to OSnow!                               *<<" << endl;
+	cout << ">>********************************************************************************<<" << endl << endl;
 }
