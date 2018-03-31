@@ -7,6 +7,7 @@
 #include<ctime>
 #include<sstream>
 #include<Windows.h>
+#include<conio.h>
 using namespace std;
 /* 注：父子进程级联删除;
 正在运行进程为就绪队列首元素
@@ -74,6 +75,7 @@ extern map<string, PCB> process;
 extern map<string, resource> allResource;
 extern int counter;
 extern int timeSlot;
+extern bool isRunning;
 
 
 /*功能函数*/
@@ -99,9 +101,9 @@ void pri();
 
 /*工具函数*/
 string toString(int i);
-string nametoPID(string name);
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet);
 DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet);
+void Screen();
 
 
 /*皮一下*/

@@ -457,7 +457,7 @@ void pri() {
 	while (iter1 != allResource.end()) {
 		cout << "R" << iter1->second.RID << "::" << iter1->second.waitingL.size() << "\t";
 		for (i = 0; i < iter1->second.waitingL.size(); i++)
-			cout << "p" + iter1->second.waitingL[i].PID + " ";
+			cout << process.find(iter1->second.waitingL[i].PID)->second.name + "::" + iter1->second.waitingL[i].PID + " ";
 		cout << endl;
 		iter1++;
 	}
@@ -467,16 +467,6 @@ string toString(int i) {
 	stringstream s;
 	s << i;
 	return s.str();
-}
-
-string nametoPID(string name) {
-	auto iter = process.begin();
-	while (iter != process.end()) {
-		if (iter->second.name == name)
-			return iter->second.PID;
-		iter++;
-	}
-	return "";
 }
 
 void painting() {

@@ -26,12 +26,14 @@ extern map<string, PCB> process;
 extern map<string, resource> allResource;
 int counter;
 int timeSlot;
+bool isRunning = TRUE;
 
 int main() {
 	int i, j;
 	string s;
 	string command;
 	counter = 1;
+	Screen();
 	painting();
 	srand((unsigned)time(NULL));
 	for (i = 1; i <= MAX_RESOURCE_AMOUNT; i++) {
@@ -42,22 +44,47 @@ int main() {
 	CreateThread(NULL, 0, TIMER_SEC, NULL, 0, NULL);
 	CreateThread(NULL, 0, TIMER_NINE_SEC, NULL, 0, NULL);
 	while (true) {
-		s = getRunningProcess();
-		if (s == "")
-			break;
-		PCB &p = (*(process.find(s))).second;
 		cout << ">>";
 		getline(cin, command);
-		if (command == "kill process") {
-			string name;
-			cout << "Please enter the process name:" << endl;
-			cin >> name;
-			getline(cin, s);
-			s = nametoPID(name);
-			killProcess(s);
-		}
-		else if (command == "open OSnow task manager") {
-			pri();
+		if (command == "open OSnow task manager") {
+			while (TRUE) {
+				pri();
+				pri:
+				Sleep(1000);
+				system("cls");
+				painting();
+				cout << ">>********************************************************************************<<" << endl;
+				cout << ">>*                             OSnow Task Manager                               *<<" << endl;
+				cout << ">>********************************************************************************<<" << endl;
+				if (_kbhit()) {
+					pri();
+					getline(cin, s);
+					break;
+				}
+			}
+			cout << ">>";
+			getline(cin, command);
+			if (command == "kill process") {
+				pri();
+				isRunning = FALSE;
+				while (TRUE) {
+					cout << "Please enter the PID:" << endl;
+					cin >> s;
+					if (process.find(s) != process.end())
+						break;
+					cout << "Error PID!" << endl;
+				}
+				killProcess(s);
+				cout << "Process and its subprocesses have been killed!" << endl;
+				isRunning = TRUE;
+				goto pri;
+			}
+			else if (command == "exit to menu")
+				continue;
+			else {
+				cout << "Error command!" << endl;
+				goto pri;
+			}
 		}
 		else if (command == "exit")
 			break;
@@ -73,6 +100,8 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 	timeSlot = 0;
 	while (TRUE) {
 		Sleep(1000);
+		while (!isRunning)
+			Sleep(1000);
 		timeSlot++;
 		string s = getRunningProcess();
 		if (s == "") {
@@ -134,6 +163,8 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 	while (TRUE) {
 		Sleep(9000);
+		while (!isRunning)
+			Sleep(9000);
 		int i = rand() % 4;
 		processType type;
 		string s = getRunningProcess();
@@ -171,4 +202,14 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 		}
 	}
 	return 0;
+}
+
+void Screen() {
+	HWND hwnd = GetForegroundWindow();
+	int x = GetSystemMetrics(SM_CXSCREEN) - 1120;
+	int y = GetSystemMetrics(SM_CYSCREEN) - 300;
+	char setting[30];
+	sprintf_s(setting, "mode con:cols=%d lines=%d", x, y);
+	system(setting);
+	MoveWindow(hwnd, 300, 0, x + 300, y + 300, 1);
 }
