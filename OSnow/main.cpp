@@ -24,6 +24,7 @@
 
 extern map<string, PCB> process;
 extern map<string, resource> allResource;
+extern ofstream ofp;
 int counter;
 int timeSlot;
 bool isRunning = TRUE;
@@ -35,6 +36,7 @@ int main() {
 	counter = 1;
 	Screen();
 	painting();
+	annotation();
 	srand((unsigned)time(NULL));
 	for (i = 1; i <= MAX_RESOURCE_AMOUNT; i++) {
 		j = rand() % MAX_SIZE + 1;
@@ -74,6 +76,8 @@ int main() {
 						break;
 					cout << "Error PID!" << endl;
 				}
+				recordTime();
+				ofp << "进程删除（用户操作）" << endl;
 				killProcess(s);
 				cout << "Process and its subprocesses have been killed!" << endl;
 				isRunning = TRUE;
@@ -92,6 +96,7 @@ int main() {
 			cout << "Error command!" << endl;
 	}
 	cout << "Bye~" << endl << endl;
+	ofp.close();
 	system("pause");
 	return 0;
 }
@@ -111,6 +116,8 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 		PCB &p = (*(process.find(s))).second;
 		p.runtime--;
 		if (!p.runtime) {
+			recordTime();
+			ofp << "进程删除（非用户操作）" << endl;
 			killProcess(p.PID);
 			timeSlot = 0;
 		}
@@ -134,10 +141,23 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 			int RID = rand() % MAX_RESOURCE_AMOUNT + 1;
 			resource &r = getResource(toString(RID));
 			int amount = rand() % r.amount + 1;
+			recordTime();
+			ofp << "进程资源申请" << endl;
+			ofp << "进程名称：" << p.name << "  ";
+			ofp << "进程标识：" << p.PID << "  ";
+			if (p.type == processType::forSystem)
+				ofp << "进程种类：系统进程" << "  ";
+			else
+				ofp << "进程种类：用户进程" << "  ";
+			ofp << "资源种类：R" << RID << "  ";
+			ofp << "资源数量：" << amount;
 			int j = r.request(s, amount);
-			if (j)
+			if (j) {
+				ofp << "（申请成功）" << endl;
 				p.increaseResource(toString(RID), amount);
+			}
 			else {
+				ofp << "（申请失败，阻塞）" << endl;
 				int i;
 				string nextPList[MAX_RESOURCE_AMOUNT];
 				for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)

@@ -4,6 +4,7 @@ list<string> readyList[2];
 list<string> blockedList[2];
 map<string, PCB> process;
 map<string, resource> allResource;
+ofstream ofp;
 
 //默认 PCB 创建函数
 processControlBlock::processControlBlock() {
@@ -24,7 +25,7 @@ void processControlBlock::createChildP(string PID, string name, processType type
 	child.parentPID = this->PID;
 	child.type = type;
 	this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
-	process.insert(make_pair(child.PID, child));
+	insertProcess(child.PID, child);
 	insertRL(child.PID, child.type);
 }
 
@@ -123,6 +124,15 @@ resource& getResource(string RID) {
 }
 
 void insertProcess(string PID, PCB p) {
+	recordTime();
+	ofp << "进程创建" << endl;
+	ofp << "进程名称：" << p.name << "  ";
+	ofp << "进程标识：" << p.PID << "  ";
+	if (p.type == processType::forSystem)
+		ofp << "进程种类：系统进程" << "  ";
+	else
+		ofp << "进程种类：用户进程" << "  ";
+	ofp << "运行时间：" << p.runtime << endl;
 	process.insert(make_pair(PID, p));
 }
 
@@ -211,6 +221,12 @@ void destroyProcess(string PID) {
 			iter5++;
 		}
 	}
+	ofp << "进程名称：" << p.name << "  ";
+	ofp << "进程标识：" << p.PID << "  ";
+	if (p.type == processType::forSystem)
+		ofp << "进程种类：系统进程" << endl;
+	else
+		ofp << "进程种类：用户进程" << endl;
 	process.erase(PID);
 	if (tmp)
 		dispatcher();
@@ -390,6 +406,8 @@ void dispatcher() {
 }
 
 void RR() {
+	recordTime();
+	ofp << "时间片轮转" << endl;
 	string s = getRunningProcess();
 	if (s == "")
 		return;
@@ -397,6 +415,19 @@ void RR() {
 	contextSwitch(p.type);
 	insertRL(p.PID, p.type);
 	dispatcher();
+}
+
+void annotation() {
+	ofp.open("log.txt", ios::out);
+	ofp << "************************************************************************************" << endl;
+	ofp << ">>*                                                                进程日志                                                                 *<<" << endl;
+	ofp << "************************************************************************************" << endl;
+}
+
+void recordTime() {
+	SYSTEMTIME time;
+	GetSystemTime(&time);
+	ofp << time.wYear << "-" << time.wMonth << "-" << time.wDay << " " << time.wHour << ":" << time.wMinute << ":" << time.wSecond << " ";
 }
 
 void pri() {

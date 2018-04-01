@@ -8,6 +8,7 @@
 #include<sstream>
 #include<Windows.h>
 #include<conio.h>
+#include<fstream>
 using namespace std;
 /* 注：父子进程级联删除;
 正在运行进程为就绪队列首元素
@@ -39,7 +40,7 @@ enum processOperate {							//进程操作
 typedef struct processControlBlock {			//进程控制块
 	string PID;									//进程标识
 	string name;								//进程名称
-	string parentPID = "";						//父进程名称
+	string parentPID = "";						//父进程标识
 	int runtime = rand() % MAX_RUNTIME + 1;
 	processState state = ready;					//进程状态
 	processType type;							//进程种类
@@ -76,6 +77,7 @@ extern map<string, resource> allResource;
 extern int counter;
 extern int timeSlot;
 extern bool isRunning;
+extern ofstream ofp;
 
 
 /*功能函数*/
@@ -97,6 +99,8 @@ string getRunningProcess();						//获取当前执行进程
 void dispatcher();								//调度
 void RR();
 void pri();
+void annotation();
+void recordTime();
 
 
 /*工具函数*/
