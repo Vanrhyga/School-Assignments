@@ -58,8 +58,19 @@ void processControlBlock::releaseAllResource(string* s) {
 		iter++;
 	}
 	auto riter = resources.begin();
+	if (riter != resources.end()) {
+		ofp << "进程资源释放" << endl;
+		ofp << "进程名称：" << name << "  ";
+		ofp << "进程标识：" << PID << "  ";
+		if (type == processType::forSystem)
+			ofp << "进程种类：系统进程" << endl;
+		else
+			ofp << "进程种类：用户进程" << endl;
+	}
 	for (i = 0; riter != resources.end(); riter++, i++) {
 		resource &r = getResource(riter->first);
+		ofp << "资源种类：R" << r.RID << "  ";
+		ofp << "资源数量：" << riter->second << endl;
 		s[i] = r.release(riter->second, PID);
 	}
 	resources.clear();
@@ -239,13 +250,25 @@ void killProcess(string PID) {
 	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
 		nextPList[i] = "";
 	tmp.releaseAllResource(nextPList);
+	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
+		if (nextPList[i] != "") {
+			ofp << "进程阻塞解除" << endl;
+			break;
+		}
 	for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
 		if (nextPList[i] != "") {
 			PCB &nextProcess = (*(process.find(nextPList[i]))).second;
+			ofp << "进程名称：" << nextProcess.name << "  ";
+			ofp << "进程标识：" << nextProcess.PID << "  ";
+			if (nextProcess.type == processType::forSystem)
+				ofp << "进程种类：系统进程" << endl;
+			else
+				ofp << "进程种类：用户进程" << endl;
 			outBL(nextProcess.PID, nextProcess.type);
 			insertRL(nextProcess.PID, nextProcess.type);
 		}
 	}
+	ofp << "进程删除" << endl;
 	destroyProcess(PID);
 }
 
@@ -406,8 +429,6 @@ void dispatcher() {
 }
 
 void RR() {
-	recordTime();
-	ofp << "时间片轮转" << endl;
 	string s = getRunningProcess();
 	if (s == "")
 		return;
@@ -419,9 +440,9 @@ void RR() {
 
 void annotation() {
 	ofp.open("log.txt", ios::out);
-	ofp << "************************************************************************************" << endl;
-	ofp << ">>*                                                                进程日志                                                                 *<<" << endl;
-	ofp << "************************************************************************************" << endl;
+	ofp << "**************************************************************************************" << endl;
+	ofp << ">>*                                                                  进程日志                                                                   *<<" << endl;
+	ofp << "**************************************************************************************" << endl;
 }
 
 void recordTime() {

@@ -77,7 +77,7 @@ int main() {
 					cout << "Error PID!" << endl;
 				}
 				recordTime();
-				ofp << "进程删除（用户操作）" << endl;
+				ofp << "用户操作 " << endl;
 				killProcess(s);
 				cout << "Process and its subprocesses have been killed!" << endl;
 				isRunning = TRUE;
@@ -117,19 +117,32 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 		p.runtime--;
 		if (!p.runtime) {
 			recordTime();
-			ofp << "进程删除（非用户操作）" << endl;
+			ofp << "非用户操作" << endl;
 			killProcess(p.PID);
 			timeSlot = 0;
 		}
 		if (timeSlot == 10) {
 			int i;
 			string nextPList[MAX_RESOURCE_AMOUNT];
+			recordTime();
+			ofp << "时间片轮转" << endl;
 			for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
 				nextPList[i] = "";
 			p.releaseAllResource(nextPList);
+			for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
+				if (nextPList[i] != "") {
+					ofp << "进程阻塞解除" << endl;
+					break;
+				}
 			for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
 				if (nextPList[i] != "") {
 					PCB &nextProcess = (*(process.find(nextPList[i]))).second;
+					ofp << "进程名称：" << nextProcess.name << "  ";
+					ofp << "进程标识：" << nextProcess.PID << "  ";
+					if (nextProcess.type == processType::forSystem)
+						ofp << "进程种类：系统进程" << endl;
+					else
+						ofp << "进程种类：用户进程" << endl;
 					outBL(nextProcess.PID, nextProcess.type);
 					insertRL(nextProcess.PID, nextProcess.type);
 				}
@@ -163,9 +176,20 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 				for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
 					nextPList[i] = "";
 				p.releaseAllResource(nextPList);
+				for (i = 0; i < MAX_RESOURCE_AMOUNT; i++)
+					if (nextPList[i] != "") {
+						ofp << "进程阻塞解除" << endl;
+						break;
+					}
 				for (i = 0; i < MAX_RESOURCE_AMOUNT; i++) {
 					if (nextPList[i] != "") {
 						PCB &nextProcess = (*(process.find(nextPList[i]))).second;
+						ofp << "进程名称：" << nextProcess.name << "  ";
+						ofp << "进程标识：" << nextProcess.PID << "  ";
+						if (nextProcess.type == processType::forSystem)
+							ofp << "进程种类：系统进程" << endl;
+						else
+							ofp << "进程种类：用户进程" << endl;
 						outBL(nextProcess.PID, nextProcess.type);
 						insertRL(nextProcess.PID, nextProcess.type);
 					}
