@@ -26,7 +26,7 @@ void processControlBlock::createChildP(string PID, string name, processType type
 	child.type = type;
 	this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
 	insertProcess(child.PID, child);
-	insertRL(child.PID, child.type);
+	insertRL(child.PID, child.type);									//进入就绪队列
 }
 
 //所需资源增加函数
@@ -35,7 +35,6 @@ void processControlBlock::increaseResource(string RID, int amount) {
 		(*resources.find(RID)).second += amount;
 	else
 		resources.insert(make_pair(RID, amount));
-
 }
 
 //资源统计函数
@@ -49,6 +48,7 @@ int processControlBlock::countResource(string RID) {
 		return 0;
 }
 
+//父子进程资源释放函数
 void processControlBlock::releaseAllResource(string* s) {
 	int i;
 	auto iter = childProcess.begin();
@@ -89,8 +89,8 @@ int resource::request(string PID, int amount) {
 		freeAmount -= amount;
 		return 1;
 	}
-	else {															//若超出空闲资源数
-		waitingL.push_back({ PID,amount });							//插入等待队列
+	else {																//若超出空闲资源数
+		waitingL.push_back({ PID,amount });								//插入等待队列
 		return 0;
 	}
 }
@@ -428,6 +428,7 @@ void dispatcher() {
 	}
 }
 
+//时间片轮转函数
 void RR() {
 	string s = getRunningProcess();
 	if (s == "")

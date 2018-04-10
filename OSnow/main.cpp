@@ -101,6 +101,7 @@ int main() {
 	return 0;
 }
 
+//√Î±Ì
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 	timeSlot = 0;
 	while (TRUE) {

@@ -16,20 +16,20 @@ using namespace std;
 
 
 /*常量*/
-#define MAX_RESOURCE_AMOUNT 3
-#define MAX_SIZE			12
-#define MAX_RUNTIME			27
+#define MAX_RESOURCE_AMOUNT 3					//资源种类上限
+#define MAX_SIZE			12					//资源数量上限
+#define MAX_RUNTIME			27					//运行时间上限
 
 
 /*枚举*/
 enum processState {								//进程状态
-	ready,running,blocked
+	ready,running,blocked						//就绪，运行，阻塞
 };
 enum listType {									//队列种类
-	readyL,blockedL
+	readyL,blockedL								//就绪队列，阻塞队列
 };
 enum processType {								//进程种类
-	user,forSystem
+	user,forSystem								//用户进程，系统进程
 };
 enum processOperate {							//进程操作
 	request,release,timeout,dispatch
@@ -41,7 +41,7 @@ typedef struct processControlBlock {			//进程控制块
 	string PID;									//进程标识
 	string name;								//进程名称
 	string parentPID = "";						//父进程标识
-	int runtime = rand() % MAX_RUNTIME + 1;
+	int runtime = rand() % MAX_RUNTIME + 1;		//运行时间
 	processState state = ready;					//进程状态
 	processType type;							//进程种类
 	listType list = readyL;						//所在队列
@@ -52,7 +52,7 @@ typedef struct processControlBlock {			//进程控制块
 	void createChildP(string PID, string name, processType type);		//创建子进程
 	void increaseResource(string RID, int amount);						//增加所需资源
 	int countResource(string RID);				//统计资源
-	void releaseAllResource(string *s);
+	void releaseAllResource(string *s);			//释放所有资源
 }PCB;
 struct processInfo {							//进程信息
 	string PID;									//进程标识
@@ -97,7 +97,7 @@ void intoRunning(processType type);				//切换运行状态
 void outOfRunning(string PID, processType type, processState state);	//结束运行状态
 string getRunningProcess();						//获取当前执行进程
 void dispatcher();								//调度
-void RR();
+void RR();										//轮转
 void pri();
 void annotation();
 void recordTime();
@@ -105,7 +105,7 @@ void recordTime();
 
 /*工具函数*/
 string toString(int i);
-DWORD WINAPI TIMER_SEC(LPVOID lpparentet);
+DWORD WINAPI TIMER_SEC(LPVOID lpparentet);		//秒表
 DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet);
 void Screen();
 
