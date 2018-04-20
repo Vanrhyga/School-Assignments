@@ -1,10 +1,11 @@
-#include <stdio.h>      
-#include <string.h>      
+#include <iostream>      
+#include <string>      
 #include <windows.h> 
 #include <sql.h>
 #include <sqlext.h>
 #include <sqltypes.h>      
-#include <odbcss.h>  
+#include <odbcss.h>
+using namespace std;
 
 #pragma comment (lib,"odbc32.lib")
 #pragma comment (lib,"libmysql.lib")
@@ -37,16 +38,18 @@ struct Sc{
 };
 
 unsigned char sqlSelect[3][100] = { "select * from course", "select * from student", "select * from sc" };
+unsigned char sqlOper[MAXBUFLEN];
 
-void operateCourse(HDBC);
-void operateStudent(HDBC);
-void operateSc(HDBC);
+void priCourse(HDBC);
+void priStudent(HDBC);
+void priSc(HDBC);
 
 int main(){
 	RETCODE retcode;							//定义返回代码
 	UCHAR szDSN[10] = "mysqlodbc";				//数据源
 	UCHAR userID[5] = "root";					//用户名
 	UCHAR passWORD[7] = "142857";				//密码
+	string s;
   
 	retcode = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &henv);
 	retcode = SQLSetEnvAttr(henv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, SQL_IS_INTEGER);
@@ -54,17 +57,40 @@ int main(){
 	retcode = SQLConnect(hdbc, szDSN, SQL_NTS, userID, SQL_NTS, passWORD, SQL_NTS);
 
 	if ((retcode != SQL_SUCCESS) && (retcode != SQL_SUCCESS_WITH_INFO))
-		printf("连接失败!\n");
-	else {
-		operateCourse(hdbc);
-		operateStudent(hdbc);
-		operateSc(hdbc);
-	}
+		cout << "Connect failed!" << endl;
+	else 
+		while (true) {
+			cout << "mysql>";
+			getline(cin, s);
+			if (s != "exit") {
+				strcpy_s((char*)sqlOper, MAXBUFLEN, s.c_str());
+
+				retcode = SQLAllocStmt(hdbc, &hstmt);
+				retcode = SQLExecDirect(hstmt, sqlOper, SQL_NTS);
+
+				if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
+					cout << "Query OK(0.00 sec)" << endl;
+				else
+					cout << "ERROR" << endl;
+				SQLFreeStmt(hstmt, SQL_DROP);
+
+				if (s.find("course") != string::npos)
+					priCourse(hdbc);
+				else if (s.find("student") != string::npos)
+					priStudent(hdbc);
+				else if (s.find("sc") != string::npos)
+					priSc(hdbc);
+			}
+			else {
+				cout << "Bye~" << endl;
+				break;
+			}
+		}
 	system("pause");
 	return 0;
 }
 
-void operateCourse(HDBC hdbc){
+void priCourse(HDBC hdbc){
 	HSTMT hstmt;
 	RETCODE retcode;
 
@@ -82,9 +108,9 @@ void operateCourse(HDBC hdbc){
 		retcode = SQLExecDirect(hstmt, sqlSelect[0], SQL_NTS);
 		
 		if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO){
-			printf("Course is as following:\n");
-			printf("----------------------------------------------------------------\n");
-			printf("cno       cname          credit\n");
+			cout << "Course is as following:" << endl;
+			cout << "*******************************" << endl;
+			cout << "cno       cname          credit" << endl;
 
 			retcode = SQLFetch(hstmt);
 			
@@ -92,13 +118,13 @@ void operateCourse(HDBC hdbc){
 				printf("%-10s%-20s%-16d\n", ccell->cno, ccell->cname, ccell->credit);
 				retcode = SQLFetch(hstmt);
 			}
-			printf("----------------------------------------------------------------\n\n");
+			cout << "*******************************" << endl;
 		}
 	}
 	SQLFreeStmt(hstmt, SQL_DROP);
 }
 
-void operateStudent(HDBC hdbc){
+void priStudent(HDBC hdbc){
 	HSTMT hstmt;
 	RETCODE retcode;
 
@@ -119,9 +145,9 @@ void operateStudent(HDBC hdbc){
 		retcode = SQLExecDirect(hstmt, sqlSelect[1], SQL_NTS);
 		
 		if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO){
-			printf("Student is as following:\n");
-			printf("-----------------------------------------------------------------------------\n");
-			printf("sno       sname          sex       bdate                    dept      classno\n");
+			cout << "Student is as following:" << endl;
+			cout << "*****************************************************************************" << endl;
+			cout << "sno       sname          sex       bdate                    dept      classno" << endl;
 
 			retcode = SQLFetch(hstmt);
 			
@@ -129,14 +155,13 @@ void operateStudent(HDBC hdbc){
 				printf("%-10s%-15s%-10s%-25s%-10s%-15s\n", scell->sno, scell->sname, scell->sex, scell->bdate, scell->dept, scell->classno);
 				retcode = SQLFetch(hstmt);
 			}
-
-			printf("------------------------------------------------------------------------------\n\n");
+			cout << "*****************************************************************************" << endl;
 		}
 	}
 	SQLFreeStmt(hstmt, SQL_DROP);
 }
 
-void operateSc(HDBC hdbc) {
+void priSc(HDBC hdbc) {
 	HSTMT hstmt;
 	RETCODE retcode;
 
@@ -154,9 +179,9 @@ void operateSc(HDBC hdbc) {
 		retcode = SQLExecDirect(hstmt, sqlSelect[2], SQL_NTS);
 
 		if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
-			printf("Sc is as following:\n");
-			printf("----------------------------------------------------------------\n");
-			printf("sno       cno          grade\n");
+			cout << "Sc is as following:" << endl;
+			cout << "****************************" << endl;
+			cout << "sno       cno          grade" << endl;
 
 			retcode = SQLFetch(hstmt);
 
@@ -164,7 +189,7 @@ void operateSc(HDBC hdbc) {
 				printf("%-10s%-16s%d\n", cell->sno, cell->cno, cell->grade);
 				retcode = SQLFetch(hstmt);
 			}
-			printf("----------------------------------------------------------------\n\n");
+			cout << "****************************" << endl;
 		}
 	}
 	SQLFreeStmt(hstmt, SQL_DROP);
