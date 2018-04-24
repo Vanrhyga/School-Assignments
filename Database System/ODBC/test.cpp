@@ -16,6 +16,7 @@ SQLHENV henv = SQL_NULL_HENV;					//初始化环境句柄
 SQLHDBC hdbc = SQL_NULL_HDBC;					//初始化连接句柄
 SQLHSTMT hstmt = SQL_NULL_HSTMT;				//初始化语句句柄
 
+/*结构*/
 struct Course{
 	char cno[4];
 	char cname[15];
@@ -40,6 +41,7 @@ struct Sc{
 unsigned char sqlSelect[3][100] = { "select * from course", "select * from student", "select * from sc" };
 unsigned char sqlOper[MAXBUFLEN];
 
+/*打印数据库信息*/
 void priCourse(HDBC);
 void priStudent(HDBC);
 void priSc(HDBC);
@@ -51,10 +53,10 @@ int main(){
 	UCHAR passWORD[7] = "142857";				//密码
 	string s;
   
-	retcode = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &henv);
+	retcode = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &henv);				//初始化ODBC环境，分配环境句柄
 	retcode = SQLSetEnvAttr(henv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, SQL_IS_INTEGER);
-	retcode = SQLAllocHandle(SQL_HANDLE_DBC, henv, &hdbc);
-	retcode = SQLConnect(hdbc, szDSN, SQL_NTS, userID, SQL_NTS, passWORD, SQL_NTS);
+	retcode = SQLAllocHandle(SQL_HANDLE_DBC, henv, &hdbc);							//为连接句柄分配内存并返回
+	retcode = SQLConnect(hdbc, szDSN, SQL_NTS, userID, SQL_NTS, passWORD, SQL_NTS);	//连接数据库
 
 	if ((retcode != SQL_SUCCESS) && (retcode != SQL_SUCCESS_WITH_INFO))
 		cout << "Connect failed!" << endl;
@@ -65,14 +67,14 @@ int main(){
 			if (s != "exit") {
 				strcpy_s((char*)sqlOper, MAXBUFLEN, s.c_str());
 
-				retcode = SQLAllocStmt(hdbc, &hstmt);
-				retcode = SQLExecDirect(hstmt, sqlOper, SQL_NTS);
+				retcode = SQLAllocStmt(hdbc, &hstmt);								
+				retcode = SQLExecDirect(hstmt, sqlOper, SQL_NTS);					//向ODBC数据源提交SQL语句，实现数据库操作
 
 				if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
 					cout << "Query OK(0.00 sec)" << endl;
 				else
 					cout << "ERROR" << endl;
-				SQLFreeStmt(hstmt, SQL_DROP);
+				SQLFreeStmt(hstmt, SQL_DROP);										
 
 				if (s.find("course") != string::npos)
 					priCourse(hdbc);
@@ -83,6 +85,9 @@ int main(){
 			}
 			else {
 				cout << "Bye~" << endl;
+				SQLDisconnect(hdbc);			//切断连接
+				SQLFreeConnect(hdbc);			//释放与连接句柄相关的资源
+				SQLFreeEnv(henv);				//释放与环境句柄相关的资源
 				break;
 			}
 		}
@@ -101,18 +106,18 @@ void priCourse(HDBC hdbc){
 	retcode = SQLAllocStmt(hdbc, &hstmt);
 
 	if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO){
-		retcode = SQLBindCol(hstmt, 1, SQL_C_CHAR, ccell->cno, 4, &lenOut1);
-		retcode = SQLBindCol(hstmt, 2, SQL_C_CHAR, ccell->cname, 15, &lenOut2);
+		retcode = SQLBindCol(hstmt, 1, SQL_C_CHAR, ccell->cno, 4, &lenOut1);		//将应用程序的数据缓冲绑定到结果集各列
+		retcode = SQLBindCol(hstmt, 2, SQL_C_CHAR, ccell->cname, 15, &lenOut2);					
 		retcode = SQLBindCol(hstmt, 3, SQL_C_SLONG, &ccell->credit, sizeof(int), &lenOut3);
 
-		retcode = SQLExecDirect(hstmt, sqlSelect[0], SQL_NTS);
+		retcode = SQLExecDirect(hstmt, sqlSelect[0], SQL_NTS);						//将SQL语句送至数据库服务器，执行由其定义的访问
 		
 		if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO){
 			cout << "Course is as following:" << endl;
 			cout << "*******************************" << endl;
 			cout << "cno       cname          credit" << endl;
 
-			retcode = SQLFetch(hstmt);
+			retcode = SQLFetch(hstmt);												//相当于SQLFetchAdvances和SQLGetData两个函数的功能
 			
 			while (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO){
 				printf("%-10s%-20s%-16d\n", ccell->cno, ccell->cname, ccell->credit);
@@ -121,7 +126,7 @@ void priCourse(HDBC hdbc){
 			cout << "*******************************" << endl;
 		}
 	}
-	SQLFreeStmt(hstmt, SQL_DROP);
+	SQLFreeStmt(hstmt, SQL_DROP);													//释放语句句柄
 }
 
 void priStudent(HDBC hdbc){
