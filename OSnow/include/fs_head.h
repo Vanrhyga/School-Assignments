@@ -6,13 +6,16 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
+#include<windows.h>
+//#include<unistd.h>
+#include<direct.h>
 //#include "vmm.h"
 
 #define True 1
 #define False 0
 #define Bool int
-#define max_size 4096
-#define block_size 128
+#define max_size 4194301
+#define block_size 1024
 
 typedef struct file { //file structure
 	int start;  //start blocks number
@@ -53,12 +56,13 @@ typedef struct disk { //the disk structure
 }Disk;
 
 //global variables declare in main()
-extern char content[4096];  //the real disk
+extern char content[max_size];  //the real disk
 extern Disk* the_disk;  //the empty dick
 extern Dir* the_dir;  //the base directory
 extern Dir* current_dir; //the current directory
 extern Open* current_open; //opened files
 extern int choice;
+extern char current_path[500];
 
 //providing API for other program
 Bool createFile(char name[], int protect[]); //create a new file
@@ -135,7 +139,9 @@ Bool create_dir(char name[], Dir* currentDir); //add the new directory into the 
 											   //deleteDir() will call:
 Bool delete_dir(char name[], Dir* currentDir); //delete the directory and the files, directories under this directory
 Bool find_same_file(char name[], Dir* currentDir);
+Bool find_same_dir(char name[], Dir* currentDir);
 void present();
+
 
 
 #endif // FS_HEAD_H_INCLUDED

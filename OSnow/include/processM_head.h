@@ -25,16 +25,16 @@ using namespace std;
 
 /*枚举*/
 enum processState {								//进程状态
-	ready,running,blocked						//就绪，运行，阻塞
+	ready, running, blocked						//就绪，运行，阻塞
 };
 enum listType {									//队列种类
-	readyL,blockedL								//就绪队列，阻塞队列
+	readyL, blockedL							//就绪队列，阻塞队列
 };
 enum processType {								//进程种类
-	user,forSystem								//用户进程，系统进程
+	user, forSystem								//用户进程，系统进程
 };
 enum processOperate {							//进程操作
-	request,release,timeout,dispatch
+	request, release, timeout, dispatch
 };
 
 
@@ -49,7 +49,8 @@ typedef struct processControlBlock {			//进程控制块
 	listType list = readyL;						//所在队列
 	map<string, int> resources;					//已占有资源
 	map<string, processControlBlock> childProcess;						//子进程
-	size_vm size = rand() % MAX_VM_SIZE + 1;	//虚存空间大小
+	//size_vm size = rand() % MAX_VM_SIZE + 1;	//虚存空间大小
+	size_vm size = 8000;						//虚存空间大小
 	vaddr start;								//虚存起始地址
 	char* buffer = "fuck";						//缓冲区
 	processControlBlock();
@@ -63,7 +64,7 @@ struct processInfo {							//进程信息
 	string PID;									//进程标识
 	int reqAmount;								//申请资源数
 };
-struct resource{								//资源
+struct resource {								//资源
 	string RID;									//资源标识
 	int amount;									//资源总量
 	int freeAmount;								//空闲资源数

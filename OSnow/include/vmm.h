@@ -16,7 +16,7 @@
 #define PAGE_SIZE 1024
 #define MAX_MEMORY_SIZE 16614178816
 #define ERROR_ADDR 0
-#define REPLACEMENT_ALGORITHM SECOND_CHANCE_ALGORITHM
+#define REPLACEMENT_ALGORITHM LFU
 #define LFU 1
 #define SECOND_CHANCE_ALGORITHM 2
 #define MFU_ALGORITHM 3
@@ -97,22 +97,22 @@ struct PTE
 /*
 *	Allocate somevirtual memory to VMM.
 */
-vaddr Allocate_VM(const procid &id, size_vm size);
+vaddr Allocate_VM(   procid &id, size_vm size);
 
 /*
 *	Free all virtual memory.
 */
-int Free_VM(const procid &id);
+int Free_VM(   procid &id);
 
 /*
 * Write some data into virtual memory.
 */
-int Write_VM(const procid &id, vaddr begin_vaddr, size_vm size, char * content);
+int Write_VM(   procid &id, vaddr begin_vaddr, size_vm size, char * content);
 
 /*
 *	Read some data from virtual memory.
 */
-int Read_VM(const procid &id, vaddr begin_vaddr, size_vm size, char *content);
+int Read_VM(   procid &id, vaddr begin_vaddr, size_vm size, char *content);
 
 /*
 * copy the memory when fork a process.
@@ -129,7 +129,7 @@ vaddr fork_memory(procid parent, procid child);
 translate virtual address into physical address.
 use by user process.
 */
-paddr vaddr2paddr(const procid &id, vaddr vaddress);
+paddr vaddr2paddr(   procid &id, vaddr vaddress);
 
 /*
 translate virtual address into physical address.
@@ -140,7 +140,7 @@ paddr vaddr2paddr(vaddr vaddress);
 /*
 *	I forget the useage of this function.
 */
-int Motify_PTE(const procid &id, vaddr vaddress);
+int Motify_PTE(   procid &id, vaddr vaddress);
 
 /*
 translate physical address into virtual address.
@@ -151,12 +151,12 @@ use by kerrnel.
 /*
 *	Get the status of a pte.
 */
-flag Get_PTE_statues(const procid &id, vaddr vaddress);
+flag Get_PTE_statues(   procid &id, vaddr vaddress);
 
 /*
 *	Get the VMM by process id.
 */
-VMM * GetVMM(const procid &id);
+VMM * GetVMM(   procid &id);
 
 /*
 * Init all VMM.
@@ -166,7 +166,7 @@ int VMInit();
 /*
 *	replace function.
 */
-paddr ReplacePM(const procid &id, PTE* source_pte);
+paddr ReplacePM(   procid &id, PTE* source_pte);
 
 /*
 *	Get the phisical memory.
@@ -177,7 +177,7 @@ char Get_PM(paddr paddress);
 /*
 *	Get the pte,
 */
-PTE * GetPTE(const procid &id, vaddr vaddress);
+PTE * GetPTE(   procid &id, vaddr vaddress);
 
 /*
 *	Write to phisical memory.
@@ -188,7 +188,7 @@ int Write_PM(paddr paddress, char c);
 /*
 *	Show the usage of the pm.
 */
-void ShowPTE(const procid &id);
+void ShowPTE(   procid &id);
 
 /*
 *	Write to Disk.
@@ -205,17 +205,17 @@ int Load_Disk(PTE * pte);
 /*
 *	Get a pte.
 */
-std::vector<PTE*> Get_Proc_PTE(const procid &id);
+std::vector<PTE*> Get_Proc_PTE(   procid &id);
 
 /*
 *	LFU replacement algorithm.
 */
-PTE * LFU_Algorithm(const procid &id);
+PTE * LFU_Algorithm(   procid &id);
 
 /*
 *	Second chance replacement algorithm.
 */
-PTE * Second_Chance_Algorithm(const procid &id);
+PTE * Second_Chance_Algorithm(   procid &id);
 
 extern std::vector<PTE*> page_table;
 extern std::vector<VMM*> proc_vmm;

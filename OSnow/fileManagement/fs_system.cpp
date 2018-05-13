@@ -6,7 +6,7 @@ Dir* the_dir;  //the base directory
 Dir* current_dir; //the current directory
 Open* current_open; //opened files's empty head
 int choice;
-
+char current_path[500];
 
 void initialize()
 {
@@ -52,6 +52,8 @@ Bool cd(char name[])
         if(strcmp(name, child->name) == 0)
         {
             current_dir = child;
+            strcat(current_path, "\\");
+            strcat(current_path, name);
             return True;
         }
         else
@@ -212,7 +214,33 @@ Bool create_dir(char name[], Dir* currentDir)
 
 Bool createDir(char name[])
 {
-    return create_dir(name, current_dir);
+    if(!find_same_dir(name, current_dir))
+    {
+        char path[500];
+        strcpy(path, current_path);
+        strcat(path, "\\");
+        strcat(path, name);
+        CreateDirectory((LPCWSTR)path, NULL);
+        return create_dir(name, current_dir);
+    }
+    else
+    {
+        printf("There is a directory with the same name under this directory.\n");
+        return False;
+    }
+}
+
+Bool find_same_dir(char name[], Dir* currentDir)
+{
+    Dir* head = currentDir->dir_head;
+    for(;head != NULL; head = head->next)
+    {
+        if(strcmp(head->name, name) == 0)
+        {
+            return True;
+        }
+    }
+    return False;
 }
 
 
@@ -225,13 +253,23 @@ Bool createFile(char name[], int protect[])
     if(!find_same_file(name, current_dir))
     {
         int block_no = find_empty(the_disk);
-        char temp[200];
-        strcpy(temp, name);
-        strcat(temp, ".txt");
-        File* new_file = initializeFile(name, block_no, protect);
-        FILE* f = fopen(temp, "w+");
-        fclose(f);
-        return add_file(new_file, current_dir);
+		//printf("5: %d", content[block_no * block_size + block_size - 1]);
+		if (block_no != -2)
+		{
+			char temp[500];
+			strcpy(temp, current_path);
+			strcat(temp, "\\");
+			strcat(temp, name);
+			strcat(temp, ".txt");
+			File* new_file = initializeFile(name, block_no, protect);
+			FILE* f = fopen(temp, "w+");
+			fclose(f);
+			return add_file(new_file, current_dir);
+		}
+		else
+		{
+			printf("There is not enough space!\n");
+		}
     }
     else
     {
@@ -254,6 +292,11 @@ Bool delete_dir(char name[], Dir* currentDir)
         {
             if(strcmp(head->name, name) == 0)
             {
+                char path[500];
+                strcpy(path, current_path);
+                strcat(path, "\\");
+                strcat(path, name);
+                rmdir(path);
                 if(head == currentDir->dir_head)
                 {
                     currentDir->dir_head = head->next;
@@ -465,6 +508,8 @@ Dir* initializeDir()
 
 Disk* initializeDisk_1()
 {//initialize the disk structure and the stack structure
+    getcwd(current_path, 500);
+
     int i=0;
     while((i+1)*block_size<=max_size)
     {
@@ -492,6 +537,8 @@ Disk* initializeDisk_1()
 
 Disk* initializeDisk_2()
 {//initialize the disk structure and the stack structure
+	getcwd(current_path, 500);
+
     int i;
     Disk* new_one=(Disk*)malloc(sizeof(Disk));
     new_one->current_use=0;
@@ -543,6 +590,7 @@ int if_full_1(int length, int current_block, Disk* theDisk)
 {
     while(content[current_block*block_size+block_size-1]!=-1)
     {
+		printf("%d\n", content[current_block*block_size + block_size - 1]);
         current_block=(int)content[current_block*block_size+block_size-1];
     }
     int number=0;
@@ -645,7 +693,8 @@ Bool openFile(char name[])
 char* read_material_1(int start_block, Disk* theDisk, int Size)
 {
     //printf("%d ok\n",start_block);
-    char *str = (char*)malloc(Size+1);
+	char *str;
+	str = (char*)malloc(Size + 1);
     int x=start_block*block_size;  //find the block in the disk
     int i,j=0;
     for(i=0;content[x+i]!='\0'&&i<(block_size-1);i++)
@@ -739,6 +788,12 @@ int remove_file(char name[], Dir* currentDir, Open* currentOpen)
     {
         if(strcmp(head->name, name) == 0)
         {
+            char path[500];
+            strcpy(path, current_path);
+            strcat(path, "\\");
+            strcat(path, name);
+            strcat(path, ".txt");
+            remove(path);
             if(head == currentDir->file_head)
             {
                 currentDir->file_head = head->next;
@@ -795,22 +850,31 @@ void showDir(Dir* currentDir)
 Bool write_material_1(char* new_material, int s_block, Disk* theDisk, int Size, File* this_file)
 {
     int start_block=s_block;
+	//printf("1:%d\n", start_block);
     int tag=if_full_1(Size,start_block,theDisk);
-    //printf("%d\n",tag);
     if(tag==-1) //if the left space is enough
     {
         int i=0;
         int j=0;
-        while(content[start_block*block_size+block_size-1]!=-1)
-            start_block=(int)content[start_block*block_size+block_size-1];
+		while (content[start_block*block_size + block_size - 1] != -1)
+		{
+			//printf("4: %d", content[start_block*block_size + block_size - 1]);
+			start_block=(int)content[start_block*block_size+block_size-1];
+			//printf("3: %d", start_block);
+		}
+            
+
+		//printf("2:%d\n", start_block);
         while(Size>0)
         {
             if(content[start_block*block_size+i]=='\0')
             {
+				//printf("%d %d %d\n", start_block, block_size, i);
                 content[start_block*block_size+i]=new_material[j];
                 Size--;
                 j++;
             }
+
             i++;
         }
         this_file->Size+=strlen(new_material);
@@ -936,8 +1000,10 @@ Bool writeFile(char name[], char add[])
             return False;
         }
         //-----
-        char temp[200];
-        strcpy(temp, name);
+        char temp[500];
+        strcpy(temp, current_path);
+        strcat(temp, "\\");
+        strcat(temp, name);
         strcat(temp, ".txt");
         FILE *f = fopen(temp, "a");
         fprintf(f, add);
@@ -961,6 +1027,14 @@ Bool writeFile_auto(char name[], char add[])
             printf("You have no right to write this file!\n");
             return False;
         }
+		char temp[500];
+		strcpy(temp, current_path);
+		strcat(temp, "\\");
+		strcat(temp, name);
+		strcat(temp, ".txt");
+		FILE *f = fopen(temp, "a");
+		fprintf(f, add);
+		fclose(f);
         if(choice==1)
             return write_material_1(add, this_file->start, the_disk, strlen(add), this_file);
         else
@@ -999,7 +1073,7 @@ void present()
                     int protect[3];
                     if(command[strlen(command)-1] == '1' || command[strlen(command)-1] == '0')
                     {
-                        if(command[strlen(command)-2] == ' ')
+						if ((command[strlen(command) - 2] == ' ') && (command[strlen(command) - 3] == '1' || command[strlen(command) - 3] == '0'))
                         {
                             int i=3;
                             while(command[i] != ' ')
@@ -1166,7 +1240,7 @@ void present()
                 printf("There is no such an command:%s!!\n",command);
             }
         }
-        else if(strcmp(command, "exit") == 0)
+        else if(strcmp(command, "exit to menu") == 0)
         {
             break;
         }

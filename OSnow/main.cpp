@@ -112,9 +112,9 @@ int main() {
 				}
 			}
 		}
-		else if (command == "use file system") 
+		else if (command == "use file system")
 			present();
-		else 
+		else
 			cout << "Error command!" << endl;
 	}
 	cout << "Bye~" << endl << endl;
@@ -223,14 +223,14 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 				timeSlot = 0;
 			}
 		}
-	/*	if (timeSlot % 2 == 1) {
+		if (timeSlot % 2 == 1) {
 			int oper = rand() % 2;
 			size_vm tmp = rand() % p.size + 1;
 			if (oper)
-				Write_VM(p.PID, p.start, tmp, p.buffer);
+			Write_VM(p.PID, p.start, tmp, p.buffer);
 			else
-				Read_VM(p.PID, p.start, tmp, p.buffer);
-		}*/
+			Read_VM(p.PID, p.start, tmp, p.buffer);
+		}
 	}
 	return 0;
 }
@@ -247,7 +247,7 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 			if (i == 0) {
 				counter++;
 				type = processType::forSystem;
-				if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+				if (!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
 					insertRL(toString(counter), type);
 				else {
 					recordTime();
@@ -257,7 +257,7 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 			else if (i == 1) {
 				counter++;
 				type = processType::user;
-				if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+				if (!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
 					insertRL(toString(counter), type);
 				else {
 					recordTime();
@@ -270,7 +270,7 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 		if (i == 0) {
 			counter++;
 			type = processType::forSystem;
-			if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+			if (!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
 				insertRL(toString(counter), type);
 			else {
 				recordTime();
@@ -280,17 +280,17 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 		else if (i == 1) {
 			counter++;
 			type = processType::user;
-			if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+			if (!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
 				insertRL(toString(counter), type);
 			else {
 				recordTime();
 				ofp << "空间不足，进程创建失败" << endl;
 			}
 		}
-		else if (i == 2) {
+		/*else if (i == 2) {
 			counter++;
 			p.createChildP(toString(counter), "childOfp" + p.PID, p.type);
-		}
+		}*/
 	}
 	return 0;
 }

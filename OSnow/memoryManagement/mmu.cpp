@@ -1,7 +1,7 @@
 #include"mmu.h"
 
 ofstream printlog;		//日志
-size_t   memNum = MSIZE;//物存总大小
+size_t   memNum = MSIZE;//物存总大小(修改)
 time_t   now;           //时间
 char*    dt;			//输出时间字符
 
@@ -10,7 +10,7 @@ memList block_last;			//尾结点
 
 extern int allocMode;
 
-Status Initblock()			
+Status Initblock()
 {
 	block_first = new memNode;
 	block_last = new memNode;
@@ -27,7 +27,7 @@ Status Initblock()
 	return OK;
 }
 
-Status alloc(string ID,size_t request)
+Status alloc(string ID, size_t request)
 {
 	size_t paddr;		//返回的地址
 	assert(ID != "0");
@@ -218,14 +218,18 @@ Status Worst_fit(string ID, size_t request) {
 Status free(string ID)
 {
 	bool result = false;
+	size_t paddr;
+	size_t size;
 	memNode *p = block_first->next;
 	while (p)
 	{
 		if (p->data.ID == ID)
 		{
 			result = true;
+			paddr = p->data.address;
 			p->data.state = Free;
 			p->data.ID = Free;
+			size = p->data.size;
 			if (p == block_last) {
 				if ((p->prior->data.state == Free) && (p->prior->data.address + p->prior->data.size == p->data.address))
 				{//为最后一块
@@ -280,13 +284,13 @@ Status free(string ID)
 	printlog.open("pm_log.txt", ios::app);
 	if (result)
 	{
-		memNum += p->data.size;
-		//printlog << dt << "Succeed: Release Completed!      StartAddr：" << paddr << "      EndAddr：" << paddr + p->data.size << "      Memory：" << memNum << endl;
+		memNum += size;
+		printlog << dt << "Succeed: Release Completed!      StartAddr：" << paddr << "      EndAddr：" << paddr + size << "      Memory：" << memNum << endl;
 		printlog.close();
 		return OK;
 	}
 	else {
-		//printlog << dt << "Error: Release Failed!      Starting Address ：" << paddr << " is not found" << "      Memory：" << memNum << endl;
+		printlog << dt << "Error: Release Failed!      Starting Address ：" << paddr << " is not found" << "      Memory：" << memNum << endl;
 		printlog.close();
 		return ERROR;
 	}
@@ -306,16 +310,16 @@ void show()
 {
 	memNode *p = block_first->next;
 	size_t used_mm = MSIZE - memNum;
-	printf("------Physical Memory Layout %.2f%% Used-------\n",(used_mm*1.0/ MSIZE)*100);
+	printf("------Physical Memory Layout %.2f%% Used-------\n", (used_mm*1.0 / MSIZE) * 100);
 	cout << "                                               " << endl;
 	cout << "PID\tStartAddr\tEndAddr\t\tStatus" << endl;
 	while (p)
 	{
 		if (p->data.ID == Free) cout << "Free\t";
 		else if (p->data.ID == VM_USED) cout << "VM_USED\t";
-		else cout << p->data.ID<<"\t";
-		cout<< p->data.address<<"\t\t";
-		cout<< p->data.size+ p->data.address << "\t\t";
+		else cout << p->data.ID << "\t";
+		cout << p->data.address << "\t\t";
+		cout << p->data.size + p->data.address << "\t\t";
 		if (p->data.state == Free) cout << "Free" << endl;
 		else cout << "Busy" << endl;
 		p = p->next;

@@ -91,7 +91,7 @@ resource::resource(string RID, int amount, int freeAmount) {
 
 //资源申请函数
 int resource::request(string PID, int amount) {
-	if (amount <= freeAmount) {										
+	if (amount <= freeAmount) {
 		freeAmount -= amount;
 		return 1;
 	}
@@ -292,7 +292,7 @@ void killProcess(string PID) {
 
 //就绪队列插入函数
 void insertRL(string PID, processType type) {
-	switch (type){
+	switch (type) {
 	case processType::user:
 		readyList[0].push_back(PID);
 		break;
@@ -358,7 +358,7 @@ void outBL(string PID, processType type) {
 
 //上下文切换函数
 void contextSwitch(processType type) {
-	switch (type){
+	switch (type) {
 	case processType::user:
 		*(readyList[0].begin()) = "";
 		break;
@@ -374,7 +374,7 @@ void contextSwitch(processType type) {
 //运行状态切换函数
 void intoRunning(processType type) {
 	contextSwitch(type);
-	switch (type){
+	switch (type) {
 	case processType::user:
 		*(readyList[0].begin()) = *(++readyList[0].begin());
 		readyList[0].erase(++readyList[0].begin());
@@ -411,7 +411,7 @@ void outOfRunning(string PID, processType type, processState state) {
 			insertRL(nextProcess.PID, nextProcess.type);
 		}
 	}
-	switch (state){
+	switch (state) {
 	case ready:
 		insertRL(PID, type);
 		break;
@@ -441,7 +441,7 @@ void dispatcher() {
 	if (getRunningProcess() == "") {
 		if (readyList[1].size() > 1)
 			intoRunning(processType::forSystem);
-		else if (readyList[0].size() > 1) 
+		else if (readyList[0].size() > 1)
 			intoRunning(processType::user);
 	}
 }
@@ -548,7 +548,7 @@ void painting() {
 	cout << "                ;i:, , ::::iirrririi:i:::iiir2XXvii;L8OGJr71i" << endl << "              :,, ,,:   ,::ir@mingyi.irii:i:::j1jri7ZBOS7ivv," << endl;
 	cout << "                 ,::,    ::rv77iiiriii:iii:i::,rvLq@huhao.Li" << endl << "             ,,      ,, ,:ir7ir::,:::i;ir:::i:i::rSGGYri712:" << endl;
 	cout << "           :::  ,v7r:: ::rrv77:, ,, ,:i7rrii:::::, ir7ri7Lri" << endl << "          ,     2OBBOi,iiir;r::        ,irriiii::,, ,iv7Luur:" << endl;
-	cout<<"        ,,     i78MBBi,:,:::,:,  :7FSL: ,iriii:::i::,,:rLqXv::"<<endl<<"        :      iuMMP: :,:::,:ii;2GY7OBB0viiii:i:iii:i:::iJqL;::"<<endl;
+	cout << "        ,,     i78MBBi,:,:::,:,  :7FSL: ,iriii:::i::,,:rLqXv::" << endl << "        :      iuMMP: :,:::,:ii;2GY7OBB0viiii:i:iii:i:::iJqL;::" << endl;
 	cout << "       ,     ::::i   ,,,,, ::LuBBu BBBBBErii:i:i:i:i:i:i:r77ii" << endl << "      ,       :       , ,,:::rruBZ1MBBqi, :,,,:::,::::::iiriri:" << endl;
 	cout << "     ,               ,,,,::::i:  @arqiao.       ,:,, ,:::ii;i7:" << endl << "    :,       rjujLYLi   ,,:::::,:::::::::,,   ,:i,:,,,,,::i:iii" << endl;
 	cout << "    ::      BBBBBBBBB0,    ,,::: , ,:::::: ,      ,,,, ,,:::::::" << endl << "    i,  ,  ,8BMMBBBBBBi     ,,:,,     ,,, , ,   , , , :,::ii::i::" << endl;

@@ -1471,3 +1471,25 @@ pid:1		vaddr: 2	Allocate pid(1) vaddress is 1024 to 2529
 99	Page replace: source(17408)	 victim(14336)  
 99	Write  from vm(18432) to vm(34816)
 127	Allocate pid(5) vaddress is 1024 to 29170
+8	Allocate pid(1) vaddress is 1024 to 9024
+8	Memory Free pid(1)
+16	Allocate pid(2) vaddress is 1024 to 9024
+24	Allocate pid(3) vaddress is 1024 to 9024
+32	Allocate pid(4) vaddress is 1024 to 9024
+32	Memory Free pid(4)
+40	Allocate pid(5) vaddress is 1024 to 9024
+48	Allocate pid(6) vaddress is 1024 to 9024
+48	Memory Free pid(5)
+48	Memory Free pid(6)
+56	Allocate pid(7) vaddress is 1024 to 9024
+56	Memory Free pid(3)
+64	Allocate pid(8) vaddress is 1024 to 9024
+72	Allocate pid(9) vaddress is 1024 to 9024
+72	Memory Free pid(2)
+80	Allocate pid(10) vaddress is 1024 to 9024
+80	Memory Free pid(9)
+88	Allocate pid(11) vaddress is 1024 to 9024
+88	Memory Free pid(8)
+88	Memory Free pid(7)
+88	Memory Free pid(11)
+96	Allocate pid(12) vaddress is 1024 to 9024
