@@ -1,0 +1,1218 @@
+Sun May 13 15:13:53 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:13:53 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:13:53 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:15:44 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:15:44 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:15:44 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:16:42 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:16:42 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:16:42 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:17:29 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:17:29 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:17:29 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:21:03 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:21:03 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:21:03 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:21:32 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:21:32 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:21:32 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:23:11 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:23:11 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:23:11 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:24:38 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:24:38 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:24:38 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:25:56 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:25:56 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:25:56 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:27:02 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:27:02 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:27:02 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:27:54 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:27:54 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:27:54 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:29:12 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:29:12 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:29:12 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:29:43 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:29:43 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:29:43 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:30:42 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:30:42 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:30:42 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:30:57 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:30:57 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:30:57 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:31:13 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:31:13 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:31:13 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:35:08 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:35:08 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:35:08 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:35:17 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:35:17 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:35:17 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:35:26 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:35:26 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:35:26 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:35:35 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:35:35 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:35:35 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:36:11 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:36:11 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:36:11 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:36:20 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:36:20 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:36:20 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:36:29 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:36:29 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:36:29 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:36:39 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:36:39 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:36:39 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:36:49 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:36:49 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 15:36:49 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 15:39:20 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:39:20 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:39:20 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:39:29 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:39:29 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:39:29 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:39:38 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:39:38 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:39:38 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:40:14 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:40:14 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:40:14 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:40:23 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:40:23 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 15:40:23 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 15:41:08 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 15:41:08 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 15:41:08 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 15:41:27 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 15:41:27 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 15:41:27 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 15:41:36 2018
+Succeed: Assigned successfully!      StartAddr£º21504      EndAddr£º22528      Memory£º1026048
+Sun May 13 15:41:36 2018
+Succeed: Assigned successfully!      StartAddr£º22528      EndAddr£º23552      Memory£º1025024
+Sun May 13 15:41:36 2018
+Succeed: Assigned successfully!      StartAddr£º23552      EndAddr£º24576      Memory£º1024000
+Sun May 13 15:42:30 2018
+Succeed: Assigned successfully!      StartAddr£º24576      EndAddr£º25600      Memory£º1022976
+Sun May 13 15:42:30 2018
+Succeed: Assigned successfully!      StartAddr£º25600      EndAddr£º26624      Memory£º1021952
+Sun May 13 15:42:30 2018
+Succeed: Assigned successfully!      StartAddr£º26624      EndAddr£º27648      Memory£º1020928
+Sun May 13 15:44:02 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:44:02 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:44:02 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:44:11 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:44:11 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:44:11 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:44:20 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:44:20 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:44:20 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:44:59 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:44:59 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:44:59 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:45:08 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:45:08 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:45:08 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:45:17 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:45:17 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:45:17 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:45:53 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:45:53 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:45:53 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:46:02 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:46:02 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 15:46:02 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 15:50:06 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:50:06 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:50:06 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:50:15 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:50:15 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:50:15 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:50:24 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:50:24 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:50:24 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:51:01 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:51:01 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:51:01 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:51:10 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:51:10 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:51:10 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:51:19 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:51:19 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:51:19 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:51:28 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:51:28 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:51:28 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:51:40 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:51:40 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 15:51:40 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 15:51:49 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 15:51:49 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 15:51:49 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 15:52:16 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 15:52:16 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 15:52:16 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 15:52:36 2018
+Succeed: Assigned successfully!      StartAddr£º21504      EndAddr£º22528      Memory£º1026048
+Sun May 13 15:52:45 2018
+Succeed: Assigned successfully!      StartAddr£º22528      EndAddr£º23552      Memory£º1025024
+Sun May 13 15:52:45 2018
+Succeed: Assigned successfully!      StartAddr£º23552      EndAddr£º24576      Memory£º1024000
+Sun May 13 15:52:45 2018
+Succeed: Assigned successfully!      StartAddr£º24576      EndAddr£º25600      Memory£º1022976
+Sun May 13 15:53:16 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:53:16 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:53:25 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:53:25 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:53:25 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:53:34 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:53:34 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:53:34 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:53:43 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:53:43 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:53:43 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:53:53 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:53:53 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:53:53 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 15:54:02 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 15:54:02 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 15:54:02 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 15:54:41 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:54:41 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:54:41 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:54:50 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:54:50 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:54:50 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:54:59 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:54:59 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:54:59 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:55:08 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:55:09 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:55:09 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:55:19 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:57:37 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:57:37 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:57:37 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:57:46 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:57:46 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:57:46 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:57:56 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:57:56 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:57:56 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:58:05 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:58:05 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:58:05 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:58:16 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:58:16 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 15:59:09 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 15:59:09 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 15:59:09 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 15:59:19 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 15:59:19 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 15:59:19 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 15:59:28 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 15:59:28 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 15:59:28 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 15:59:37 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 15:59:37 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 15:59:37 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 15:59:48 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 15:59:48 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 15:59:48 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:07:01 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:07:01 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:07:01 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:07:10 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:07:10 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:07:10 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:07:21 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:07:21 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:07:21 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:07:30 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:07:30 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:07:30 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:07:39 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:07:39 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:07:39 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:07:48 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:07:48 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:07:48 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:07:58 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:07:58 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:07:58 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:08:07 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:08:07 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:08:07 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 16:08:34 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 16:08:34 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 16:08:34 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 16:08:40 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:08:40 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:08:40 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:08:49 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:08:49 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:08:49 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:08:58 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:08:58 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:08:58 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:09:07 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:09:07 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:09:07 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:09:18 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:09:18 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:09:18 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:09:27 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:09:27 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:09:27 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 16:09:54 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 16:09:54 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 16:09:54 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 16:10:16 2018
+Succeed: Assigned successfully!      StartAddr£º21504      EndAddr£º22528      Memory£º1026048
+Sun May 13 16:10:25 2018
+Succeed: Assigned successfully!      StartAddr£º22528      EndAddr£º23552      Memory£º1025024
+Sun May 13 16:10:25 2018
+Succeed: Assigned successfully!      StartAddr£º23552      EndAddr£º24576      Memory£º1024000
+Sun May 13 16:10:25 2018
+Succeed: Assigned successfully!      StartAddr£º24576      EndAddr£º25600      Memory£º1022976
+Sun May 13 16:10:34 2018
+Succeed: Assigned successfully!      StartAddr£º25600      EndAddr£º26624      Memory£º1021952
+Sun May 13 16:10:34 2018
+Succeed: Assigned successfully!      StartAddr£º26624      EndAddr£º27648      Memory£º1020928
+Sun May 13 16:10:34 2018
+Succeed: Assigned successfully!      StartAddr£º27648      EndAddr£º28672      Memory£º1019904
+Sun May 13 16:10:52 2018
+Succeed: Assigned successfully!      StartAddr£º28672      EndAddr£º29696      Memory£º1018880
+Sun May 13 16:10:52 2018
+Succeed: Assigned successfully!      StartAddr£º29696      EndAddr£º30720      Memory£º1017856
+Sun May 13 16:10:52 2018
+Succeed: Assigned successfully!      StartAddr£º30720      EndAddr£º31744      Memory£º1016832
+Sun May 13 16:11:10 2018
+Succeed: Assigned successfully!      StartAddr£º31744      EndAddr£º32768      Memory£º1015808
+Sun May 13 16:11:10 2018
+Succeed: Assigned successfully!      StartAddr£º32768      EndAddr£º33792      Memory£º1014784
+Sun May 13 16:11:10 2018
+Succeed: Assigned successfully!      StartAddr£º33792      EndAddr£º34816      Memory£º1013760
+Sun May 13 16:19:04 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:19:04 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:19:04 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:19:13 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:19:13 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:19:13 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:19:22 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:19:22 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:19:22 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:19:31 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:19:31 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:19:31 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:19:41 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:19:41 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:19:41 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:21:05 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:21:05 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:21:14 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:21:14 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:21:14 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:21:23 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:21:23 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:21:23 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:21:32 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:21:32 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:21:32 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:21:42 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:21:42 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:21:42 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:21:51 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:21:51 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:21:51 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:33:51 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:33:51 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:33:51 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:34:00 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:34:00 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:34:00 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:34:12 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:34:12 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:34:12 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:34:21 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:34:21 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:34:21 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:34:30 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:34:30 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:34:30 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:34:45 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:34:45 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:34:45 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:34:54 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:34:54 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:34:54 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:35:03 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:35:03 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:35:03 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:35:12 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:35:12 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:35:12 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:35:23 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:35:23 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:35:23 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:35:32 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:35:32 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:35:32 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 16:35:59 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 16:35:59 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 16:35:59 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 16:36:43 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:36:43 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:36:43 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:36:52 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:36:52 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:36:52 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:37:01 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:37:01 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:37:01 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:37:10 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:37:10 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:37:10 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:37:20 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:37:20 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:37:20 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:37:29 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:37:29 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:37:29 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 16:37:44 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:37:44 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:37:44 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:37:53 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:37:53 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:37:53 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:38:02 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:38:02 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:38:02 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:38:11 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:38:11 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:38:11 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:39:08 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:39:08 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:39:08 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:39:17 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:39:17 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:39:17 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:39:26 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:39:26 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:39:26 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:39:35 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:39:35 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:39:35 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:39:51 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:39:51 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:39:51 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:40:00 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:40:00 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:40:00 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:40:09 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:40:09 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:40:09 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:40:18 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:40:18 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:40:18 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:40:30 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:40:30 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:40:30 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:40:39 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:40:39 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:40:39 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 16:41:06 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 16:41:06 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 16:41:06 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 16:41:22 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:41:22 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:41:22 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:42:10 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:42:10 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:42:10 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:42:19 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:42:19 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:42:19 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:43:35 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:43:35 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:43:35 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:43:44 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:43:44 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:43:44 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:43:53 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:43:53 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:43:53 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:44:02 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:44:02 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:44:02 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:44:13 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:44:13 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:44:13 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:44:22 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:44:22 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:44:22 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 16:44:49 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 16:44:49 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 16:44:49 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 16:45:11 2018
+Succeed: Assigned successfully!      StartAddr£º21504      EndAddr£º22528      Memory£º1026048
+Sun May 13 16:45:20 2018
+Succeed: Assigned successfully!      StartAddr£º22528      EndAddr£º23552      Memory£º1025024
+Sun May 13 16:45:20 2018
+Succeed: Assigned successfully!      StartAddr£º23552      EndAddr£º24576      Memory£º1024000
+Sun May 13 16:45:20 2018
+Succeed: Assigned successfully!      StartAddr£º24576      EndAddr£º25600      Memory£º1022976
+Sun May 13 16:49:29 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:49:29 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:49:29 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:49:38 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:49:38 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:49:38 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:49:47 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:49:47 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:49:47 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:49:56 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:49:56 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:49:56 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:50:06 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 16:50:06 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 16:50:06 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 16:50:15 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 16:50:15 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 16:50:15 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 16:50:42 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 16:50:42 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 16:50:42 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 16:56:29 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:56:29 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:56:29 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:56:38 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:56:38 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:56:38 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:56:47 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:56:47 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 16:56:47 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 16:56:57 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 16:56:57 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 16:56:57 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 16:58:00 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 16:58:00 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 16:58:00 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 16:58:10 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 16:58:10 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 16:58:10 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 16:58:19 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 16:58:19 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:00:28 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:00:28 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:00:28 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:00:37 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:00:37 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:00:37 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:00:47 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 17:00:47 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:00:47 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 17:08:06 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:08:06 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:08:06 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:08:25 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:08:25 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:08:25 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:08:34 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:08:34 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:08:34 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:09:31 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:09:31 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:09:31 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:09:40 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:09:40 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:09:40 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:09:49 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 17:09:49 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:09:49 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 17:09:58 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 17:09:58 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 17:09:58 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 17:10:09 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 17:10:09 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 17:10:09 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 17:10:18 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 17:10:18 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 17:10:18 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 17:16:22 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:16:22 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:16:22 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:16:31 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:16:31 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:16:31 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:17:20 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:17:20 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:17:20 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:17:29 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:17:29 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:17:29 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:17:38 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 17:17:38 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:17:38 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 17:21:38 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:21:38 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:21:38 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:21:47 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:21:47 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:21:47 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:21:56 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 17:21:56 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:21:56 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 17:22:05 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 17:22:05 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 17:22:05 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 17:22:15 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 17:22:16 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 17:22:16 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 17:22:25 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 17:22:25 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 17:22:25 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 17:22:52 2018
+Succeed: Assigned successfully!      StartAddr£º18432      EndAddr£º19456      Memory£º1029120
+Sun May 13 17:22:52 2018
+Succeed: Assigned successfully!      StartAddr£º19456      EndAddr£º20480      Memory£º1028096
+Sun May 13 17:22:52 2018
+Succeed: Assigned successfully!      StartAddr£º20480      EndAddr£º21504      Memory£º1027072
+Sun May 13 17:23:10 2018
+Succeed: Assigned successfully!      StartAddr£º21504      EndAddr£º22528      Memory£º1026048
+Sun May 13 17:23:19 2018
+Succeed: Assigned successfully!      StartAddr£º22528      EndAddr£º23552      Memory£º1025024
+Sun May 13 17:23:20 2018
+Succeed: Assigned successfully!      StartAddr£º23552      EndAddr£º24576      Memory£º1024000
+Sun May 13 17:23:20 2018
+Succeed: Assigned successfully!      StartAddr£º24576      EndAddr£º25600      Memory£º1022976
+Sun May 13 17:23:29 2018
+Succeed: Assigned successfully!      StartAddr£º25600      EndAddr£º26624      Memory£º1021952
+Sun May 13 17:23:29 2018
+Succeed: Assigned successfully!      StartAddr£º26624      EndAddr£º27648      Memory£º1020928
+Sun May 13 17:23:29 2018
+Succeed: Assigned successfully!      StartAddr£º27648      EndAddr£º28672      Memory£º1019904
+Sun May 13 17:23:47 2018
+Succeed: Assigned successfully!      StartAddr£º28672      EndAddr£º29696      Memory£º1018880
+Sun May 13 17:23:47 2018
+Succeed: Assigned successfully!      StartAddr£º29696      EndAddr£º30720      Memory£º1017856
+Sun May 13 17:23:47 2018
+Succeed: Assigned successfully!      StartAddr£º30720      EndAddr£º31744      Memory£º1016832
+Sun May 13 17:25:12 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:25:12 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:25:21 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:25:21 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:25:21 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:25:30 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:25:30 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 17:25:30 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:26:28 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:26:28 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:26:28 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:26:37 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:26:37 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:26:37 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:26:46 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 17:26:46 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:26:46 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 17:26:55 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 17:26:55 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 17:26:55 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 17:27:06 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 17:27:06 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 17:27:06 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216
+Sun May 13 17:27:15 2018
+Succeed: Assigned successfully!      StartAddr£º15360      EndAddr£º16384      Memory£º1032192
+Sun May 13 17:27:15 2018
+Succeed: Assigned successfully!      StartAddr£º16384      EndAddr£º17408      Memory£º1031168
+Sun May 13 17:27:15 2018
+Succeed: Assigned successfully!      StartAddr£º17408      EndAddr£º18432      Memory£º1030144
+Sun May 13 17:28:23 2018
+Succeed: Assigned successfully!      StartAddr£º0      EndAddr£º1024      Memory£º1047552
+Sun May 13 17:28:23 2018
+Succeed: Assigned successfully!      StartAddr£º1024      EndAddr£º2048      Memory£º1046528
+Sun May 13 17:28:23 2018
+Succeed: Assigned successfully!      StartAddr£º2048      EndAddr£º3072      Memory£º1045504
+Sun May 13 17:28:32 2018
+Succeed: Assigned successfully!      StartAddr£º3072      EndAddr£º4096      Memory£º1044480
+Sun May 13 17:28:32 2018
+Succeed: Assigned successfully!      StartAddr£º4096      EndAddr£º5120      Memory£º1043456
+Sun May 13 17:28:32 2018
+Succeed: Assigned successfully!      StartAddr£º5120      EndAddr£º6144      Memory£º1042432
+Sun May 13 17:28:41 2018
+Succeed: Assigned successfully!      StartAddr£º6144      EndAddr£º7168      Memory£º1041408
+Sun May 13 17:28:41 2018
+Succeed: Assigned successfully!      StartAddr£º7168      EndAddr£º8192      Memory£º1040384
+Sun May 13 17:28:41 2018
+Succeed: Assigned successfully!      StartAddr£º8192      EndAddr£º9216      Memory£º1039360
+Sun May 13 17:28:50 2018
+Succeed: Assigned successfully!      StartAddr£º9216      EndAddr£º10240      Memory£º1038336
+Sun May 13 17:28:50 2018
+Succeed: Assigned successfully!      StartAddr£º10240      EndAddr£º11264      Memory£º1037312
+Sun May 13 17:28:50 2018
+Succeed: Assigned successfully!      StartAddr£º11264      EndAddr£º12288      Memory£º1036288
+Sun May 13 17:29:02 2018
+Succeed: Assigned successfully!      StartAddr£º12288      EndAddr£º13312      Memory£º1035264
+Sun May 13 17:29:02 2018
+Succeed: Assigned successfully!      StartAddr£º13312      EndAddr£º14336      Memory£º1034240
+Sun May 13 17:29:02 2018
+Succeed: Assigned successfully!      StartAddr£º14336      EndAddr£º15360      Memory£º1033216

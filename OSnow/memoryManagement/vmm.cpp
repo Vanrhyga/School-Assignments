@@ -32,7 +32,7 @@ paddr vaddr2paddr(const procid &id, vaddr vaddress)
 					//repleacemet algorithm
 					ReplacePM(id, pte);
 					//std::cout << "From PTE    ";
-						//std::cout << "pid:" << id << "\t\t\tvaddr: " << pte->vaddress << "\t\t\tpaddr:" << pte->paddress << "\t\t\tstatus:  " << pte->status << "\n";
+					//std::cout << "pid:" << id << "\t\t\tvaddr: " << pte->vaddress << "\t\t\tpaddr:" << pte->paddress << "\t\t\tstatus:  " << pte->status << "\n";
 					return paddr(vaddress - pte->vaddress + pte->paddress);
 				}
 				// in pm
@@ -52,8 +52,8 @@ paddr vaddr2paddr(vaddr vaddress)
 {
 	for (PTE *pte : page_table)
 	{
-			if (vaddress >= pte->vaddress && vaddress < pte->vaddress + PAGE_SIZE)
-				return paddr(vaddress - pte->vaddress + pte->paddress);
+		if (vaddress >= pte->vaddress && vaddress < pte->vaddress + PAGE_SIZE)
+			return paddr(vaddress - pte->vaddress + pte->paddress);
 	}
 	return paddr(ERROR_ADDR);
 }
@@ -81,7 +81,7 @@ int Motify_PTE(const procid &id, vaddr vaddress)
 void ShowPTE(const procid &id)
 {
 #if DEBUG
-	std::cout << "============================================================================\n";
+	std::cout << "=====================================pid: " << id << "====================================\n";
 	std::cout << "Show PTE\n";
 	for (PTE* pte : page_table)
 	{
@@ -100,7 +100,7 @@ void ShowPTE(const procid &id)
 	{
 		if (pte->id == id)
 		{
-			flog<<"pid:" << id << "\t\tvaddr: " << pte->vaddress << "\t\tpaddr:" << pte->paddress << "\t\tstatus:  " << ((pte->status == VALUABLE) ? "V" : "I") << "\t\tarr_time:  " << pte->arr_time << "\t\tcount:  " << pte->count << "\n";
+			flog << "pid:" << id << "\t\tvaddr: " << pte->vaddress << "\t\tpaddr:" << pte->paddress << "\t\tstatus:  " << ((pte->status == VALUABLE) ? "V" : "I") << "\t\tarr_time:  " << pte->arr_time << "\t\tcount:  " << pte->count << "\n";
 		}
 	}
 	flog << "============================================================================\n";
@@ -108,10 +108,13 @@ void ShowPTE(const procid &id)
 #endif // RELEASE
 
 }
-
+#include<sstream>
 int Write_Disk(PTE* pte)
 {
-	pte->disk = pte->id + pte->vaddress;
+	std::stringstream ss;
+	ss << pte->vaddress;
+	std::string tmp_string = ss.str();
+	pte->disk = pte->id + tmp_string;
 	char* tmp = new char[pte->disk.length() + 1];
 	strcpy(tmp, pte->disk.c_str());
 	char pm[PAGE_SIZE];
@@ -119,7 +122,8 @@ int Write_Disk(PTE* pte)
 	{
 		pm[i] = Get_PM(pte->paddress + i);
 	}
-	if (createFile(tmp, 0) && openFile(tmp) && writeFile(tmp, pm) && closeFile(tmp))
+	int fuck[3] = { 1,1,1 };
+	if (createFile(tmp, fuck) && openFile(tmp) && writeFile_auto(tmp, pm) && closeFile_auto(tmp))
 	{
 		return 1;
 	}
@@ -132,15 +136,15 @@ int Load_Disk(PTE* pte)
 	strcpy(file_name, pte->disk.c_str());
 
 	char *tmp = nullptr;
-	if (openFile(file_name) )
+	if (openFile(file_name))
 	{
-		tmp = readFile(file_name);
+		tmp = readFile_auto(file_name);
 		int i = 0;
-		while (tmp && i < PAGE_SIZE)
+		while (tmp && i++ < PAGE_SIZE)
 		{
 			Write_PM(pte->paddress, *(tmp + i));
 		}
-		closeFile(file_name);
+		closeFile_auto(file_name);
 		return 1;
 	}
 	return 0;
@@ -181,7 +185,7 @@ PTE* Second_Chance_Algorithm(const procid &id)
 {
 	std::vector<PTE*> temp = Get_Proc_PTE(id);
 	vtime temp_t = ULONG_MAX;
-	PTE* temp_pte = nullptr,*earliest_pte = nullptr;
+	PTE* temp_pte = nullptr, *earliest_pte = nullptr;
 
 
 	while (nullptr == temp_pte)
@@ -192,8 +196,8 @@ PTE* Second_Chance_Algorithm(const procid &id)
 		{
 			if (pte->arr_time < temp_t && pte->status != ILLEGAL)
 			{
-					temp_t = pte->arr_time;
-					temp_pte = pte;
+				temp_t = pte->arr_time;
+				temp_pte = pte;
 			}
 		}
 		if (temp_pte == nullptr)
@@ -265,6 +269,7 @@ paddr ReplacePM(const procid &id, PTE* source_pte)
 	case MFU_ALGORITHM:
 	{
 		replacement_algorithm = MFU_Algorithm;
+		break;
 	}
 	default:
 	{
@@ -279,13 +284,13 @@ paddr ReplacePM(const procid &id, PTE* source_pte)
 	source_pte->count = 0;
 	source_pte->arr_time = count_time++;
 	source_pte->status = VALUABLE;
-	Load_Disk( source_pte);
+	Load_Disk(source_pte);
 #if DEBUG
 	std::cout << "Page replace: victim(" << victim->vaddress << ")  \n";
-	//ShowPTE(id);
+	ShowPTE(id);
 #endif // DEBUG
 #if RELEASE
-	flog << count_time <<"\tPage replace: source("<< source_pte->vaddress<<")\t" <<" victim(" << victim->vaddress << ")  \n";
+	flog << count_time << "\tPage replace: source(" << source_pte->vaddress << ")\t" << " victim(" << victim->vaddress << ")  \n";
 #endif // RELEASE
 
 
@@ -298,7 +303,7 @@ char Get_PM(paddr paddress)
 	return 'c';
 }
 
-PTE* GetPTE(const procid &id,vaddr vaddress)
+PTE* GetPTE(const procid &id, vaddr vaddress)
 {
 	for (PTE *pte : page_table)
 	{
@@ -311,7 +316,7 @@ PTE* GetPTE(const procid &id,vaddr vaddress)
 		}
 	}
 	return nullptr;
-	
+
 }
 
 int Write_PM(paddr paddress, char c)
@@ -327,11 +332,11 @@ int Write_VM(const procid &id, vaddr begin_vaddr, size_vm size, char * content)
 	/*
 	begin vm address.
 	*/
-	vaddr begin_page_addr = begin_vaddr / PAGE_SIZE;
+	vaddr begin_page_addr = (begin_vaddr / PAGE_SIZE)*PAGE_SIZE;
 
 	while (page_num--)
 	{
-		paddr begin_pm_addr = vaddr2paddr(id, begin_page_addr);
+		paddr begin_pm_addr = vaddr2paddr(id, begin_vaddr);
 		if (ERROR_ADDR == begin_page_addr)
 		{
 			return -1;
@@ -342,14 +347,14 @@ int Write_VM(const procid &id, vaddr begin_vaddr, size_vm size, char * content)
 		for (size_vm j = 0; j < PAGE_SIZE && j < size; j++)
 		{
 			Write_PM(begin_pm_addr + j, content[i++]);
-			GetPTE(id, begin_pm_addr)->count += 2;
+			GetPTE(id, begin_vaddr)->count += 2;
 		}
 
 		/*
 		motify
 		*/
-		Motify_PTE(id, begin_pm_addr);
-		begin_page_addr += PAGE_SIZE;
+		//Motify_PTE(id, begin_vaddr);
+		begin_vaddr += PAGE_SIZE;
 	}
 #if DEBUG
 	std::cout << "Write Successfully from " << begin_vaddr << " to " << begin_vaddr + size << "\n";
@@ -365,23 +370,28 @@ int Write_VM(const procid &id, vaddr begin_vaddr, size_vm size, char * content)
 int Read_VM(const procid &id, vaddr begin_vaddr, size_vm size, char *content)
 {
 	count_time++;
-	size_vm page_num = size / PAGE_SIZE + 1,i = 0;
+	size_vm page_num = size / PAGE_SIZE + 1, i = 0;
 
 	/*
 	begin vm address.
 	*/
-	vaddr begin_page_addr = begin_vaddr / PAGE_SIZE;
+	vaddr begin_page_addr = (begin_vaddr / PAGE_SIZE)*PAGE_SIZE ;
 
 	while (page_num--)
 	{
 		paddr begin_pm_addr = vaddr2paddr(id, begin_vaddr);
-		if (ERROR_ADDR == begin_page_addr)
+		if (ERROR_ADDR == begin_pm_addr)
 		{
 			return -1;
 		}
 		for (size_vm j = 0; j < PAGE_SIZE && j < size; j++)
 		{
 			//content[i++] = Get_PM(begin_pm_addr+j);
+			PTE* tmp_pte = GetPTE(id, begin_vaddr);
+			if (tmp_pte == nullptr)
+			{
+				return -1;
+			}
 			if (GetPTE(id, begin_vaddr)->count % 2 == 0)
 			{
 				GetPTE(id, begin_vaddr)->count += 3;
@@ -391,7 +401,8 @@ int Read_VM(const procid &id, vaddr begin_vaddr, size_vm size, char *content)
 				GetPTE(id, begin_vaddr)->count += 2;
 			}
 		}
-		begin_page_addr += PAGE_SIZE;
+		begin_vaddr += PAGE_SIZE;
+		size -= PAGE_SIZE;
 	}
 #if DEBUG
 	std::cout << "Read Successfully from " << begin_vaddr << " to " << begin_vaddr + size << "\n";
@@ -403,15 +414,15 @@ int Read_VM(const procid &id, vaddr begin_vaddr, size_vm size, char *content)
 	return 0;
 }
 
-int fork_memory(procid parent, procid child)
+vaddr fork_memory(procid parent, procid child)
 {
 	size_t page_count = GetVMM(parent)->page_number;
 	Allocate_VM(child, page_count*PAGE_SIZE);
-	char* buffer = new char[PAGE_SIZE*page_count+1];
+	char* buffer = new char[PAGE_SIZE*page_count + 1];
 	VMM* src = GetVMM(parent), *dst = GetVMM(child);
 	Read_VM(parent, src->begin_vaddr, page_count*PAGE_SIZE, buffer);
 	Write_VM(child, dst->begin_vaddr, page_count*PAGE_SIZE, buffer);
-	return 0;
+	return dst->begin_vaddr;
 }
 
 flag Get_PTE_statues(const procid &id, vaddr vaddress)
@@ -456,14 +467,14 @@ vaddr Allocate_VM(const procid &id, size_vm size)
 		//std::cout << "process is not running.\n";
 		pvmm = new VMM;
 		pvmm->pid = id;
-		pvmm->begin_vaddr = 4096;
+		pvmm->begin_vaddr = PAGE_SIZE;
 		pvmm->page_number = 0;
 		proc_vmm.push_back(pvmm);
 		//return ERROR_ADDR;
 	}
 	/*lack some code.*/
-/*to get the finally address*/
-	vaddr _fvaddr = pvmm->begin_vaddr + pvmm->page_number*PAGE_SIZE,_begin_addr;
+	/*to get the finally address*/
+	vaddr _fvaddr = pvmm->begin_vaddr + pvmm->page_number*PAGE_SIZE, _begin_addr;
 	assert(0 == _fvaddr%PAGE_SIZE);
 	_begin_addr = _fvaddr;
 
@@ -476,19 +487,19 @@ vaddr Allocate_VM(const procid &id, size_vm size)
 	/*
 	pm count
 	*/
-	int pm_cout = 2;
+	int pm_cout = 3;
 
 	/*insert the page table*/
 	while (page_number--)
 	{
-		PTE *pte = new PTE(id,_fvaddr);
+		PTE *pte = new PTE(id, _fvaddr);
 		pte->arr_time = count_time++;
 		pte->count = 0;
 		if (pm_cout)
 		{
 			pm_cout--;
 			//pte->paddress = _fvaddr + 4096;  // this is algorithm is only for test.
-			int tmp = alloc(-1, PAGE_SIZE);
+			int tmp = alloc(id, PAGE_SIZE);
 			if (tmp == -1)
 			{
 				return 0;
@@ -504,7 +515,7 @@ vaddr Allocate_VM(const procid &id, size_vm size)
 	ShowPTE(id);
 #endif // DEBUG
 #if RELEASE
-	flog << count_time << "\tAllocate pid("<< id<<") " << "vaddress is " << _begin_addr << " to " << _begin_addr + size << "\n";
+	flog << count_time << "\tAllocate pid(" << id << ") " << "vaddress is " << _begin_addr << " to " << _begin_addr + size << "\n";
 #endif // RELEASE
 
 
@@ -520,24 +531,27 @@ int Free_VM(const procid &id)
 		std::cout << "process is not running.\n";
 		return ERROR_ADDR;
 	}
-
-
-	for (size_t i = page_table.size()-1; i >= 0 ; i--)
-	{
-		if (page_table[i]->id == id)
-		{
-			PTE* temp = page_table[i];
-			page_table.erase(page_table.begin()+i);
-			delete temp;
-			if (page_table.empty())
-			{
-				break;
-			}
-			/*
-			lack some codes for remove
-			*/
-		}
-	}
+	//free(id);
+	//for (size_t i = page_table.size()-1; i >= 0 ; i--)
+	//{
+	//if (page_table[i]->id == id)
+	//{
+	//	PTE* temp = page_table[i];
+	//	if (temp->status == VALUABLE)
+	//	{
+	//		free(temp->paddress);
+	//	}
+	//	page_table.erase(page_table.begin()+i);
+	//	delete temp;
+	//	if (page_table.empty())
+	//	{
+	//		break;
+	//	}
+	//	/*
+	//	lack some codes for remove
+	//	*/
+	//}
+	//}
 
 	//delete pvmm;
 
@@ -545,7 +559,7 @@ int Free_VM(const procid &id)
 	std::cout << "Memory Free " << id << "\n";
 #endif // DEBUG
 #if RELEASE
-	flog << count_time  << "\tMemory Free pid(" << id << ")\n";
+	flog << count_time << "\tMemory Free pid(" << id << ")\n";
 #endif // RELEASE
 
 
@@ -562,7 +576,7 @@ int VMInit()
 #endif //
 
 #if RELEASE
-	flog.open("vm_log.log",std::ios::app);
+	flog.open("vm_log.log", std::ios::app);
 #endif // RELEASE
 
 	return 0;

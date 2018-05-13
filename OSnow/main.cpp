@@ -1,4 +1,7 @@
 #include "processM_head.h"
+#include "mmu.h"
+#include "vmm.h"
+#include "fs_head.h"
 /*
 *                             _ooOoo_
 *                            o8888888o
@@ -27,6 +30,7 @@ extern map<string, resource> allResource;
 extern ofstream ofp;
 int counter;
 int timeSlot;
+int allocMode;
 bool isRunning = TRUE;
 
 int main() {
@@ -35,6 +39,7 @@ int main() {
 	string command;
 	counter = 1;
 	Screen();
+	initial();
 	painting();
 	annotation();
 	srand((unsigned)time(NULL));
@@ -51,7 +56,7 @@ int main() {
 		if (command == "open OSnow task manager") {
 			while (TRUE) {
 				pri();
-				pri:
+			pri:
 				Sleep(1000);
 				system("cls");
 				painting();
@@ -92,6 +97,23 @@ int main() {
 		}
 		else if (command == "exit")
 			break;
+		else if (command == "check mmu") {
+			show();
+			while (TRUE) {
+				string s;
+				Sleep(1000);
+				system("cls");
+				painting();
+				cout << ">>check mmu" << endl;
+				show();
+				if (_kbhit()) {
+					getline(cin, s);
+					break;
+				}
+			}
+		}
+		else if (command == "use file system") 
+			present();
 		else 
 			cout << "Error command!" << endl;
 	}
@@ -201,6 +223,14 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 				timeSlot = 0;
 			}
 		}
+	/*	if (timeSlot % 2 == 1) {
+			int oper = rand() % 2;
+			size_vm tmp = rand() % p.size + 1;
+			if (oper)
+				Write_VM(p.PID, p.start, tmp, p.buffer);
+			else
+				Read_VM(p.PID, p.start, tmp, p.buffer);
+		}*/
 	}
 	return 0;
 }
@@ -217,14 +247,22 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 			if (i == 0) {
 				counter++;
 				type = processType::forSystem;
-				insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
-				insertRL(toString(counter), type);
+				if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+					insertRL(toString(counter), type);
+				else {
+					recordTime();
+					ofp << "空间不足，进程创建失败" << endl;
+				}
 			}
 			else if (i == 1) {
 				counter++;
 				type = processType::user;
-				insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
-				insertRL(toString(counter), type);
+				if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+					insertRL(toString(counter), type);
+				else {
+					recordTime();
+					ofp << "空间不足，进程创建失败" << endl;
+				}
 			}
 			continue;
 		}
@@ -232,14 +270,22 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 		if (i == 0) {
 			counter++;
 			type = processType::forSystem;
-			insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
-			insertRL(toString(counter), type);
+			if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+				insertRL(toString(counter), type);
+			else {
+				recordTime();
+				ofp << "空间不足，进程创建失败" << endl;
+			}
 		}
 		else if (i == 1) {
 			counter++;
 			type = processType::user;
-			insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type));
-			insertRL(toString(counter), type);
+			if(!insertProcess(toString(counter), PCB(toString(counter), "p" + toString(counter), type)))
+				insertRL(toString(counter), type);
+			else {
+				recordTime();
+				ofp << "空间不足，进程创建失败" << endl;
+			}
 		}
 		else if (i == 2) {
 			counter++;
@@ -247,6 +293,22 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 		}
 	}
 	return 0;
+}
+
+void initial() {
+	string s;
+	while (TRUE) {
+		cout << "Please select the alloc mode: " << endl;
+		cout << "1.FirstFit\t2.BestFit\t3.WorstFit" << endl;
+		cin >> allocMode;
+		getline(cin, s);
+		if (allocMode >= 1 && allocMode <= 3)
+			break;
+	}
+	system("cls");
+	Initblock();
+	initialize();
+	VMInit();
 }
 
 void Screen() {

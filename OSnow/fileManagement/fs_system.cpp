@@ -1,11 +1,33 @@
 #include "fs_head.h"
 
-char content[4096];  //the real disk
+char content[max_size];  //the real disk
 Disk* the_disk;  //the empty dick
 Dir* the_dir;  //the base directory
 Dir* current_dir; //the current directory
 Open* current_open; //opened files's empty head
 int choice;
+
+
+void initialize()
+{
+    FILE *fp;
+    fp=fopen("config.txt","r");
+    while(!feof(fp))
+        fscanf(fp,"%d",&choice);
+    fclose(fp);
+
+    the_dir = initializeDir();
+    if(choice == 1)
+    {
+        the_disk = initializeDisk_1();
+    }
+    else
+    {
+        the_disk = initializeDisk_1();
+    }
+    current_dir = the_dir;
+    current_open = initializeOpen();
+}
 
 Bool add_file(File* the_file, Dir* currentDir)
 {
@@ -45,7 +67,7 @@ Bool clear_block_1(int block, Disk* theDisk)
     int temp=block;
     int i=temp*block_size;  //find the block in the dick
     int j=0;
-    for(j=0;j<127;j++)
+    for(j=0;j<(block_size-1);j++)
     {
         content[i+j]='\0';  //clear the material
     }
@@ -70,10 +92,10 @@ Bool clear_block_2(int block, Disk* theDisk)
     int temp=block;
     char i=content[temp*block_size];  //find the block in the disk
     int k=0,j=0;
-    for(k=0;k<128&&i!='\0';k++)
+    for(k=0;k<block_size&&i!='\0';k++)
     {
         i=content[temp*block_size+k];
-        for(j=0;j<128;j++)
+        for(j=0;j<block_size;j++)
         {
             content[(int)i+j]='\0';  //clear the material
         }
@@ -85,7 +107,7 @@ Bool clear_block_2(int block, Disk* theDisk)
         theDisk->top=new_s;
 
     }
-    for(j=0;j<128;j++)
+    for(j=0;j<block_size;j++)
         content[temp*block_size+j]='\0';
 
     theDisk->current_use--;
@@ -125,9 +147,42 @@ Bool close_file(char name[], Open* currentOpen)
     return False;
 }
 
+Bool close_file_auto(char name[], Open* currentOpen)
+{
+    File* the_file = find_opened_file_auto(name, currentOpen);
+    Open* head = currentOpen->next;
+    Open* last = NULL;
+    if(the_file != NULL)
+    {
+        for(; head != NULL; head = head->next)
+        {
+            if(head->head == the_file)
+            {
+                if(head == currentOpen->next)
+                {
+                    currentOpen->next = head->next;
+                }
+                else
+                {
+                    last->next = head->next;
+                }
+                free(head);
+                return True;
+            }
+            last = head;
+        }
+    }
+    return False;
+}
+
 Bool closeFile(char name[])
 {
     return close_file(name, current_open);
+}
+
+Bool closeFile_auto(char name[])
+{
+    return close_file_auto(name, current_open);
 }
 
 Bool create_dir(char name[], Dir* currentDir)
@@ -163,10 +218,26 @@ Bool createDir(char name[])
 
 Bool createFile(char name[], int protect[])
 {
-    int block_no = find_empty(the_disk);
+    /*int block_no = find_empty(the_disk);
     //printf("%d\n",block_no);
     File* new_file = initializeFile(name, block_no, protect);
-    return add_file(new_file, current_dir);
+    return add_file(new_file, current_dir);*/
+    if(!find_same_file(name, current_dir))
+    {
+        int block_no = find_empty(the_disk);
+        char temp[200];
+        strcpy(temp, name);
+        strcat(temp, ".txt");
+        File* new_file = initializeFile(name, block_no, protect);
+        FILE* f = fopen(temp, "w+");
+        fclose(f);
+        return add_file(new_file, current_dir);
+    }
+    else
+    {
+        printf("There is a file with the same name under this directory.\n");
+        return False;
+    }
 }
 
 Bool delete_dir(char name[], Dir* currentDir)
@@ -271,7 +342,6 @@ File* find_file(char name[],Dir* currentDir)
     return head;
 }
 
-
 File* find_opened_file(char name[], Open* currentOpen)
 {
     char choice;
@@ -287,6 +357,20 @@ File* find_opened_file(char name[], Open* currentOpen)
             getchar();
             if(choice == 'Y')
                 return headOpen->head;
+        }
+    }
+    return NULL;
+}
+
+File* find_opened_file_auto(char name[], Open* currentOpen)
+{
+    char choice;
+    Open* headOpen = currentOpen->next;
+    for(;headOpen != NULL; headOpen = headOpen->next)
+    {
+        if(strcmp(headOpen->head->name, name) == 0)
+        {
+            return headOpen->head;
         }
     }
     return NULL;
@@ -457,13 +541,13 @@ Open* initializeOpen()
 
 int if_full_1(int length, int current_block, Disk* theDisk)
 {
-    while(content[current_block*block_size+127]!=-1)
+    while(content[current_block*block_size+block_size-1]!=-1)
     {
-        current_block=(int)content[current_block*block_size+127];
+        current_block=(int)content[current_block*block_size+block_size-1];
     }
     int number=0;
     int j;
-    for(j=0;j<127;j++)
+    for(j=0;j<(block_size-1);j++)
     {
         if(content[current_block*block_size+j]=='\0')
             number++;
@@ -488,7 +572,7 @@ int if_full_2(int length, int current_block, Disk* theDisk)
         current_block=(int)content[current_block*block_size+i];
         int number=0;
         int j;
-        for(j=0;j<128;j++)
+        for(j=0;j<block_size;j++)
         {
             if(content[current_block*block_size+j]=='\0')
                 number++;
@@ -564,15 +648,15 @@ char* read_material_1(int start_block, Disk* theDisk, int Size)
     char *str = (char*)malloc(Size+1);
     int x=start_block*block_size;  //find the block in the disk
     int i,j=0;
-    for(i=0;content[x+i]!='\0'&&i<127;i++)
+    for(i=0;content[x+i]!='\0'&&i<(block_size-1);i++)
     {
         str[j]=content[x+i];  //read into the string array
         j++;
     }
-    while(content[x+127]!=-1)
+    while(content[x+block_size-1]!=-1)
     {
-        x=content[x+127]*block_size;
-        for(i=0;content[x+i]!='\0'&&i<127;i++)
+        x=content[x+block_size-1]*block_size;
+        for(i=0;content[x+i]!='\0'&&i<(block_size-1);i++)
         {
             str[j]=content[x+i];
             j++;
@@ -593,7 +677,7 @@ char* read_material_2(int start_block, Disk* theDisk, int Size)
     int i,j=0;
     while(y!='\0')
     {
-        for(i=0;content[(int)y*block_size+i]!='\0'&&i<128;i++)
+        for(i=0;content[(int)y*block_size+i]!='\0'&&i<block_size;i++)
         {
             str[j]=content[(int)y*block_size+i];  //read into the string array
             j++;
@@ -609,6 +693,24 @@ char* read_material_2(int start_block, Disk* theDisk, int Size)
 char* readFile(char name[])
 {
     File* this_file = find_opened_file(name, current_open);
+    if(this_file != NULL)
+    {
+        if(this_file->protect[1] == 0)
+        {
+            printf("You have no right to read this file!\n");
+            return False;
+        }
+        if(choice==1)
+            return read_material_1(this_file->start, the_disk, this_file->Size);
+        else
+            return read_material_2(this_file->start, the_disk, this_file->Size);
+    }
+    return False;
+}
+
+char* readFile_auto(char name[])
+{
+    File* this_file = find_opened_file_auto(name, current_open);
     if(this_file != NULL)
     {
         if(this_file->protect[1] == 0)
@@ -699,8 +801,8 @@ Bool write_material_1(char* new_material, int s_block, Disk* theDisk, int Size, 
     {
         int i=0;
         int j=0;
-        while(content[start_block*block_size+127]!=-1)
-            start_block=(int)content[start_block*block_size+127];
+        while(content[start_block*block_size+block_size-1]!=-1)
+            start_block=(int)content[start_block*block_size+block_size-1];
         while(Size>0)
         {
             if(content[start_block*block_size+i]=='\0')
@@ -725,9 +827,9 @@ Bool write_material_1(char* new_material, int s_block, Disk* theDisk, int Size, 
         }
         else
         {
-            while(content[start_block*block_size+127]!=-1)
-                start_block=(int)content[start_block*block_size+127];
-            while(j<127)
+            while(content[start_block*block_size+block_size-1]!=-1)
+                start_block=(int)content[start_block*block_size+block_size-1];
+            while(j<(block_size-1))
             {
                 if(content[start_block*block_size+j]=='\0')
                 {
@@ -737,7 +839,7 @@ Bool write_material_1(char* new_material, int s_block, Disk* theDisk, int Size, 
                 }
                 j++;
             }
-            content[start_block*block_size+127]=(char)tag;
+            content[start_block*block_size+block_size-1]=(char)tag;
             //printf("%s ok\n",new_material);
             char* mid_material=&new_material[i];
             //printf("%s ok\n",mid_material);
@@ -801,7 +903,7 @@ Bool write_material_2(char* new_material, int s_block, Disk* theDisk, int Size, 
             else
             {
                 int m=(int)content[start_block*block_size+k];
-                while(j<128)
+                while(j<block_size)
                 {
                     if(content[m*block_size+j]=='\0')
                     {
@@ -833,6 +935,14 @@ Bool writeFile(char name[], char add[])
             printf("You have no right to write this file!\n");
             return False;
         }
+        //-----
+        char temp[200];
+        strcpy(temp, name);
+        strcat(temp, ".txt");
+        FILE *f = fopen(temp, "a");
+        fprintf(f, add);
+        fclose(f);
+        //-------
         if(choice==1)
             return write_material_1(add, this_file->start, the_disk, strlen(add), this_file);
         else
@@ -840,3 +950,232 @@ Bool writeFile(char name[], char add[])
     }
     return False;
 }
+
+Bool writeFile_auto(char name[], char add[])
+{
+    File* this_file = find_opened_file_auto(name, current_open);
+    if(this_file != NULL)
+    {
+        if(this_file->protect[0] == 0)
+        {
+            printf("You have no right to write this file!\n");
+            return False;
+        }
+        if(choice==1)
+            return write_material_1(add, this_file->start, the_disk, strlen(add), this_file);
+        else
+            return write_material_2(add, this_file->start, the_disk, strlen(add), this_file);
+    }
+    return False;
+}
+
+Bool find_same_file(char name[], Dir* currentDir)
+{
+	File* head = currentDir->file_head;
+	for (; head != NULL; head = head->next)
+	{
+		if (strcmp(head->name, name) == 0)
+		{
+			return True;
+		}
+	}
+	return False;
+}
+
+void present()
+{
+    char command[500];
+    while(True)
+    {
+        showDir(current_dir);
+        printf(">");
+        gets_s(command);
+        if(command[2] == ' ')
+        {
+            if(command[0] == 'c')
+            {
+                if(command[1] == 'f')
+                {
+                    int protect[3];
+                    if(command[strlen(command)-1] == '1' || command[strlen(command)-1] == '0')
+                    {
+                        if(command[strlen(command)-2] == ' ')
+                        {
+                            int i=3;
+                            while(command[i] != ' ')
+                            {
+                                i++;
+                            }
+                            command[i] = '\0';
+                            protect[0] = command[i+1] - '0';
+                            protect[1] = command[i+3] - '0';
+                            protect[2] = command[i+5] - '0';
+                        }
+                    }
+                    else
+                    {
+                        protect[0] = 1;
+                        protect[1] = 1;
+                        protect[2] = 1;
+                    }
+                    if(!createFile(command+3, protect))
+                    {
+                        printf("Create file failed.\n");
+                    }
+                }
+                else if(command[1] == 'l')
+                {
+                    if(!closeFile(command+3))
+                    {
+                        printf("Close file failed. No such an opened file.\n");
+                    }
+                }
+                else if(command[1] == 'i')
+                {
+                    if(!createDir(command+3))
+                    {
+                        printf("Create directory failed.\n");
+                    }
+                }
+                else if(command[1] == 'd')
+                {
+                    if(!cd(command+3))
+                    {
+                        printf("Enter directory failed. No such a directory.\n");
+                    }
+                }
+                else
+                {
+                    printf("There is no such an command:%s!!\n",command);
+                }
+            }
+            else if(command[0] == 'd')
+            {
+                if(command[1] == 'f')
+                {
+                    if(!deleteFile(command+3))
+                    {
+                        printf("Delete file failed. No such a file or the file is opening.\n");
+                    }
+                }
+                else if(command[1] == 'i')
+                {
+                    if(!deleteDir(command+3))
+                    {
+                        printf("Delete directory failed. No such a directory.\n");
+                    }
+                }
+                else
+                {
+                    printf("There is no such an command:%s!!\n",command);
+                }
+            }
+            else if(command[0] == 'o')
+            {
+                if(command[1] == 'p')
+                {
+                    if(!openFile(command+3))
+                    {
+                        printf("Open file failed. No such an opened file.\n");
+                    }
+                }
+                else
+                {
+                    printf("There is no such an command:%s!!\n",command);
+                }
+            }
+            else if(command[0] == 'r')
+            {
+                if(command[1] == 'e')
+                {
+                    char * material = readFile(command+3);
+                    if(material != NULL)
+                    {
+                        if(strlen(material) == 0)
+                        {
+                            printf("Read an empty file. Or no such an opened file.\n");
+                        }
+                        else
+                        {
+                            printf("%s\n",material);
+                        }
+                    }
+                    else
+                    {
+                        printf("Read an empty file. Or no such an opened file.\n");
+                    }
+                    free(material);
+                }
+                else
+                {
+                    printf("There is no such an command:%s!!\n",command);
+                }
+            }
+            else if(command[0] == 'w')
+            {
+                if(command[1] == 'r')
+                {
+                    int i=3;
+                    while(command[i] != ' ')
+                    {
+                        i++;
+                    }
+                    command[i] = '\0';
+                    i+=1;
+                    if(!writeFile(command+3, command+i))
+                    {
+                        printf("Write file failed. No such an opened file. Or no enough space.\n");
+                    }
+                }
+                else
+                {
+                    printf("There is no such an command:%s!!\n",command);
+                }
+            }
+
+            else
+            {
+                printf("There is no such an command:%s!!\n",command);
+            }
+        }
+        else if(command[0] == 'l')
+        {
+            if(command[1] == 'a')
+            {
+                if(!last(current_dir))
+                {
+                    printf("Back to father directory failed. Current at base directory.\n");
+                }
+            }
+            else
+            {
+                printf("There is no such an command:%s!!\n",command);
+            }
+        }
+        else if(command[0] == 's')
+        {
+            if(command[1] == 'h')
+            {
+                if(!show(current_dir))
+                {
+                    printf("Show directory failed.\n");
+                }
+            }
+            else
+            {
+                printf("There is no such an command:%s!!\n",command);
+            }
+        }
+        else if(strcmp(command, "exit") == 0)
+        {
+            break;
+        }
+        else
+        {
+            printf("Command format wrong:%s!!\n",command);
+        }
+    }
+    free_all(the_disk, the_dir, current_dir, current_open);
+}
+//use file system
+

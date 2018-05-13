@@ -1,57 +1,64 @@
 #pragma once
-#define Free 0			//ç©ºé—²çŠ¶æ€
-#define Busy 1			//å·²ç”¨çŠ¶æ€
-#define OK 1			//å®Œæˆ
-#define ERROR -1		//å‡ºé”™
-#define PGSIZE 4096		//é¡µå¤§å°4096
-#define MSIZE 1024*1024 //æœ€å¤§å†…å­˜ç©ºé—´ä¸º1MB
-#define VM_USED -1		//è™šå­˜ç”³è¯·å†…å­˜æ—¶IDå·ï¼ˆä¸ºè·Ÿè¿›ç¨‹å·ç›¸åŒºåˆ†ï¼‰
+#include<iostream>
+#include<fstream>
+#include<ctime>
+#include<assert.h>
+#include<string>
+#include<stdio.h>
 
+#define Free "0"			//¿ÕÏĞ×´Ì¬
+#define Busy "1"			//ÒÑÓÃ×´Ì¬
+#define OK 1				//Íê³É
+#define ERROR -1			//³ö´í
+#define PGSIZE 1024			//Ò³´óĞ¡4096
+#define MSIZE 1048576		//×î´óÄÚ´æ¿Õ¼äÎª1MB
+#define VM_USED "-1"		//Ğé´æÉêÇëÄÚ´æÊ±IDºÅ£¨Îª¸ú½ø³ÌºÅÏàÇø·Ö£©
 #define FIRST_FIT 1
 //#define BEST_FIT 1
 //#define WORST_FIT 1
 
-extern size_t   memNum ;//ç‰©å­˜æ€»å¤§å°
-extern time_t   now;           //æ—¶é—´
-extern char*    dt;			//è¾“å‡ºæ—¶é—´å­—ç¬¦
+using namespace std;
 
 typedef size_t Status;
 
-typedef struct freearea//å®šä¹‰ä¸€ä¸ªç©ºé—²åŒºè¯´æ˜è¡¨ç»“æ„
+typedef struct freearea		//¿ÕÏĞÇøËµÃ÷±í½á¹¹
 {
-	int ID;			   //å ç”¨çš„è¿›ç¨‹å· è‹¥åˆ†é…è™šå­˜ï¼ŒIDä¸º-1
-	long size;		   //åˆ†åŒºå¤§å°
-	long address;	   //åˆ†åŒºåœ°å€
-	int state;		   //çŠ¶æ€
+	string ID;			    //Õ¼ÓÃµÄ½ø³ÌºÅ Èô·ÖÅäĞé´æ£¬IDÎª-1
+	long size;				//·ÖÇø´óĞ¡
+	long address;		    //·ÖÇøµØÖ·
+	string state;		    //×´Ì¬
 }ElemType;
 
-//----------  çº¿æ€§è¡¨çš„åŒå‘é“¾è¡¨å­˜å‚¨ç»“æ„  ------------
-typedef struct memNode //double linked list
+//----------  ÏßĞÔ±íµÄË«ÏòÁ´±í´æ´¢½á¹¹  ------------
+typedef struct memNode 
 {
 	ElemType data;
-	struct memNode *prior; //å‰è¶‹æŒ‡é’ˆ
-	struct memNode *next;  //åç»§æŒ‡é’ˆ
+	struct memNode *prior; //Ç°Ç÷Ö¸Õë
+	struct memNode *next;  //ºó¼ÌÖ¸Õë
 }memNode, *memList;
 
-extern memList block_first;		//å¤´ç»“ç‚¹
-extern memList block_last;			//å°¾ç»“ç‚¹
+Status Initblock();
 
-/*@para:int ID(-1 for VM),size_t request
+/*@para:int ID(-1 for VM),size_t request  
   @return:size_t paddr OR ERROR(-1)*/
-Status alloc(int,size_t);
+Status alloc(string,size_t);
 
 /*@para:size_t paddr
   @return:OK(1) OR ERROR(-1)*/
-Status free(size_t);	
+Status free(string);	
 
 /*@para:int ID(-1 for VM),size_t request
   @return:size_t paddr OR ERROR(-1)*/
-Status First_fit(int, size_t);  
-Status Best_fit(int, size_t);  
-Status Worst_fit(int, size_t);  
+Status First_fit(string, size_t);  
+Status Best_fit(string, size_t);  
+Status Worst_fit(string, size_t);  
 
-void show();				    //æŸ¥çœ‹åˆ†é…
-Status Initblock();				//åˆå§‹åŒ–å†…å­˜ç©ºé—´
-
+/*@para: size_t paddr
+  @return: char character*/
 char read_pm(size_t paddr);
+
+/*@para:size_t paddr,char c
+  @return int*/
 int write_pm(size_t paddr, char c);
+
+void show();		

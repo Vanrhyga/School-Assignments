@@ -11,9 +11,9 @@
 /*
 * some define.
 */
-#define DEBUG 1
+#define DEBUG 0
 #define RELEASE 1
-#define PAGE_SIZE 4096
+#define PAGE_SIZE 1024
 #define MAX_MEMORY_SIZE 16614178816
 #define ERROR_ADDR 0
 #define REPLACEMENT_ALGORITHM SECOND_CHANCE_ALGORITHM
@@ -31,7 +31,8 @@ extern std::fstream flog;
 typedef unsigned __int32 vaddr;
 typedef unsigned __int32 paddr;
 typedef __int16 flag;
-typedef __int16 procid;
+//typedef __int16 procid;
+typedef std::string procid;
 typedef struct PTE PTE;
 typedef struct VMM VMM;
 typedef vaddr size_vm;
@@ -49,7 +50,7 @@ struct VMM
 	vaddr begin_vaddr;
 	unsigned  int  page_number;
 	struct VMM *pnxt;
-	VMM(procid _begin_vaddr, vaddr _page_number) :begin_vaddr(_begin_vaddr), page_number(_page_number)
+	VMM(vaddr _begin_vaddr, size_t _page_number) :begin_vaddr(_begin_vaddr), page_number(_page_number)
 		, pnxt(NULL)
 	{
 		assert(0 == _begin_vaddr%PAGE_SIZE);
@@ -86,7 +87,7 @@ struct PTE
 	vtime arr_time;
 	// shared memory;
 	std::vector<procid> shared_id;
-	PTE(procid _id, vaddr _vaddress):id(_id),vaddress(_vaddress),paddress(0),status(ILLEGAL)
+	PTE(procid _id, vaddr _vaddress) :id(_id), vaddress(_vaddress), paddress(0), status(ILLEGAL)
 	{
 		assert(0 == _vaddress%PAGE_SIZE);
 	}
@@ -116,7 +117,7 @@ int Read_VM(const procid &id, vaddr begin_vaddr, size_vm size, char *content);
 /*
 * copy the memory when fork a process.
 */
-int fork_memory(procid parent,procid child);
+vaddr fork_memory(procid parent, procid child);
 
 
 

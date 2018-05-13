@@ -1,70 +1,71 @@
-#include<iostream>
-#include<fstream>
-#include<ctime>
-#include<assert.h>
 #include"mmu.h"
-#include"fs_head.h"
-using namespace std;
 
-ofstream printlog;		//æ—¥å¿—
-size_t   memNum = MSIZE;//ç‰©å­˜æ€»å¤§å°
-time_t   now;           //æ—¶é—´
-char*    dt;			//è¾“å‡ºæ—¶é—´å­—ç¬¦
+ofstream printlog;		//ÈÕÖ¾
+size_t   memNum = MSIZE;//Îï´æ×Ü´óĞ¡
+time_t   now;           //Ê±¼ä
+char*    dt;			//Êä³öÊ±¼ä×Ö·û
 
-memList block_first;		//å¤´ç»“ç‚¹
-memList block_last;			//å°¾ç»“ç‚¹
+memList block_first;		//Í·½áµã
+memList block_last;			//Î²½áµã
 
-Status Initblock()				//åˆå§‹åŒ–å¸¦å¤´ç»“ç‚¹çš„å†…å­˜ç©ºé—´é“¾è¡¨
+extern int allocMode;
+
+Status Initblock()			
 {
-	block_first = (memList)malloc(sizeof(memNode));
-	block_last = (memList)malloc(sizeof(memNode));
+	block_first = new memNode;
+	block_last = new memNode;
 	block_first->prior = NULL;
 	block_first->next = block_last;
-	block_first->data.state = 3;
+	block_first->data.state = "3";
 	block_first->data.size = 0;
 	block_last->prior = block_first;
 	block_last->next = NULL;
 	block_last->data.address = 0;
 	block_last->data.size = MSIZE;
-	block_last->data.ID = 0;
+	block_last->data.ID = "0";
 	block_last->data.state = Free;
 	return OK;
 }
 
-//------------------- åˆ† é… ä¸» å­˜ -----------------
-//IDä¸º-1æ—¶åˆ†é…ä¸»å­˜ç»™VMï¼Œå…¶ä»–æƒ…å†µåˆ™åˆ†é…ç»™è¿›ç¨‹
-Status alloc(int ID, size_t request)
+Status alloc(string ID,size_t request)
 {
-	size_t paddr;		//è¿”å›çš„åœ°å€
-	assert(ID == -1 || ID > 0);
+	size_t paddr;		//·µ»ØµÄµØÖ·
+	assert(ID != "0");
 	assert(request % PGSIZE == 0);
-#ifdef FIRST_FIT
-	paddr = First_fit(ID, request);
-#elif BEST_FIT
-	paddr = Best_fit(ID, request);
-#elif WORST_FIT
-	paddr = Worst_fit(ID, request);
-#endif // FIRST_FIT
+	switch (allocMode)
+	{
+	case 1:
+		paddr = First_fit(ID, request);
+		break;
+	case 2:
+		paddr = Best_fit(ID, request);
+		break;
+	case 3:
+		paddr = Worst_fit(ID, request);
+		break;
+	default:
+		break;
+	}
 	now = time(0);
 	dt = ctime(&now);
-	printlog.open("log.txt", ios::app);
+	printlog.open("pm_log.txt", ios::app);
 	if (paddr >= 0) {
-		memNum -= request;//æ€»å†…å­˜å‡å°‘
-		//printlog << dt << "Succeed: Assigned successfully!      StartAddrï¼š" << paddr << "      EndAddrï¼š" << paddr + request << "      Memoryï¼š" << memNum << endl;
+		memNum -= request;//×ÜÄÚ´æ¼õÉÙ
+		printlog << dt << "Succeed: Assigned successfully!      StartAddr£º" << paddr << "      EndAddr£º" << paddr + request << "      Memory£º" << memNum << endl;
 		printlog.close();
 		return paddr;
 	}
 	else {
-		//printlog << dt << "Error: Insufficient Memory, Assigned failed!      " << "      Memoryï¼š" << memNum << endl;
+		printlog << dt << "Error: Insufficient Memory, Assigned failed!      " << "      Memory£º" << memNum << endl;
 		printlog.close();
 		return ERROR;
 	}
 }
-//------------------ é¦–æ¬¡é€‚åº”ç®—æ³• -----------------
-Status First_fit(int ID, size_t request)//ä¼ å…¥ä½œä¸šååŠç”³è¯·é‡ return :paddr
+
+Status First_fit(string ID, size_t request)
 {
 	memNode *p = block_first->next;
-	memList block = (memList)malloc(sizeof(memNode));
+	memList block = new memNode;
 	memset(block, 0, sizeof(memNode));
 	block->data.ID = ID;
 	block->data.size = request;
@@ -89,25 +90,25 @@ Status First_fit(int ID, size_t request)//ä¼ å…¥ä½œä¸šååŠç”³è¯·é‡ return :pa
 			{
 				p->data.ID = ID;
 				p->data.state = Busy;
-				free(block);
+				delete block;
 				return p->data.address;//return paddr
 			}
 		}
 		p = p->next;
 	}
-	free(block);
+	delete block;
 	return ERROR;
 }
-//--------------------æœ€ä½³é€‚åº”ç®—æ³• ----------------
-Status Best_fit(int ID, size_t request)
+
+Status Best_fit(string ID, size_t request)
 {
-	memList block = (memList)malloc(sizeof(memNode));
+	memList block = new memNode;
 	memset(block, 0, sizeof(memNode));
 	block->data.ID = ID;
 	block->data.size = request;
 	block->data.state = Busy;
 	memNode *p = block_first->next;
-	memNode *q = NULL; //è®°å½•æœ€ä½³æ’å…¥ä½ç½®
+	memNode *q = NULL; //¼ÇÂ¼×î¼Ñ²åÈëÎ»ÖÃ
 	int i = 0;
 	int num = 0;
 	memNode *q1 = NULL;
@@ -130,11 +131,11 @@ Status Best_fit(int ID, size_t request)
 		}
 		p = p->next;
 	}
-	//è¦æŸ¥æ‰¾åˆ°æœ€å°å‰©ä½™ç©ºé—´çš„åˆ†åŒºï¼Œå³æœ€ä½³æ’å…¥ä½ç½®
-	if (q == NULL) return ERROR;//æ²¡æœ‰æ‰¾åˆ°ç©ºé—²å—
+	//Òª²éÕÒµ½×îĞ¡Ê£Óà¿Õ¼äµÄ·ÖÇø£¬¼´×î¼Ñ²åÈëÎ»ÖÃ
+	if (q == NULL) return ERROR;//Ã»ÓĞÕÒµ½¿ÕÏĞ¿é
 	else
 	{
-		//æ‰¾åˆ°äº†æœ€ä½³ä½ç½®å¹¶å®ç°å†…å­˜åˆ†é…çš„ä»£ç 
+		//ÕÒµ½ÁË×î¼ÑÎ»ÖÃ²¢ÊµÏÖÄÚ´æ·ÖÅäµÄ´úÂë
 		if ((q->data.size - request) > 1)
 		{
 			block->data.address = q->data.address;
@@ -151,21 +152,20 @@ Status Best_fit(int ID, size_t request)
 		{
 			q->data.ID = ID;
 			q->data.state = Busy;
-			free(block);
+			delete block;
 			return q->data.address;
 		}
 	}
 }
-//--------------------æœ€å·®é€‚åº”ç®—æ³• ----------------
-Status Worst_fit(int ID, size_t request) {
-	//ä½œä¸šç”³è¯·æ–°ç©ºé—´ä¸”åˆå§‹åŒ–çš„ä»£ç 
-	memList block = (memList)malloc(sizeof(memNode));
+
+Status Worst_fit(string ID, size_t request) {
+	memList block = new memNode;
 	memset(block, 0, sizeof(memNode));
 	block->data.ID = ID;
 	block->data.size = request;
 	block->data.state = Busy;
 	memNode *p = block_first->next;
-	memNode *q = NULL; //è®°å½•æœ€ä½³æ’å…¥ä½ç½®
+	memNode *q = NULL; //¼ÇÂ¼×î¼Ñ²åÈëÎ»ÖÃ
 	int i = 0;
 	int num = 0;
 	memNode *q1 = NULL;
@@ -187,13 +187,12 @@ Status Worst_fit(int ID, size_t request) {
 			}
 			num++;
 		}
-
 		p = p->next;
 	}
-	if (q == NULL) return ERROR;//æ²¡æœ‰æ‰¾åˆ°ç©ºé—²å—
+	if (q == NULL) return ERROR;//Ã»ÓĞÕÒµ½¿ÕÏĞ¿é
 	else
 	{
-		//æ‰¾åˆ°äº†æœ€ä½³ä½ç½®å¹¶å®ç°å†…å­˜åˆ†é…çš„ä»£ç 
+		//ÕÒµ½ÁË×î¼ÑÎ»ÖÃ²¢ÊµÏÖÄÚ´æ·ÖÅäµÄ´úÂë
 		if ((q->data.size - request) > 1)
 		{
 			block->data.address = q->data.address;
@@ -210,38 +209,35 @@ Status Worst_fit(int ID, size_t request) {
 		{
 			q->data.ID = ID;
 			q->data.state = Busy;
-			free(block);
+			delete block;
 			return q->data.address;
 		}
 	}
 }
 
-//--------------------ä¸» å­˜ å› æ”¶ -----------------
-Status free(size_t paddr)
+Status free(string ID)
 {
 	bool result = false;
 	memNode *p = block_first->next;
 	while (p)
 	{
-		if (p->data.address == paddr)
+		if (p->data.ID == ID)
 		{
 			result = true;
 			p->data.state = Free;
 			p->data.ID = Free;
-			//cout << "å†…å­˜å—æ‰¾åˆ°ï¼Œå‡†å¤‡å›æ”¶ï¼" << endl;
 			if (p == block_last) {
 				if ((p->prior->data.state == Free) && (p->prior->data.address + p->prior->data.size == p->data.address))
-				{//ä¸ºæœ€åä¸€å—
+				{//Îª×îºóÒ»¿é
 					p->prior->data.size += p->data.size;
 					p->prior->next = NULL;
 					free(p);
 				}
-				//cout << "å†…å­˜å—ä¸ºæœ€åä¸€å—ï¼" << endl;
 				break;
 			}
-			//å…¶ä»–æƒ…å†µçš„å›æ”¶çš„ä»£ç ï¼Œä¸»è¦åŒ…æ‹¬è¦å›æ”¶çš„åˆ†åŒºä¸å‰é¢çš„ç©ºé—²å—ç›¸è¿æˆ–ä¸åé¢çš„ç©ºé—²å—ç›¸è¿ï¼Œæˆ–è€…ä¸å‰åç©ºé—²å—ç›¸è¿ç­‰ã€‚
+			//ÆäËûÇé¿öµÄ»ØÊÕµÄ´úÂë£¬Ö÷Òª°üÀ¨Òª»ØÊÕµÄ·ÖÇøÓëÇ°ÃæµÄ¿ÕÏĞ¿éÏàÁ¬»òÓëºóÃæµÄ¿ÕÏĞ¿éÏàÁ¬£¬»òÕßÓëÇ°ºó¿ÕÏĞ¿éÏàÁ¬µÈ¡£
 			if ((p->next->next == NULL) && (p->next->data.state == Free) && (p->data.address + p->data.size == p->next->data.address))
-			{//ä¸åä¸€å—ç›¸è¿
+			{//ÓëºóÒ»¿éÏàÁ¬
 				p->data.size += p->next->data.size;
 				p->next = NULL;
 				if ((p->prior->data.state == Free) && (p->prior->data.address + p->prior->data.size == p->data.address))
@@ -249,20 +245,17 @@ Status free(size_t paddr)
 					p->prior->data.size += p->data.size;
 					p->prior->next = NULL;
 					free(p);
-
 				}
 				break;
-
 			}
 			else if ((p->prior->data.state == Free) && (p->prior->data.address + p->prior->data.size == p->data.address))
-			{//ä¸å‰ä¸€å—ç›¸è¿
+			{//ÓëÇ°Ò»¿éÏàÁ¬
 
 				if (p->next->data.state == Free && (p->data.address + p->data.size == p->next->data.address))
-				{//ä¸åä¸€å—ç›¸è¿
+				{//ÓëºóÒ»¿éÏàÁ¬
 					p->data.size += p->next->data.size;
 					p->next = p->next->next;
 					p->next->prior = p;
-					//free(p->next);
 				}
 				p->prior->data.size += p->data.size;
 				p->prior->next = p->next;
@@ -271,12 +264,11 @@ Status free(size_t paddr)
 				break;
 			}
 			else if ((p->next->data.state == Free) && (p->data.address + p->data.size == p->next->data.address))
-			{//åªä¸åä¸€å—ç›¸è¿
+			{//Ö»ÓëºóÒ»¿éÏàÁ¬
 
 				p->data.size += p->next->data.size;
 				p->next = p->next->next;
 				p->next->prior = p;
-				//free(p->next);
 				break;
 			}
 			break;
@@ -285,90 +277,47 @@ Status free(size_t paddr)
 	}
 	now = time(0);
 	dt = ctime(&now);
-	printlog.open("log.txt", ios::app);
+	printlog.open("pm_log.txt", ios::app);
 	if (result)
 	{
 		memNum += p->data.size;
-		//printlog << dt << "Succeed: Release Completed!      StartAddrï¼š" << paddr << "      EndAddrï¼š" << paddr + p->data.size << "      Memoryï¼š" << memNum << endl;
+		//printlog << dt << "Succeed: Release Completed!      StartAddr£º" << paddr << "      EndAddr£º" << paddr + p->data.size << "      Memory£º" << memNum << endl;
 		printlog.close();
 		return OK;
 	}
 	else {
-		//printlog << dt << "Error: Release Failed!      Starting Address ï¼š" << paddr << " is not found" << "      Memoryï¼š" << memNum << endl;
+		//printlog << dt << "Error: Release Failed!      Starting Address £º" << paddr << " is not found" << "      Memory£º" << memNum << endl;
 		printlog.close();
 		return ERROR;
 	}
 }
 
-//--------------------è¯» ç‰©  å­˜-------------------
 char read_pm(size_t paddr)
 {
 	return 'a';
 }
-//--------------------å†™ ç‰© å­˜--------------------
+
 int write_pm(size_t paddr, char c)
 {
 	return 1;
 }
 
-//---------------  æ˜¾ç¤ºä¸»å­˜åˆ†é…æƒ…å†µ ----------------
 void show()
 {
 	memNode *p = block_first->next;
+	size_t used_mm = MSIZE - memNum;
+	printf("------Physical Memory Layout %.2f%% Used-------\n",(used_mm*1.0/ MSIZE)*100);
+	cout << "                                               " << endl;
 	cout << "PID\tStartAddr\tEndAddr\t\tStatus" << endl;
 	while (p)
 	{
 		if (p->data.ID == Free) cout << "Free\t";
 		else if (p->data.ID == VM_USED) cout << "VM_USED\t";
-		else cout << p->data.ID << "\t";
-		cout << p->data.address << "\t\t";
-		cout << p->data.size + p->data.address << "\t\t";
+		else cout << p->data.ID<<"\t";
+		cout<< p->data.address<<"\t\t";
+		cout<< p->data.size+ p->data.address << "\t\t";
 		if (p->data.state == Free) cout << "Free" << endl;
 		else cout << "Busy" << endl;
 		p = p->next;
 	}
 }
-
-//------------------ æµ‹ è¯• ä¸»  å‡½  æ•°--------------
-//void main()
-//{
-//#ifdef FIRST_FIT
-//	cout << "|-----------------FirstFit-----------------|" << endl;
-//#elif BEST_FIT
-//	cout << "|------------------BestFit-----------------|" << endl;
-//#elif WORST_FIT
-//	cout << "|------------------WorstFit----------------|" << endl;
-//#endif // FIRST_FIT
-//	Initblock(); //åˆå§‹åŒ–ç©ºé—²ç©ºé—´è¡¨
-//	while (1)
-//	{
-//		int choice;
-//		cout << "|------------------------------------------|\n";
-//		cout << "|         1: alloc        2: free          |\n";
-//		cout << "|         3: check        0: exit          |\n";
-//		cout << "|------------------------------------------|\n";
-//		cout << ">>";
-//		cin >> choice;
-//		if (choice == 1) {				// åˆ†é…å†…å­˜
-//			int ID;
-//			size_t request = PGSIZE;
-//			cout << "please enter the ID of job(-1 for VM others for pid)\n>>";
-//			cin >> ID;
-//			alloc(ID, request);
-//		}
-//		else if (choice == 2)			// å†…å­˜å›æ”¶
-//		{
-//			size_t paddr;
-//			cout << "please enter the begin address of the block\n>>";
-//			cin >> paddr;
-//			free(paddr);
-//		}
-//		else if (choice == 3) show();	//æ˜¾ç¤ºä¸»å­˜
-//		else if (choice == 0) break;	//é€€å‡º
-//		else							//è¾“å…¥æ“ä½œæœ‰è¯¯
-//		{
-//			cout << "incorrect inputï¼Œplease try again ï¼" << endl;
-//			continue;
-//		}
-//	}
-//}

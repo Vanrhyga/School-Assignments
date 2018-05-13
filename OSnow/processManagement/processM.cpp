@@ -24,9 +24,15 @@ void processControlBlock::createChildP(string PID, string name, processType type
 	child.name = name;
 	child.parentPID = this->PID;
 	child.type = type;
-	this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
-	insertProcess(child.PID, child);
-	insertRL(child.PID, child.type);									//进入就绪队列
+	child.size = this->size;
+	if (!insertProcess(child.PID, child)) {
+		this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
+		insertRL(child.PID, child.type);									//进入就绪队列
+	}
+	else {
+		recordTime();
+		ofp << "空间不足，子进程创建失败" << endl;
+	}
 }
 
 //所需资源增加函数
@@ -135,21 +141,27 @@ resource& getResource(string RID) {
 }
 
 int insertProcess(string PID, PCB p) {
-	if (Allocate_VM(PID,p.size)) {
+	vaddr addr;
+	if (p.parentPID != "")
+		addr = fork_memory(p.parentPID, PID);
+	else
+		addr = Allocate_VM(PID, p.size);
+	if (addr) {
+		p.start = addr;
+		recordTime();
+		ofp << "进程创建" << endl;
+		ofp << "进程名称：" << p.name << "  ";
+		ofp << "进程标识：" << p.PID << "  ";
+		if (p.type == processType::forSystem)
+			ofp << "进程种类：系统进程" << "  ";
+		else
+			ofp << "进程种类：用户进程" << "  ";
+		ofp << "运行时间：" << p.runtime << endl;
+		process.insert(make_pair(PID, p));
 		return 0;
 	}
 	else
 		return 1;
-	recordTime();
-	ofp << "进程创建" << endl;
-	ofp << "进程名称：" << p.name << "  ";
-	ofp << "进程标识：" << p.PID << "  ";
-	if (p.type == processType::forSystem)
-		ofp << "进程种类：系统进程" << "  ";
-	else
-		ofp << "进程种类：用户进程" << "  ";
-	ofp << "运行时间：" << p.runtime << endl;
-	process.insert(make_pair(PID, p));
 }
 
 void outProcess(string PID) {
@@ -244,6 +256,7 @@ void destroyProcess(string PID) {
 	else
 		ofp << "进程种类：用户进程" << endl;
 	process.erase(PID);
+	Free_VM(PID);
 	if (tmp)
 		dispatcher();
 }
@@ -445,7 +458,7 @@ void RR() {
 }
 
 void annotation() {
-	ofp.open("log.txt", ios::out);
+	ofp.open("processM_log.txt", ios::out);
 	ofp << "**************************************************************************************" << endl;
 	ofp << ">>*                                                                  进程日志                                                                   *<<" << endl;
 	ofp << "**************************************************************************************" << endl;

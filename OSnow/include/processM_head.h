@@ -51,7 +51,7 @@ typedef struct processControlBlock {			//进程控制块
 	map<string, processControlBlock> childProcess;						//子进程
 	size_vm size = rand() % MAX_VM_SIZE + 1;	//虚存空间大小
 	vaddr start;								//虚存起始地址
-	char* buffer;								//缓冲区
+	char* buffer = "fuck";						//缓冲区
 	processControlBlock();
 	processControlBlock(string PID, string name, processType type);
 	void createChildP(string PID, string name, processType type);		//创建子进程
@@ -112,6 +112,7 @@ void recordTime();
 string toString(int i);
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet);		//秒表
 DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet);
+void initial();
 void Screen();
 
 
