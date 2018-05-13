@@ -15,15 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="processM_head.h">
+    <ClInclude Include="include\processM_head.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fs_head.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mmu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vmm.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="processM.cpp">
+    <ClCompile Include="processManagement\processM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fileManagement\fs_system.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="memoryManagement\mmu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="memoryManagement\vmm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

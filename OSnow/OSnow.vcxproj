@@ -19,11 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="processM_head.h" />
+    <ClInclude Include="include\fs_head.h" />
+    <ClInclude Include="include\mmu.h" />
+    <ClInclude Include="include\processM_head.h" />
+    <ClInclude Include="include\vmm.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="fileManagement\fs_system.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="processM.cpp" />
+    <ClCompile Include="memoryManagement\mmu.cpp" />
+    <ClCompile Include="memoryManagement\vmm.cpp" />
+    <ClCompile Include="processManagement\processM.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6A66CE97-5AD6-4B75-BFE7-E5340EE594E6}</ProjectGuid>
@@ -95,6 +101,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\dell\Desktop\OSnow\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
