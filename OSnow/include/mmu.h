@@ -11,7 +11,7 @@
 #define OK 1				//完成
 #define ERROR -1			//出错
 #define PGSIZE 1024			//页大小4096
-#define MSIZE 1048576		//最大内存空间为1MB
+#define MSIZE 102400		//最大内存空间为100KB
 #define VM_USED "-1"		//虚存申请内存时ID号（为跟进程号相区分）
 #define FIRST_FIT 1
 //#define BEST_FIT 1

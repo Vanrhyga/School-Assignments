@@ -11,15 +11,17 @@
 /*
 * some define.
 */
-#define DEBUG 0
+#define DEBUG 1
 #define RELEASE 1
 #define PAGE_SIZE 1024
 #define MAX_MEMORY_SIZE 16614178816
 #define ERROR_ADDR 0
-#define REPLACEMENT_ALGORITHM LFU
+//#define REPLACEMENT_ALGORITHM LFU
 #define LFU 1
 #define SECOND_CHANCE_ALGORITHM 2
 #define MFU_ALGORITHM 3
+
+extern int REPLACEMENT_ALGORITHM;
 
 
 #if RELEASE

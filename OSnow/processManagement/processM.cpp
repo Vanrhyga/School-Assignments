@@ -142,9 +142,9 @@ resource& getResource(string RID) {
 
 int insertProcess(string PID, PCB p) {
 	vaddr addr;
-	if (p.parentPID != "")
+	/*if (p.parentPID != "")
 		addr = fork_memory(p.parentPID, PID);
-	else
+	else*/
 		addr = Allocate_VM(PID, p.size);
 	if (addr) {
 		p.start = addr;

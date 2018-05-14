@@ -14,7 +14,7 @@
 #define True 1
 #define False 0
 #define Bool int
-#define max_size 4194301
+#define max_size 65536
 #define block_size 1024
 
 typedef struct file { //file structure
@@ -140,6 +140,8 @@ Bool create_dir(char name[], Dir* currentDir); //add the new directory into the 
 Bool delete_dir(char name[], Dir* currentDir); //delete the directory and the files, directories under this directory
 Bool find_same_file(char name[], Dir* currentDir);
 Bool find_same_dir(char name[], Dir* currentDir);
+
+Bool back();
 void present();
 
 

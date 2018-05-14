@@ -9,6 +9,7 @@
 #include<Windows.h>
 #include<conio.h>
 #include<fstream>
+#include<mutex>
 #include "vmm.h"
 using namespace std;
 /* 注：父子进程级联删除;
@@ -19,8 +20,8 @@ using namespace std;
 /*常量*/
 #define MAX_RESOURCE_AMOUNT 3					//资源种类上限
 #define MAX_SIZE			12					//资源数量上限
-#define MAX_RUNTIME			27					//运行时间上限
-#define MAX_VM_SIZE			16777216			//单个进程虚存空间上限
+#define MAX_RUNTIME			24					//运行时间上限
+#define MAX_VM_SIZE			8192				//单个进程虚存空间上限
 
 
 /*枚举*/
@@ -43,14 +44,13 @@ typedef struct processControlBlock {			//进程控制块
 	string PID;									//进程标识
 	string name;								//进程名称
 	string parentPID = "";						//父进程标识
-	int runtime = rand() % MAX_RUNTIME + 1;		//运行时间
+	int runtime = rand() % MAX_RUNTIME + 3;		//运行时间
 	processState state = ready;					//进程状态
 	processType type;							//进程种类
 	listType list = readyL;						//所在队列
 	map<string, int> resources;					//已占有资源
 	map<string, processControlBlock> childProcess;						//子进程
-	//size_vm size = rand() % MAX_VM_SIZE + 1;	//虚存空间大小
-	size_vm size = 8000;						//虚存空间大小
+	size_vm size = rand() % MAX_VM_SIZE + 1;	//虚存空间大小
 	vaddr start;								//虚存起始地址
 	char* buffer = "fuck";						//缓冲区
 	processControlBlock();

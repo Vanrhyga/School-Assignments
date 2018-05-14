@@ -220,8 +220,10 @@ Bool createDir(char name[])
         strcpy(path, current_path);
         strcat(path, "\\");
         strcat(path, name);
-        CreateDirectory((LPCWSTR)path, NULL);
-        return create_dir(name, current_dir);
+		//printf("%s\n", path);
+        //CreateDirectory((LPCWSTR)path, NULL);
+		mkdir(path);
+		return create_dir(name, current_dir);
     }
     else
     {
@@ -262,6 +264,7 @@ Bool createFile(char name[], int protect[])
 			strcat(temp, name);
 			strcat(temp, ".txt");
 			File* new_file = initializeFile(name, block_no, protect);
+			//printf("%s\n", temp);
 			FILE* f = fopen(temp, "w+");
 			fclose(f);
 			return add_file(new_file, current_dir);
@@ -276,6 +279,11 @@ Bool createFile(char name[], int protect[])
         printf("There is a file with the same name under this directory.\n");
         return False;
     }
+}
+
+Bool back()
+{
+	return last(current_dir);
 }
 
 Bool delete_dir(char name[], Dir* currentDir)
@@ -509,6 +517,8 @@ Dir* initializeDir()
 Disk* initializeDisk_1()
 {//initialize the disk structure and the stack structure
     getcwd(current_path, 500);
+	strcat(current_path, "\\");
+	strcat(current_path, "system");
 
     int i=0;
     while((i+1)*block_size<=max_size)
@@ -538,6 +548,8 @@ Disk* initializeDisk_1()
 Disk* initializeDisk_2()
 {//initialize the disk structure and the stack structure
 	getcwd(current_path, 500);
+	strcat(current_path, "\\");
+	strcat(current_path, "system");
 
     int i;
     Disk* new_one=(Disk*)malloc(sizeof(Disk));
@@ -590,7 +602,7 @@ int if_full_1(int length, int current_block, Disk* theDisk)
 {
     while(content[current_block*block_size+block_size-1]!=-1)
     {
-		printf("%d\n", content[current_block*block_size + block_size - 1]);
+		//printf("%d\n", content[current_block*block_size + block_size - 1]);
         current_block=(int)content[current_block*block_size+block_size-1];
     }
     int number=0;
@@ -650,9 +662,21 @@ Bool is_open(char name[], Dir* currentDir, Open* currentOpen)
 
 Bool last(Dir* currentDir)
 {
+	//printf("%s\n", current_path);
     if(currentDir->father != NULL)
     {
         current_dir = currentDir->father;
+		int i = strlen(current_path);
+		while (i >= 0)
+		{
+			if (current_path[i] == '\\')
+			{
+				current_path[i] = '\0';
+				break;
+			}
+			i--;
+		}
+		//printf("%s\n", current_path);
         return True;
     }
     return False;

@@ -31,7 +31,9 @@ extern ofstream ofp;
 int counter;
 int timeSlot;
 int allocMode;
+int fileAmount = 0;
 bool isRunning = TRUE;
+std::mutex isOperating;
 
 int main() {
 	int i, j;
@@ -48,7 +50,7 @@ int main() {
 		allResource.insert(make_pair(toString(i), resource(toString(i), j, j)));
 	}
 	initList();
-	CreateThread(NULL, 0, TIMER_SEC, NULL, 0, NULL);
+	CreateThread(NULL, 0, TIMER_SEC, NULL, 0, NULL);\
 	CreateThread(NULL, 0, TIMER_NINE_SEC, NULL, 0, NULL);
 	while (true) {
 		cout << ">>";
@@ -125,6 +127,7 @@ int main() {
 
 //秒表
 DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
+	Sleep(8500);
 	timeSlot = 0;
 	while (TRUE) {
 		Sleep(1000);
@@ -223,13 +226,47 @@ DWORD WINAPI TIMER_SEC(LPVOID lpparentet) {
 				timeSlot = 0;
 			}
 		}
-		if (timeSlot % 2 == 1) {
+		if (timeSlot % 3 == 1) {
 			int oper = rand() % 2;
 			size_vm tmp = rand() % p.size + 1;
+			isOperating.lock();
 			if (oper)
-			Write_VM(p.PID, p.start, tmp, p.buffer);
+				Write_VM(p.PID, p.start + tmp, 128, p.buffer);
 			else
-			Read_VM(p.PID, p.start, tmp, p.buffer);
+				Read_VM(p.PID, p.start + tmp, 128, p.buffer);
+			isOperating.unlock();
+		}
+		if (timeSlot % 5 == 2 && fileAmount <= 10) {
+			isOperating.lock();
+			int protect[3] = { 1, 1, 1 };
+			int oper = rand() % 2;
+			char dirName[10], fileName[10];
+			if (oper) {
+				int j = 0;
+				for (int i = rand() % 8 + 1; i > 0; j++, i--) {
+					char c = rand() % 26 + 97;
+					dirName[j] = c;
+				}
+				dirName[j] = '\0';
+				createDir(dirName);
+			}
+			int j = 0;
+			for (int i = rand() % 8 + 1; i > 0; j++, i--) {
+				char c = rand() % 26 + 97;
+				fileName[j] = c;
+			}
+			fileName[j] = '\0';
+			cd(dirName);
+			createFile(fileName, protect);
+			openFile(fileName);
+			writeFile_auto(fileName, fileName);
+			closeFile_auto(fileName);
+			back();
+			isOperating.unlock();
+			recordTime();
+			ofp << "写文件" << endl;
+			ofp << "路径：..\\" << dirName << "\\" << fileName << "  " << "内容：" << fileName << endl;
+			fileAmount++;
 		}
 	}
 	return 0;
@@ -242,6 +279,7 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 			Sleep(9000);
 		int i = rand() % 4;
 		processType type;
+		isOperating.lock();
 		string s = getRunningProcess();
 		if (s == "") {
 			if (i == 0) {
@@ -264,6 +302,7 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 					ofp << "空间不足，进程创建失败" << endl;
 				}
 			}
+			isOperating.unlock();
 			continue;
 		}
 		PCB &p = (*(process.find(s))).second;
@@ -287,10 +326,11 @@ DWORD WINAPI TIMER_NINE_SEC(LPVOID lpparentet) {
 				ofp << "空间不足，进程创建失败" << endl;
 			}
 		}
-		/*else if (i == 2) {
+		else if (i == 2) {
 			counter++;
 			p.createChildP(toString(counter), "childOfp" + p.PID, p.type);
-		}*/
+		}
+		isOperating.unlock();
 	}
 	return 0;
 }
