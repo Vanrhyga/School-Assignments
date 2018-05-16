@@ -11,7 +11,7 @@
 /*
 * some define.
 */
-#define DEBUG 1
+#define DEBUG 0
 #define RELEASE 1
 #define PAGE_SIZE 1024
 #define MAX_MEMORY_SIZE 16614178816
