@@ -20,17 +20,17 @@ processControlBlock::processControlBlock(string PID, string name, processType ty
 //子进程创建函数
 void processControlBlock::createChildP(string PID, string name, processType type) {
 	PCB child;
-	child.PID = PID;
+	child.PID = PID;														//子进程属性初始化
 	child.name = name;
 	child.parentPID = this->PID;
 	child.type = type;
 	child.size = this->size;
-	if (!insertProcess(child.PID, child)) {
+	if (!insertProcess(child.PID, child)) {									//若创建成功
 		this->childProcess.insert(make_pair(child.PID, child));				//建立所属关系
 		insertRL(child.PID, child.type);									//进入就绪队列
 	}
-	else {
-		recordTime();
+	else {																	//否则
+		recordTime();														//进程日志记录相应信息
 		ofp << "空间不足，子进程创建失败" << endl;
 	}
 }
@@ -58,7 +58,7 @@ int processControlBlock::countResource(string RID) {
 void processControlBlock::releaseAllResource(string* s) {
 	int i;
 	auto iter = childProcess.begin();
-	while (iter != childProcess.end()) {
+	while (iter != childProcess.end()) {								//释放子进程资源
 		PCB &p = iter->second;
 		p.releaseAllResource(s);
 		iter++;
@@ -73,7 +73,7 @@ void processControlBlock::releaseAllResource(string* s) {
 		else
 			ofp << "进程种类：用户进程" << endl;
 	}
-	for (i = 0; riter != resources.end(); riter++, i++) {
+	for (i = 0; riter != resources.end(); riter++, i++) {				//循环释放所有资源
 		resource &r = getResource(riter->first);
 		ofp << "资源种类：R" << r.RID << "  ";
 		ofp << "资源数量：" << riter->second << endl;
@@ -91,11 +91,11 @@ resource::resource(string RID, int amount, int freeAmount) {
 
 //资源申请函数
 int resource::request(string PID, int amount) {
-	if (amount <= freeAmount) {
-		freeAmount -= amount;
+	if (amount <= freeAmount) {											//若未超出空闲资源数
+		freeAmount -= amount;											//空闲资源数减少相应数量
 		return 1;
 	}
-	else {																//若超出空闲资源数
+	else {																//否则
 		waitingL.push_back({ PID,amount });								//插入等待队列
 		return 0;
 	}
@@ -103,12 +103,12 @@ int resource::request(string PID, int amount) {
 
 //资源释放函数
 string resource::release(int amount, string PID) {
-	freeAmount += amount;
+	freeAmount += amount;												//空闲资源数增加相应数量
 	if (!waitingL.empty()) {											//若等待队列非空
-		auto &nextProcess = *(waitingL.begin());
+		auto &nextProcess = *(waitingL.begin());						//取其首元素
 		string s = nextProcess.PID;
 		if (nextProcess.PID != PID) {
-			waitingL.erase(waitingL.begin());
+			waitingL.erase(waitingL.begin());							//解除阻塞
 			return s;
 		}
 		else
@@ -178,10 +178,10 @@ void outProcess(string PID) {
 //进程删除函数
 void destroyProcess(string PID) {
 	int i = 0;
-	bool tmp = getRunningProcess() == PID;
-	PCB &p = getProcess(PID);
+	bool tmp = getRunningProcess() == PID;								//判断需删除进程是否为正在执行进程
+	PCB &p = getProcess(PID);										
 	i = p.childProcess.size();
-	while (i > 0) {
+	while (i > 0) {														//父子进程级联删除
 		destroyProcess(p.childProcess.begin()->first);
 		i--;
 	}
@@ -236,8 +236,8 @@ void destroyProcess(string PID) {
 			riter++;
 		}
 	}
-	if (tmp)
-		contextSwitch(p.type);
+	if (tmp)															//若需删除进程为正在执行进程
+		contextSwitch(p.type);											//上下文切换
 	if (process.find(p.parentPID) != process.end()) {
 		map<string, PCB>& children = process.find(p.parentPID)->second.childProcess;
 		auto iter5 = children.begin();
@@ -256,9 +256,9 @@ void destroyProcess(string PID) {
 	else
 		ofp << "进程种类：用户进程" << endl;
 	process.erase(PID);
-	Free_VM(PID);
-	if (tmp)
-		dispatcher();
+	Free_VM(PID);														//释放进程所占空间
+	if (tmp)															//若需删除进程为正在执行进程
+		dispatcher();													//调度
 }
 
 void killProcess(string PID) {
@@ -292,7 +292,7 @@ void killProcess(string PID) {
 
 //就绪队列插入函数
 void insertRL(string PID, processType type) {
-	switch (type) {
+	switch (type) {														//根据进程种类，插入相应队列
 	case processType::user:
 		readyList[0].push_back(PID);
 		break;
@@ -304,7 +304,7 @@ void insertRL(string PID, processType type) {
 		break;
 	}
 	PCB &p = getProcess(PID);
-	p.state = ready;
+	p.state = ready;													//更改进程属性
 	p.list = readyL;
 }
 
@@ -438,23 +438,23 @@ string getRunningProcess() {
 
 //调度函数
 void dispatcher() {
-	if (getRunningProcess() == "") {
-		if (readyList[1].size() > 1)
-			intoRunning(processType::forSystem);
-		else if (readyList[0].size() > 1)
-			intoRunning(processType::user);
+	if (getRunningProcess() == "") {									//若无正在执行进程
+		if (readyList[1].size() > 1)									//若系统进程等待队列非空
+			intoRunning(processType::forSystem);						//取其首元素执行
+		else if (readyList[0].size() > 1)								//否则，若用户进程等待队列非空
+			intoRunning(processType::user);								//取其首元素执行
 	}
 }
 
 //时间片轮转函数
 void RR() {
 	string s = getRunningProcess();
-	if (s == "")
+	if (s == "")														//若无正在执行进程
 		return;
-	PCB &p = (*(process.find(s))).second;
-	contextSwitch(p.type);
-	insertRL(p.PID, p.type);
-	dispatcher();
+	PCB &p = (*(process.find(s))).second;	
+	contextSwitch(p.type);												//否则，上下文切换
+	insertRL(p.PID, p.type);											//该进程转为就绪状态
+	dispatcher();														//调度
 }
 
 void annotation() {

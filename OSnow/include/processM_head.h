@@ -34,9 +34,6 @@ enum listType {									//队列种类
 enum processType {								//进程种类
 	user, forSystem								//用户进程，系统进程
 };
-enum processOperate {							//进程操作
-	request, release, timeout, dispatch
-};
 
 
 /*结构*/
@@ -78,12 +75,10 @@ struct resource {								//资源
 /*全局变量*/
 extern list<string> readyList[2];				//就绪队列
 extern list<string> blockedList[2];				//阻塞队列
-extern map<string, PCB> process;
-extern map<string, resource> allResource;
-extern int counter;
-extern int timeSlot;
-extern bool isRunning;
+extern map<string, PCB> process;				//进程
+extern map<string, resource> allResource;		//资源
 extern ofstream ofp;
+extern int counter;								//进程计数器
 
 
 /*功能函数*/
