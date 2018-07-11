@@ -33,23 +33,21 @@ START:
     OUT DX,AL       ;软复位
     NOP             ;延时
     
-    MOV AL,11001111B;方式命令字，异步方式，2bit停止位，无校验，8bit数据位，波特率因子64
+    MOV AL,01101111B;方式命令字，异步方式，2bit停止位，无校验，8bit数据位，波特率因子64
     MOV DX,C8251PORTCTRL
     OUT DX,AL
     
-    MOV AL,00110111B;工作命令字，正常操作，请求发送，复位错误标志，接受发送允许
+    MOV AL,00100111B;工作命令字，正常操作，请求发送，复位错误标志，接受发送允许
     OUT DX,AL
     
 ;初始化8254
-    MOV AL,00110100B;控制字，计数器0，先低后高，方式2，二进制计数
+    MOV AL,00010110B;控制字，计数器0，低字节，方式3，二进制计数
     MOV DX,C8254PORTCTRL
     OUT DX,AL
     
-    MOV AX,28H      ;计数初值40
+    MOV AX,24H      ;计数初值
     MOV DX,C8254PORT0
-    OUT DX,AL       ;写入计数初值低字节
-    MOV AL,AH
-    OUT DX,AL       ;写入计数初值高字节
+    OUT DX,AL       ;写入计数初值
     
 ;初始化8255
     MOV AL,10000001B;选择控制字，A组方式0，A口输出，C口高四位输出，B组方式0，B口输出，C组第四位输入
@@ -74,9 +72,9 @@ SCAN1:
     CMP AL,0FH
     
     JZ  SCAN2   ;无键按下          
-                         
-    CALL DELAY1	
-    
+              	
+    CALL	DELAY2    
+
     MOV BL,4    ;行数
     MOV BH,4    ;列数
     MOV AL,0EFH ;扫描码  
@@ -120,32 +118,30 @@ COL:
 ;8251发送
     CMP AL,01H  ;按下E时退出
     JZ  EXIT
-    
+
+    PUSH AX
+
+    MOV DX,C8251PORTCTRL
+    IN AL,DX
+    AND AL,01H  
+    POP AX
+    JZ SCAN2
+
     MOV DX,C8251PORTIO
-    OUT DX,AL   ;发送键值
-     
-;屏幕显示
-    AND AX,0FH
-    MOV SI,AX
-    
-    MOV DL,ASCII[SI]  ;按键对应ASCII码
-    
-    MOV AH,02H
-    INT 21H
-    
-    JMP INPUT
-    
+    OUT DX,AL   ;发送键值 
+
 SCAN2:
     MOV DX,C8251PORTCTRL
     IN  AL,DX   ;读状态口
-    AND AL,02H  ;判断RxRDY=1？
+    AND AL,02H  ;判断RxRDY=1?
+
     JZ  INPUT
 
     MOV DX,C8251PORTIO
     IN  AL,DX   ;接收数据
-    
+
     CALL MOVE
-    
+
     JMP INPUT
 EXIT:
     MOV AX,4C00H
@@ -210,6 +206,7 @@ DISPLAY PROC
     MOV DX,C8255PORTA
     OUT DX,AL   ;传送第四个数码管数据
     MOV AL,10H
+
     MOV DX,C8255PORTB
     OUT DX,AL   ;传送第四个数码管位控信号，点亮
 
@@ -234,6 +231,16 @@ MOVE	PROC
     POP AX
     MOV BUFFER[0],AL    ;新数据放入BUFFER[0]中
 MOVE	ENDP
+;------------屏幕显示------------
+DISPLAYONSCREEN PROC
+    PUSH AX
+    AND AX,0FH
+    MOV SI,AX
+    MOV DL,ASCII[SI]  ;按键对应ASCII码   
+    MOV AH,02H
+    INT 21H
+    POP AX
+DISPLAYONSCREEN ENDP
 ;------------延迟------------
 DELAY   PROC
     PUSH    CX
@@ -253,6 +260,16 @@ LP2:
     POP CX
     RET 
 DELAY1 ENDP         
+
+DELAY2  PROC
+    PUSH    CX
+    MOV CX,60H
+LP3:
+    CALL    DELAY
+    LOOP    LP3
+    POP CX
+    RET 
+DELAY2 ENDP 
 
 CODE    ENDS
     END START
