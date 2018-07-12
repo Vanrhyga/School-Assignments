@@ -1,4 +1,4 @@
- ;常量
+;常量
 C8251PORTIO     EQU 2B8H
 C8251PORTCTRL   EQU 2B9H
 C8254PORT0      EQU 280H
@@ -14,8 +14,9 @@ DISPLOC         EQU 93H
 DATA    SEGMENT
     KEY     DB  71H,79H,5EH,39H,7CH,77H,6FH,7FH,07H,7DH,6DH,66H,4FH,5BH,06H,3FH ;数码管
     ASCII   DB  46H,45H,44H,43H,42H,41H,39H,38H,37H,36H,35H,34H,33H,32H,31H,30H ;ASCII码
-    BUFFER  DB  00H,00H,00H,00H
-    LINEKEY DB  ? 
+    BUFFER  DB  00H,00H,00H,00H    
+    LCD_END DB  45H,4EH,44H
+    LINEKEY DB  ?
     DATA    ENDS
 
 ;代码段
@@ -30,7 +31,8 @@ START:
     XOR AL,AL
     OUT DX,AL       ;预初始化
     MOV AL,40H
-    OUT DX,AL       ;软复位
+    OUT DX,AL       ;软复位 
+    
     NOP             ;延时
     
     MOV AL,01101111B;方式命令字，异步方式，2bit停止位，无校验，8bit数据位，波特率因子64
@@ -53,6 +55,11 @@ START:
     MOV AL,10000001B;选择控制字，A组方式0，A口输出，C口高四位输出，B组方式0，B口输出，C组第四位输入
     MOV DX,C8255PORTCTRL
     OUT DX,AL
+
+;初始化液晶屏
+    CALL CLEAR
+    
+    CALL DISPLAYONLCD
     
 ;循环扫描键盘及8251状态口
 INPUT:
@@ -66,6 +73,8 @@ SCAN1:
     OUT DX,AL
     
     CALL   DISPLAY
+    CALL   DISPLAYONLCD   
+    
     MOV DX,C8255PORTC
     IN  AL,DX   ;读入列值   
     AND AL,0FH  ;读低4位
@@ -112,6 +121,8 @@ COL:
     JC  COL ;最低位为1，未按下，继续循环
     
     MOV AL,CH   ;保存键下标值
+   
+    CALL DISPLAYONSCREEN
 
     CALL MOVE
 
@@ -120,7 +131,6 @@ COL:
     JZ  EXIT
 
     PUSH AX
-
     MOV DX,C8251PORTCTRL
     IN AL,DX
     AND AL,01H  
@@ -142,14 +152,18 @@ SCAN2:
 
     CALL MOVE
 
-    JMP INPUT
-EXIT:
+    JMP INPUT   
+    
+EXIT:        
+    CALL LCD_EXIT
     MOV AX,4C00H
     INT 21H ;返回DOS     
 ;------------数码管显示------------
 DISPLAY PROC
     PUSH    CX
     PUSH    AX
+    PUSH 	DX
+    PUSH    SI
     
     MOV AL,00H
     MOV DX,C8255PORTB
@@ -211,14 +225,195 @@ DISPLAY PROC
     OUT DX,AL   ;传送第四个数码管位控信号，点亮
 
     CALL DELAY1
+
     MOV AL,00H
     MOV DX,C8255PORTB
     OUT DX,AL
     
+    POP SI
+    POP DX
     POP AX
     POP CX
     RET    
-DISPLAY ENDP   
+DISPLAY ENDP    
+;------------屏幕显示------------
+DISPLAYONSCREEN PROC
+    PUSH AX
+    AND AX,0FH
+    MOV SI,AX
+    MOV DL,ASCII[SI]  ;按键对应ASCII码   
+    MOV AH,02H
+    INT 21H
+
+    CALL   DISPLAY
+
+    POP AX
+DISPLAYONSCREEN ENDP   
+;------------液晶屏显示------------
+DISPLAYONLCD PROC
+    PUSH DX
+    PUSH AX
+    PUSH SI
+    
+;显示第一个数字
+    MOV DX,C8255PORTA
+    MOV AL,96H
+    OUT DX,AL   ;设定地址
+    CALL LCD_CTRL
+    
+    MOV DX,C8255PORTA
+    MOV AL,BUFFER[0]
+    AND AX,0FFH
+    MOV SI,AX
+    MOV AL,ASCII[SI]
+    OUT DX,AL
+    CALL LCD_DATA   ;送入数据    
+    
+    CALL DELAY
+    
+;显示第二个数字
+    MOV DX,C8255PORTA
+    MOV AL,94H  
+    OUT DX,AL   ;设定地址
+    CALL LCD_CTRL
+    
+    MOV DX,C8255PORTA
+    MOV AL,BUFFER[1]
+    AND AX,0FFH
+    MOV SI,AX
+    MOV AL,ASCII[SI]
+    OUT DX,AL
+    CALL LCD_DATA   ;送入数据
+    
+    CALL DELAY
+    
+;显示第三个数字
+    MOV DX,C8255PORTA
+    MOV AL,92H
+    OUT DX,AL   ;设定地址
+    CALL LCD_CTRL   ;送入指令
+    
+    MOV DX,C8255PORTA
+    MOV AL,BUFFER[2]
+    AND AX,0FFH
+    MOV SI,AX
+    MOV AL,ASCII[SI]
+    OUT DX,AL   
+    CALL LCD_DATA   ;送入数据
+    
+    CALL DELAY
+             
+;显示第四个数字
+    MOV DX,C8255PORTA
+    MOV AL,90H
+    OUT DX,AL   ;设定地址
+    CALL LCD_CTRL   ;送入指令
+    
+    MOV DX,C8255PORTA
+    MOV AL,BUFFER[3]
+    AND AX,0FFH
+    MOV SI,AX
+    MOV AL,ASCII[SI]
+    OUT DX,AL   
+    CALL LCD_DATA   ;送入数据
+    
+    CALL DELAY
+    
+    POP SI
+    POP AX
+    POP DX
+                   
+    RET            
+   
+DISPLAYONLCD    ENDP    
+;------------液晶屏送入指令------------
+LCD_CTRL    PROC
+    MOV DX,C8255PORTB
+    
+    MOV AL,00000000B    ;写指令
+    OUT DX,AL
+    
+    CALL DELAY
+
+;锁存    
+    MOV AL,00000100B
+    OUT DX,AL
+    
+    CALL DELAY
+    
+    MOV AL,00000000B
+    OUT DX,AL
+    
+    CALL DELAY
+
+    CALL   DISPLAY
+    
+    RET
+    
+LCD_CTRL    ENDP       
+;------------液晶屏送入数据------------
+LCD_DATA    PROC
+    MOV DX,C8255PORTB
+    
+    MOV AL,00000001B    ;写数据
+    OUT DX,AL
+    
+    CALL DELAY
+
+;锁存    
+    MOV AL,00000101B
+    OUT DX,AL
+    
+    CALL DELAY
+    
+    MOV AL,00000001B
+    OUT DX,AL
+    
+    CALL DELAY
+    
+    RET
+    
+LCD_DATA    ENDP
+;------------液晶屏清屏------------
+CLEAR   PROC
+    MOV DX,C8255PORTA
+    MOV AL,00001100B    
+    OUT DX,AL   ;打开显示
+    CALL LCD_CTRL   ;送入指令
+    
+    MOV DX,C8255PORTA
+    MOV AL,00000001B    
+    OUT DX,AL   ;清屏
+    CALL LCD_CTRL   ;送入指令
+                      
+    RET    
+    
+CLEAR   ENDP                 
+;------------液晶屏退出------------
+LCD_EXIT    PROC
+    CALL CLEAR
+    MOV SI,0
+    MOV BL,92H  ;设定地址
+    MOV CX,3
+    
+LP:
+    MOV DX,C8255PORTA
+    MOV AL,BL
+    OUT DX,AL   ;设定地址
+    CALL LCD_CTRL   ;送入指令
+    
+    MOV DX,C8255PORTA
+    MOV AL,LCD_END[SI]
+    OUT DX,AL
+    CALL LCD_DATA   ;送入数据
+    
+    INC SI
+    INC BL
+    LOOP LP
+    
+    RET
+    
+LCD_EXIT    ENDP
 ;------------移位------------
 MOVE	PROC
     PUSH    AX
@@ -231,16 +426,6 @@ MOVE	PROC
     POP AX
     MOV BUFFER[0],AL    ;新数据放入BUFFER[0]中
 MOVE	ENDP
-;------------屏幕显示------------
-DISPLAYONSCREEN PROC
-    PUSH AX
-    AND AX,0FH
-    MOV SI,AX
-    MOV DL,ASCII[SI]  ;按键对应ASCII码   
-    MOV AH,02H
-    INT 21H
-    POP AX
-DISPLAYONSCREEN ENDP
 ;------------延迟------------
 DELAY   PROC
     PUSH    CX
