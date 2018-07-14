@@ -12,7 +12,8 @@ C8255PORTCTRL   EQU 28BH    ;8255 控制端口
 DATA    SEGMENT
     KEY     DB  71H,79H,5EH,39H,7CH,77H,6FH,7FH,07H,7DH,6DH,66H,4FH,5BH,06H,3FH ;数码管
     ASCII   DB  46H,45H,44H,43H,42H,41H,39H,38H,37H,36H,35H,34H,33H,32H,31H,30H ;ASCII码
-    BUFFER  DB  00H,00H,00H,00H    
+    BUFFER1 DB  00H,00H,00H,00H 
+    BUFFER2 DB  00H,00H,00H,00H    
     LCD_END DB  45H,4EH,44H ;END
     LINEKEY DB  ?
 DATA    ENDS
@@ -42,7 +43,7 @@ START:
     OUT DX,AL
     
 ;初始化8254
-    MOV AL,00010110B        ;控制字：计数器0，低字节，方式3，二进制计数
+    MOV AL,00010100B        ;控制字：计数器0，低字节，方式2，二进制计数
     MOV DX,C8254PORTCTRL
     OUT DX,AL
     
@@ -125,7 +126,7 @@ COL:
    
     CALL DISPLAYONSCREEN    ;屏幕显示
 
-    CALL MOVE               ;数字左移
+    CALL MOVE1              ;数字左移
 
 ;8251发送
     CMP AL,01H  
@@ -150,7 +151,7 @@ SCAN2:
     MOV DX,C8251PORTIO
     IN  AL,DX               ;接收数据
 
-    CALL MOVE               ;数字左移
+    CALL MOVE2              ;数字左移
 
     JMP INPUT   
     
@@ -168,7 +169,7 @@ DISPLAY PROC
     MOV AL,00H
     MOV DX,C8255PORTB
     OUT DX,AL
-    MOV AL,BUFFER[0]
+    MOV AL,BUFFER1[0]
     AND AX,00FFH    
     MOV SI,AX
     MOV AL,KEY[SI]
@@ -183,7 +184,7 @@ DISPLAY PROC
     MOV AL,00H
     MOV DX,C8255PORTB
     OUT DX,AL
-    MOV AL,BUFFER[1]
+    MOV AL,BUFFER1[1]
     AND AX,00FFH
     MOV SI,AX
     MOV AL,KEY[SI]
@@ -198,7 +199,7 @@ DISPLAY PROC
     MOV AL,00H
     MOV DX,C8255PORTB
     OUT DX,AL
-    MOV AL,BUFFER[2]
+    MOV AL,BUFFER1[2]
     AND AX,00FFH
     MOV SI,AX
     MOV AL,KEY[SI]
@@ -213,7 +214,7 @@ DISPLAY PROC
     MOV AL,00H
     MOV DX,C8255PORTB
     OUT DX,AL
-    MOV AL,BUFFER[3]
+    MOV AL,BUFFER1[3]
     AND AX,00FFH
     MOV SI,AX
     MOV AL,KEY[SI]
@@ -265,7 +266,7 @@ DISPLAYONLCD PROC
     CALL LCD_CTRL           ;送入指令
     
     MOV DX,C8255PORTA
-    MOV AL,BUFFER[0]
+    MOV AL,BUFFER2[0]
     AND AX,0FFH
     MOV SI,AX
     MOV AL,ASCII[SI]
@@ -283,7 +284,7 @@ DISPLAYONLCD PROC
     CALL LCD_CTRL           ;送入指令
     
     MOV DX,C8255PORTA
-    MOV AL,BUFFER[1]
+    MOV AL,BUFFER2[1]
     AND AX,0FFH
     MOV SI,AX
     MOV AL,ASCII[SI]
@@ -301,7 +302,7 @@ DISPLAYONLCD PROC
     CALL LCD_CTRL           ;送入指令
     
     MOV DX,C8255PORTA
-    MOV AL,BUFFER[2]
+    MOV AL,BUFFER2[2]
     AND AX,0FFH
     MOV SI,AX
     MOV AL,ASCII[SI]
@@ -319,7 +320,7 @@ DISPLAYONLCD PROC
     CALL LCD_CTRL           ;送入指令
     
     MOV DX,C8255PORTA
-    MOV AL,BUFFER[3]
+    MOV AL,BUFFER2[3]
     AND AX,0FFH
     MOV SI,AX
     MOV AL,ASCII[SI]
@@ -423,22 +424,39 @@ LP:
     RET 
 LCD_EXIT    ENDP
 ;------------移位------------
-MOVE	PROC
+MOVE1	PROC
     PUSH AX
     
-    MOV AL,BUFFER[2]
-    MOV BUFFER[3],AL
-    MOV AL,BUFFER[1]
-    MOV BUFFER[2],AL
-    MOV AL,BUFFER[0]
-    MOV BUFFER[1],AL
+    MOV AL,BUFFER1[2]
+    MOV BUFFER1[3],AL
+    MOV AL,BUFFER1[1]
+    MOV BUFFER1[2],AL
+    MOV AL,BUFFER1[0]
+    MOV BUFFER1[1],AL
     
     POP AX
     
-    MOV BUFFER[0],AL        ;新数据放入BUFFER[0]中
+    MOV BUFFER1[0],AL        ;新数据放入BUFFER1[0]中
 
     RET
-MOVE	ENDP
+MOVE1	ENDP
+
+MOVE2	PROC
+    PUSH AX
+    
+    MOV AL,BUFFER2[2]
+    MOV BUFFER2[3],AL
+    MOV AL,BUFFER2[1]
+    MOV BUFFER2[2],AL
+    MOV AL,BUFFER2[0]
+    MOV BUFFER2[1],AL
+    
+    POP AX
+    
+    MOV BUFFER2[0],AL        ;新数据放入BUFFER2[0]中
+
+    RET
+MOVE2	ENDP
 ;------------延迟------------
 DELAY   PROC
     PUSH CX
